@@ -1,0 +1,129 @@
+
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = on_gates.tex
+
+
+\clearpage
+\section{Bloch sphere representation of a qubit}
+
+~\cite{Bloch1946a}
+
+
+\[
+\ket{\psi} = \alpha \ket{0} + \beta \ket{1}, \qquad |\alpha|^2 + |\beta|^2 =1 
+\]
+
+\[
+\ket{\psi} = e^{i\gamma} \left( \cos(\half\theta)\ket{0} +e^{i\phi}\sin(\half\theta)\ket{1}\right)
+\]
+
+\[
+\ket{\psi} \simeq \cos(\half\theta)\ket{0} +e^{i\phi}\sin(\half\theta)\ket{1}
+\]
+$0 \leq \theta \leq \pi$ and $0 \leq \phi < 2 \pi$.
+
+% Check leq pi ?
+
+%The parameters {\displaystyle \theta \,}\theta \, and {\displaystyle \phi \,}\phi \,, re-interpreted in spherical coordinates as respectively the colatitude with respect to the z-axis and the longitude with respect to the x-axis, specify a point
+
+
+${\vec {r}}=(\sin \theta \cos \phi ,\;\sin \theta \sin \phi ,\;\cos \theta )$
+on the 3-dimensional unit sphere.
+
+\[
+\ket{0} & & \vec{r}&=(0,0,+1) \notag\\
+\ket{1} & & \vec{r}&=(0,0,-1) \notag\\
+\ket{+} & =\tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1}) & \vec{r}&=(+1,0,0) \notag\\
+\ket{-} & =\tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1})  & \vec{r} &=(-1,0,0) \notag\\
+\ket{+i} &=\tfrac{1}{\sqrt{2}}(\ket{0}+i\ket{1}) & \vec{r}&=(0,+1,0) \notag\\
+\ket{-i} &=\tfrac{1}{\sqrt{2}}(\ket{0}-i\ket{1}) & \vec{r}&=(0,-1,0) \notag 
+\]
+
+\index{computational basis}
+\index{Hadamard basis}
+\index{X basis}
+\index{Y basis}
+\index{Z basis}
+
+\begin{figure}[hp]
+\begin{center}
+ \begin{tikzpicture}[scale=3]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.2,0) node[below] {$\widehat{x}$};
+%     \draw (1.5,0) node {$\ket{+}$};  
+%       \draw (-1.35,0) node {$\ket{-}$};
+         
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.1) node[right] {$\widehat{y}$};
+        \centerarc[thick,->](0,0)(0:85:0.5)
+	 \draw (0.70, 0.4) node {$\phi$};        
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.1) node[above] {$\widehat{z}$};
+
+     \draw[dashed] (0,0) -- (0.707,0.707) node {$\bullet$};
+     \draw(0.8,0.8) node {$\ket{\psi}$};     
+     	         \centerarc[thick,->](0,0)(90:45:0.5) 	
+	 \draw (0.2, 0.6) node {$\theta$};
+   \end{scope}
+ \end{tikzpicture}
+ \[
+ \ket{\psi} & \simeq \cos(\half\theta)\ket{0} +e^{i\phi}\sin(\half\theta)\ket{1}
+ \notag
+ \\
+ \notag
+ {\vec {r}}& =(\sin \theta \cos \phi ,\;\sin \theta \sin \phi ,\;\cos \theta )
+ \]
+ \end{center}
+\caption{Bloch sphere representation of single qubit states.}
+\end{figure}
+
+\begin{figure}[tp]
+\begin{center}
+ \begin{tikzpicture}[scale=3]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.2,0) node[below] {$\widehat{x}$};
+     \draw (1.5,0) node {$\ket{+}$};  
+       \draw (-1.35,0) node {$\ket{-}$};
+         	 \draw (1, 0) node {$\bullet$};        
+	 \draw (-1, 0) node {$\bullet$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.1) node[right] {$\widehat{y}$};
+	 \draw (0, 1) node {$\bullet$};        
+	 \draw (0, -1) node {$\bullet$}; 
+	  	\draw (0,1.35) node {$\ket{+i}$};
+	\draw (0,-1.25) node {$\ket{-i}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.1) node[left] {$\widehat{z}$};
+	 \draw (0, 1) node {$\bullet$};        
+	 \draw (0, -1) node {$\bullet$};
+	\draw (0,1.35) node {$\ket{0}$};
+	\draw (0,-1.25) node {$\ket{1}$};	 
+   \end{scope}
+ \end{tikzpicture}
+ \end{center}
+\caption{Location of standard basis states on the Bloch sphere.}
+\end{figure}
+
+One-qubit gates rotate the Bloch sphere. Orthogonal states are on opposite sids of the sphere. 
+
+% TODO: Hadamard basis

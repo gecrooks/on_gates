@@ -1,0 +1,1779 @@
+
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = on_gates.tex
+
+
+
+\clearpage
+\section{Standard single qubit gates}
+% TODO: Define "standard" gates
+
+
+Classically, there are only 2 1-bit reversible logic gates, identity and NOT (And 2 irreversible gates, reset to 0 and reset to 1). But in quantum mechanics the zero and one states can be placed into superposition, so there are many other possibilities. 
+
+\subsection{Pauli gates}
+\index{Pauli gates}
+\index{Pauli gates| commutation relations}
+The simplest 1-qubit gates are the 4 gates represented by the Pauli operators, I, X, Y, and Z. These operators are also sometimes notated as $\sigma_x$, $\sigma_y$, $\sigma_z$, or with an index $\sigma_i$, so that $\sigma_0=I$, $\sigma_1=X$, $\sigma_2=Y$, $\sigma_3=Z$. 
+
+We will explore the algebra of Pauli operators in more detail in chapter~\ref{???}. But for now, note that the Pauli gates are all Hermitian, $\sigma_i^\dagger=\sigma_i$, square to the identity $\sigma_i^2 =I$, and that the $X$, $Y$, and $Z$ gates anti-commutate with each other.
+\[
+XY = -YZ = iZ \notag \\
+YZ = -ZY = iX \notag \\
+ZX = -ZX = iY \notag \\
+XYZ = iI \notag
+\]
+
+
+\paragraph{Pauli-I gate} (identity):
+\index{I gate@\Gate{I} gate|see {identity gate}}
+%\index{Pauli-I gate|see}\index{identity gate}
+\index{identity gate}
+\[
+I = \begin{bmatrix}1 & 0 \\ 0 & 1 \end{bmatrix}
+\]
+\begin{center}
+\input{circuits/I.tex}
+\end{center}
+The trivial no-operation gate on 1-qubit, represented by the identity matrix. %
+%
+%\begin{center}
+%\adjustbox{scale=0.75}{
+% \begin{tikzpicture}[scale=1.5]
+%   \begin{scope}[canvas is zy plane at x=0]
+%     \draw (0,0) circle (1cm);
+%     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+%     \draw[->] (0,0) -- (1.35,0) node[below] {$\widehat{x}$};
+%%     \draw[dashed] (0,0) -- (1.,1.) ;
+%   \end{scope}
+%
+%   \begin{scope}[canvas is zx plane at y=0]
+%     \draw (0,0) circle (1cm);
+%     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+%     \draw[->] (0,0) -- (0,1.175) node[right] {$\widehat{y}$};
+%   \end{scope}
+%
+%   \begin{scope}[canvas is xy plane at z=0]
+%     \draw (0,0) circle (1cm);
+%	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+%	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+%   \end{scope}
+%
+%%   \begin{scope}[canvas is zx plane at y=1.0]	
+%%   	\centerarc[blue,->](0,0)(270:90:0.25)
+%%   \end{scope}
+%    
+%   \draw[->] (1.5,0) -- node[above] {$I$} ++(0.5, 0) ;
+%
+%	\begin{scope}[xshift=3.5cm]
+%    \begin{scope}[canvas is zy plane at x=0]
+%     \draw (0,0) circle (1cm);
+%     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+%     \draw[->] (0,0) -- (1.35,0) node[below] {$\widehat{x}$};
+%%     \draw[dashed] (0,0) -- (1.,1.) ;
+%   \end{scope}
+%
+%   \begin{scope}[canvas is zx plane at y=0]
+%     \draw (0,0) circle (1cm);
+%     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+%     \draw[->] (0,0) -- (0,1.175) node[right] {$\widehat{y}$};
+%   \end{scope}
+%
+%   \begin{scope}[canvas is xy plane at z=0]
+%     \draw (0,0) circle (1cm);
+%	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+%	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+%   \end{scope}
+%
+%\end{scope}
+% \end{tikzpicture}
+%}
+% \end{center}
+%
+%
+\[
+I &=\ket{0}\!\bra{0} + \ket{1}\!\bra{1} \notag \\
+I&\ket{0} = \ket{0} \notag \\ 
+I&\ket{1} = \ket{1} \notag
+\]
+
+
+
+
+\paragraph{Pauli-X gate} (X gate, negation) %, NOT, bit flip, negation) \cite{Barenco1995b}
+\index{X gate}
+\[
+X = \begin{bmatrix}0 & 1 \\ 1 & 0 \end{bmatrix}
+\]
+\begin{center}
+\input{circuits/X.tex}
+\end{center}
+ 
+\index{Pauli-X gate}
+\index{NOT}
+\index{negation}
+\index{bit flip}
+\index{X@$\Gate{X}$|see {Pauli-X gate}}
+
+The $X$-gate generates a half-turn in the Bloch sphere about the $x$ axis. 
+%
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below] {$\widehat{x}$};
+%     \draw[dashed] (0,0) -- (1.,1.) ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.175) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+   \end{scope}
+
+%   \begin{scope}[canvas is zx plane at y=1.0]	
+%   	\centerarc[blue,->](0,0)(270:90:0.25)
+%   \end{scope}
+    
+   \draw[->] (1.5,0) -- node[above] {$X$} ++(0.5, 0) ;
+
+	\begin{scope}[xshift=3.5cm]
+    \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below] {$\widehat{x}$};
+%     \draw[dashed] (0,0) -- (1.,1.) ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.175) node[left] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,-1.175) node[below] {$\widehat{z}$};
+   \end{scope}
+
+\end{scope}
+ \end{tikzpicture}
+}
+ \end{center}
+
+
+With respect to the computational basis, the $X$ gate is equivalent to a classical NOT operation, or logical negation. The computation basis states are interchanged, so that $\ket{0}$ becomes $\ket{1}$ and $\ket{1}$ becomes $\ket{0}$.
+\[
+X &=\ket{1}\!\bra{0} + \ket{0}\!\bra{1} \notag \\
+X&\ket{0} = \ket{1} \notag \\ 
+X&\ket{1} = \ket{0} \notag
+\]
+
+
+\todo{No general quantum not gate}
+
+\paragraph{Pauli-Y gate} (Y-gate) :
+\index{Y gate}
+\[
+Y = \begin{bmatrix*}[r]0 & -i \\ i & 0 \end{bmatrix*}
+\]
+\begin{center}
+\input{circuits/Y.tex}
+\end{center}
+A useful mnemonic for remembering where to place the minus sign in the matrix of the Y gate is ``Minus eye high''~\cite{???}. 
+% TODO: What's the origin of this?
+In some older literature the Y-gate is defined as $iY=\begin{bsmallmatrix} 0 & 1 \\ -1 & 0 \end{bsmallmatrix}$ (e.g.~\cite{Rieffel2014a}), which is the same gate up to a phase.
+
+
+The Pauli-Y gate generates a half-turn in the Bloch sphere about the $\widehat{y}$ axis.
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below] {$\widehat{x}$};
+%     \draw[dashed] (0,0) -- (1.,1.) ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.175) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+   \end{scope}
+
+%   \begin{scope}[canvas is zx plane at y=1.0]	
+%   	\centerarc[blue,->](0,0)(270:90:0.25)
+%   \end{scope}
+    
+   \draw[->] (1.5,0) -- node[above] {$Y$} ++(0.5, 0) ;
+
+	\begin{scope}[xshift=3.5cm]
+    \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (-1.35,0) node[above] {$\widehat{x}$};
+%     \draw[dashed] (0,0) -- (1.,1.) ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.175) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,-1.175) node[below] {$\widehat{z}$};
+   \end{scope}
+
+\end{scope}
+ \end{tikzpicture}
+}
+ \end{center}
+
+The $Y$-gate can be thought of as a combination of $X$ and $Z$ gates, $Y=-iZX$. With respect to the computational basis, we interchange the zero and one states and apply a relative phase flip.
+\[
+Y & =i\ket{1}\!\bra{0} -i \ket{0}\!\bra{1} \notag\\
+Y & \ket{0} = +i\ket{1} \notag \\ 
+Y & \ket{1} = -i\ket{0} \notag
+\]
+
+
+
+
+\paragraph{Pauli-Z gate} (Z-gate, phase flip)
+\[
+Z = \begin{bmatrix*}[r]1 & 0 \\ 0 & -1 \end{bmatrix*}
+\]
+\begin{center}
+\input{circuits/Z.tex}
+\end{center}
+\[
+H_Z = - \pi\half(1 - Z)
+\]
+
+
+The Pauli-Z gate generates a half-turn in the Bloch sphere about the $\widehat{z}$ axis.
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below] {$\widehat{x}$};
+%     \draw[dashed] (0,0) -- (1.,1.) ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.175) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+   \end{scope}
+
+%   \begin{scope}[canvas is zx plane at y=1.0]	
+%   	\centerarc[blue,->](0,0)(270:90:0.25)
+%   \end{scope}
+    
+   \draw[->] (1.5,0) -- node[above] {$Z$} ++(0.5, 0) ;
+
+	\begin{scope}[xshift=3.5cm]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (-1.35,0) node[above] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.175) node[left] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+   \end{scope}
+	\end{scope}
+
+
+ \end{tikzpicture}
+}
+ \end{center}
+
+With respect to the computational basis, the $Z$ gate flips the phase of the $\ket{1}$ state relative to the $\ket{0}$ state.
+\[
+Z &=\ket{0}\!\bra{0} - \ket{1}\!\bra{1} \notag\\
+Z& \ket{0}  = +\ket{0} \notag \\ 
+Z&\ket{1} = -\ket{1} \notag
+\]
+
+\todo{ Comment on Z gate}
+
+% Pauli gates are all Hermitian
+
+
+
+\subsection{Rotation gates}
+The three Pauli-rotation gates rotate the state vector by an arbitrary angle about the corresponding axis in the Bloch sphere, Fig.~\ref{???}. They are generated by taking exponentials of the Pauli operators. (Recall that $\exp(i\theta A) = cos(\theta) I + i \sin(\theta)A$ for operators $A$ that square to the identity $A^2=I$.)
+\todo{Wordsmith} \endnote{The 1-qubit rotation gates are typically verbalized as {\sl arr-ex}, {\sl arr-why}, {\sl arr-zee}, and {\sl arr-en}.}
+
+\paragraph{$R_x$ gate}\cite{Barenco1995b} Rotate $\theta$ radians anti-clockwise about the $\widehat{x}$ axis of the Bloch sphere.
+\[
+        R_x(\theta) & =  e^{-i \half\theta X} 
+        			\\ \notag & = \cos(\half\theta) I -i \sin(\half\theta) X		
+\\ \notag
+			 &= \begin{bmatrix*}[r]
+                            \cos(\half\theta) & -i \sin(\half\theta) \\
+                            -i \sin(\half\theta) & \cos(\half\theta)
+                        \end{bmatrix*}                        
+\]
+$$
+\input{circuits/RX.tex}
+$$
+%    \[
+%    \notag
+%    H_{R_x} & = \half\theta X 
+%    \]
+
+$$
+\input{circuits/RX0_RX_1} = \input{circuits/RX01}
+$$
+
+\paragraph{$R_y$ gate}\cite{Barenco1995b} Rotate $\theta$ radians anti-clockwise about the $\widehat{y}$ axis of the Bloch sphere.
+\[
+        R_y(\theta) 
+        & =  e^{-i \half\theta Y} 
+        			\\ \notag &  = \cos(\half\theta) I -i \sin(\half\theta) Y		
+\\ \notag
+			 &=
+           \begin{bmatrix*}[r]
+ 			\cos(\half\theta) & -\sin(\half\theta)
+        	\\ \sin(\half\theta) & \cos(\half\theta)
+                        \end{bmatrix*}
+\]
+$$
+\input{circuits/RY.tex}
+$$
+Rotate the state vector $\theta$ radians anti-clockwise about the $\widehat{y}$ axis of the Bloch sphere.  
+
+$$
+\input{circuits/RY0_RY_1} = \input{circuits/RY01}
+$$
+
+
+\paragraph{$R_z$ gate}\cite{Barenco1995b} Rotate $\theta$ radians clockwise about the $\widehat{z}$ axis of the Bloch sphere.
+
+\[
+        R_z(\theta) 
+        & =  e^{-i \half\theta Z} 
+        			\\ \notag & = \cos(\half\theta) I -i \sin(\half\theta) Z		
+\\ \notag
+			 &=
+           \begin{bmatrix*}
+        e^{-i\half\theta} & 0 \\
+        0 & e^{+i\half\theta}
+                        \end{bmatrix*}
+\]
+$$
+\input{circuits/RZ.tex}
+$$
+
+$$
+\input{circuits/RZ0_RZ_1} = \input{circuits/Rz01}
+$$
+
+
+
+Let us demonstrate that the $R_z$ gate generates rotations about the $z$ axis. Recall the definition of the Boch vector of an arbitrary state $ket{\psi}$, REF.
+\[
+R_z(\theta') \ket{\psi} &= 
+	\Bigl(e^{-i\half\theta'} \ket{0}\!\bra{0} + e^{+i\half\theta'} \ket{1}\!\bra{1}\Bigr)
+	\Bigl( \cos(\half\theta)\ket{0} +e^{i\phi}\sin(\half\theta)\ket{1}\Bigr)
+\\
+\notag 
+& = e^{-i\half\theta'} \Bigl( cos(\half\theta)\ket{0} + e^{i(\theta'+\phi)} \ket{1}\Bigr)
+\\
+\notag 
+& \simeq cos(\half\theta)\ket{0} + e^{i(\theta'+\phi)}\ket{1}
+\]
+In the last line we drop an irrelevant phase. We can see that the $R_z$ gate has left the elevation angle unchanged, but added $\theta'$ to the azimuth angle, which corresponds to a rotation about the $z$ axis. 
+
+We can do the same exercise for the $R_X$ and $R_Y$ gates, although the trigonometry is slightly more involved.
+
+\begin{figure}[t]
+\begin{center}
+%\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=3]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.2,0); 
+     \draw (1.5, 0.5) node {$R_x(\theta)$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$R_y(\theta)$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$R_z(\theta)$};
+	\end{scope}
+		 
+   \begin{scope}[canvas is xy plane at z=1.0]	
+   	\centerarc[thick,blue, ->](0,0)(-135:450:0.25)
+   \end{scope}
+
+   \begin{scope}[canvas is zy plane at x=1.0]	
+   	\centerarc[thick,blue, ->](0,0)(450:-135:0.25)
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=1.00]	
+   	\centerarc[thick,blue, ->](0,0)(-135:450:0.25)
+   \end{scope}
+ \end{tikzpicture}
+%    }
+ \end{center}
+\caption{Pauli rotations of the Bloch Sphere}
+\end{figure}
+
+
+\paragraph{Phase shift gate} An alternative parameterization of the $R_z$, from which this gate differs by only a phase. 
+\[
+   R_\phi  &=
+           \begin{bmatrix*}
+        1 & 0 \\
+        0 & e^{\phi}
+                        \end{bmatrix*}
+\\ & = e^{-\half\phi}\ R_z(\phi)
+\notag
+\]
+%$$
+%\input{circuits/RZ.tex} FIXME
+%$$
+The name arrises because this gate shifts the phase of the $\ket{1}$ state relative to the $\ket{0}$ state.
+Sometimes favored over the $R_z$ gate because special values are exactly equal to various other common gates. For instance, $R_\pi =Z$, but $R_z(\pi) = -i Z$.
+
+
+
+\paragraph{$R_{\vec{n}}$ gate} Rotate $\theta$ radians anti-clockwise about an arbitrary axis in the Bloch sphere.
+\[
+R_{\vec{n}}(\theta) &
+=  e^{-i\half \theta (n_x X+ n_y Y + n_z Z)}
+\\ 
+\notag
+&= \cos(\half\theta) I - i \sin(\half\theta)(n_x X+ n_y Y + n_z Z)
+\\
+& = \notag
+\begin{bmatrix*}
+	\cos(\half\theta) - i n_z \sin(\half\theta)  &
+	- n_y \sin(\half\theta)-i n_x \sin(\half\theta)  \\
+	n_y \sin(\half\theta)-i n_x \sin(\half\theta)   & 
+	\cos(\half\theta) + i n_z \sin(\half\theta)
+\end{bmatrix*}
+\]
+\begin{center}
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate{R_{\vec{n}}(\theta)} & \qw
+\end{quantikz}
+}
+\end{center}
+Clearly, the Pauli rotation gates are special cases of the general rotation gate.
+\[
+R_x(\theta) & = R_{\vec{n}}(\theta), \quad \vec{n} = (1, 0, 0) \notag \\
+R_y(\theta) & = R_{\vec{n}}(\theta), \quad \vec{n} = (0, 1, 0) \notag \\
+R_z(\theta) & = R_{\vec{n}}(\theta), \quad \vec{n} = (0, 0, 1) \notag
+\]
+In fact every 1-qubit gate can be represented as a rotation gate (up to phase) 
+with some coordinate $(\theta\ n_x, \theta\ n_y, \theta\ n_z)$, where each axis runs between $\pi$ and $-\pi$.
+See figures~\ref{???} and~\ref{???}.
+
+\todo{Some better name for this gate?}
+
+You might reasonably be wondering why there is a factor of half in the definitions of the rotation gates. A 1-qubit gate is represented by an element of group $SU(2)$, which are rotations in a 2-dimensional complex vector space. But we are visualizing the effect of these gates as rotations in 3-dimensional Euclidean space. These spacial rotations are elements of the special orthogonal gate $SO(3)$. But there is an accidental correspondence between these two groups. We can map two elements of $SU(2)$ (differing by only a -1 phase) to each element of $SO(3)$ while keeping the group structure. In the jargon, $SU(2)$ is a double cover of $SO(3)$. This correspondence is what allows us to visulize 1-qubit gates as rotations in 3-space. But because of this doubling up, a rotation of $\theta$ radians in the Bloch sphere corresponds to a rotation of only $\half \theta$ in the complex vector space. We have to go twice around the Bloch sphere, $\theta =4\pi$, to get back to the same gate with the same phase.
+
+
+\todo{Check double cover nomenclature}
+
+
+% [TODO: Hamiltonians]
+% Global Phase gate
+
+
+
+%
+%\begin{figure}[t]
+%\begin{center}
+% \begin{tikzpicture}[scale=3]
+%   \begin{scope}[canvas is zy plane at x=0]
+%     \draw (0,0) circle (1cm);
+%     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+%     \draw[] (0,0) -- (1.2,0) node[below left] {$R_x(\theta)$};
+%   \end{scope}
+%
+%   \begin{scope}[canvas is zx plane at y=0]
+%     \draw (0,0) circle (1cm);
+%     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+%     \draw[] (0,0) -- (0,1.1) node[right] {$R_y(\theta)$};
+%   \end{scope}
+%
+%   \begin{scope}[canvas is xy plane at z=0]
+%     \draw (0,0) circle (1cm);
+%	\draw[] (0,0) -- (0,1.1) node[above] {$R_z(\theta)$};
+%	\end{scope}
+%		 
+%   \begin{scope}[canvas is xy plane at z=1.0]	
+%   	\centerarc[red,->](0,0)(450:135:0.25)
+%   \end{scope}
+%
+%   \begin{scope}[canvas is zy plane at x=1.0]	
+%   	\centerarc[blue,<-](0,0)(450:135:0.25)
+%   \end{scope}
+%
+%   \begin{scope}[canvas is zx plane at y=1.0]	
+%   	\centerarc[green,->](0,0)(450:135:0.25)
+%   \end{scope}
+%
+%	 
+%	 
+%	 
+% \end{tikzpicture}
+% \end{center}
+%\caption{Rotations of the Bloch Sphere}
+%\end{figure}
+%
+
+\begin{figure}[tp]
+\begin{center}
+ \begin{tikzpicture}[scale=3]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (-1,0) -- (1.2,0) node[below left] {$\theta\ n_x$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,-1) -- (0,1.1) node[right] {$\theta\ n_y$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,-1) -- (0,1.1) node[above] {$\theta\ n_z$};
+   \end{scope}
+
+	 
+ \end{tikzpicture}
+ \end{center}
+\caption{Spherical ball of 1-qubit gates. Each point within this sphere represents a unique 1-qubit gate (up to phase). 
+Antipodal points on the surface represent the same gate. The Pauli rotation gates lie along the three principal axes.} 
+%\end{figure}
+
+%\begin{figure}[t]
+\begin{center}
+ \begin{tikzpicture}[scale=3]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     \draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     \draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+     \draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+   \end{scope}
+
+	\node[fill=white] at (0,0,0) {$I$};
+
+	\node[fill=white] at (0,1,0) {$Z$};
+	\node[fill=white] at (0,0.5,0) {$S$};
+	\node[fill=white] at (0,0.25,0) {$T$};			
+	\node[fill=white] at (0,-0.5,0) {${S^\dagger}$};
+	\node[fill=white] at (0,-0.25,0) {$T^\dagger$};	
+	% \node[fill=white] at (0,-1,0) {Z};
+		
+	\node[fill=white] at (0,0,1) {$X$};
+	\node[fill=white] at (0,0,0.5) {$V$};
+	\node[fill=white] at (0,0,-0.5) {$V^\dagger$};	
+	% \node[fill=white] at (0,0,-1) {X};
+	
+	\node[fill=white] at (0,{sqrt(1/2)},{sqrt(1/2)}) {$H$};
+%	\node[fill=white] at (0,0,1) {H};
+	
+	\node[fill=white] at (1,0,0) {$Y$};
+	\node[fill=white] at (0.5,0,0) {${h^\dagger}$};	
+	\node[fill=white] at (-0.5,0,0) {${h}$};	
+	% \node[fill=white] at (-1,0,0) {$Y$};
+ \end{tikzpicture}
+ \end{center}
+ \label{Fig:GateCoords}
+\caption{Coordinates of common 1-qubit gates}
+\end{figure}
+
+
+\subsection{Pauli-power gates}
+It turns out to be useful to define powers of the Pauli-gates. This is slightly tricky because non-integer powers of matrixes aren't unique. Just as there are 2-square roots of any number, a diagonalizable matrix with $n$ unique eigenvalue has $2^n$ unique square roots. We circumvent this ambiguity by defining the Pauli power gates via the Pauli rotation gates. We note that a $\pi$ rotation is a Pauli gate up to phase, e.g.
+\[
+R_{X}(\pi) = e^{-i \tfrac{\pi}{2}X } = e^{-i \tfrac{\pi}{2}}X ??? 
+\]
+and define powers of the Pauli matrices as 
+\[
+X^t =e^{-i \tfrac{\pi}{2} t (X-I)} \simeq R_x(\pi t) \ ,
+\]
+and similarly for $Y$ and $Z$ rotations. With this definitions the Pauli-power gates spin states in the same direction around the Bloch sphere as the Pauli-rotation gates.
+
+The Pauli rotation-representation is more natural from the point of view of pure mathematics. But the Pauli-power representation has computational advantages. In quantum circuits we most often encounter rotations of angles $\pm\pi /2^n$ for some integer $n$. Whereas it is easy to spot that $Z^{0.125}$ is a $T$ gate, for example, it is less obvious that $R_z(0.78538\ldots)$ is the same gate up to phase. Moreover binary fractions have exact floating point representations, whereas fractions of $\pi$ inevitably suffer from numerical round-off error.
+
+
+\paragraph{X power gate}
+
+\[
+X^t & =  e^{-i \tfrac{\pi}{2} t (X-I)} 
+        			= e^{i \tfrac{\pi}{2} t} R_x(\pi t)		
+\\ \notag
+			 &= e^{i \tfrac{\pi}{2} t} \begin{bmatrix*}[r]
+                            \cos(\tfrac{\pi}{2}t) & -i \sin(\tfrac{\pi}{2}t) \\
+                            -i \sin(\tfrac{\pi}{2}t) & \cos(\tfrac{\pi}{2}t)
+                        \end{bmatrix*}
+\]
+\begin{center} \input{circuits/TX.tex} \end{center}
+
+
+
+\paragraph{Y power gate}
+
+\[
+Y^t & =  e^{-i \tfrac{\pi}{2} t (Y-I)} 
+        			= e^{i \tfrac{\pi}{2} t} R_y(\pi t)		
+\\ \notag
+	&= e^{i \tfrac{\pi}{2} t}
+		\begin{bmatrix*}[r]
+ 			\cos(\tfrac{\pi}{2}t) & -\sin(\tfrac{\pi}{2}t)
+        	\\ \sin(\tfrac{\pi}{2}t) & \cos(\tfrac{\pi}{2}t)
+        \end{bmatrix*}
+\]
+\begin{center} \input{circuits/TY.tex} \end{center}
+
+
+
+
+\paragraph{Z power gate}
+
+\[
+Z^t & =  e^{-i \tfrac{\pi}{2} t (Z-I)} 
+        			= e^{i \tfrac{\pi}{2} t} R_z(\pi t)		
+\\ \notag
+			 &= e^{i \tfrac{\pi}{2} t}         \begin{bmatrix*}
+        e^{-i\tfrac{\pi}{2}t} & 0 \\
+        0 & e^{+i\tfrac{\pi}{2}t}
+                        \end{bmatrix*}
+%
+			 =       \begin{bmatrix*}
+        1 & 0 \\
+        0 & e^{+i \pi t}
+                        \end{bmatrix*}                        
+\]
+\begin{center} \input{circuits/TZ.tex} \end{center}
+
+\subsection{Quarter turns}
+\todo{blurb}
+\todo{express qV and h as V=HSH? h = ZH? ect...}
+
+\paragraph{V gate}~\cite{???,???} Square root of the $X$-gate, $VV=X$. 
+\[
+V 
+  & = X^{\half}
+  \\ \notag
+& = \half \begin{bmatrix*}[r] 1+i & 1-i \\ 1-i & 1+i \end{bmatrix*}
+\\ \notag
+& = H S H
+\\ \notag
+& \simeq R_x(+\tfrac{\pi}{2})
+\]
+\begin{center}
+\input{circuits/V.tex}
+ or 
+\input{circuits/SqrtX.tex} 
+\end{center}
+
+\todo{Native gate}
+\todo{Circuit}
+
+A quarter turn anti-clockwise about the $\widehat{x}$ axis.
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+ 
+    
+   \draw[->] (1.5,0) -- node[above] {V} ++(1.0, 0) ;
+ \end{tikzpicture}
+ \begin{tikzpicture}[scale=1.5]
+    \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.2) node[left] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{y}$};
+   \end{scope}
+	 
+ \end{tikzpicture}
+ }
+ \end{center}
+
+
+\paragraph{Inverse V gate} Since the V-gate isn't Hermitian, the inverse gate, $V^\dagger$, is a distinct square root of $X$. 
+\[
+V^\dagger 
+  & = X^{-\half}
+\\ \notag
+& = \half \begin{bmatrix*}[r] 1-i & 1+i \\ 1+i & 1-i \end{bmatrix*}
+\\ \notag
+& = H S^\dagger H
+\\ \notag
+& \simeq R_x(-\tfrac{\pi}{2})
+\] 
+\begin{center}
+\input{circuits/V_H.tex} or 
+\input{circuits/SqrtX_H.tex} 
+\end{center}
+
+\todo{Circuit}
+
+A quarter turn clockwise about the $\widehat{x}$ axis.
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+ 
+
+   \draw[->] (1.5,0) -- node[above] {$V^\dagger$} ++(1.0, 0) ;
+
+ \begin{scope}[xshift=4.0cm] 
+    \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,-1.2) node[below] {$\widehat{y}$};
+   \end{scope}
+	 \end{scope}
+ \end{tikzpicture}
+ }
+ \end{center}
+
+
+
+\paragraph{Pseudo-Hadamard gate}~\cite{Jones1998a, Dorai2000a}  .
+% https://arxiv.org/pdf/quant-ph/9805070.pdf # Descriptions
+% https://arxiv.org/pdf/quant-ph/0006103.pdf # uses
+\[
+h & = \tfrac{\sqrt{2}}{1+i} Y^{-\half}
+\\ \notag
+& = \tfrac{1}{\sqrt{2}}\begin{bmatrix*}[r]1 & 1 \\ -1 & 1 \end{bmatrix*}
+\]
+\begin{center}
+\input{circuits/ph.tex} or \input{circuits/SqrtY_H.tex}
+\end{center}
+A quarter turn clockwise about the $\widehat{y}$ axis.
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+
+   \draw[->] (1.5,0) -- node[above] {$Y^{-\half}$} ++(1.0, 0) ;
+
+ \begin{scope}[xshift=4.0cm] 
+    \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (-1.35,0) node[right ] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{x}$};
+   \end{scope}
+	 \end{scope}
+ \end{tikzpicture}
+ }
+ \end{center}
+
+
+\todo{rename to sqrt of Y, move this discussion of pseudo-Hadamard elsewhere?}
+
+This square-root of the $Y$-gate is called the pseudo-Hadamard gate as it has the same effect on the computational basis as the Hadamard gate.
+\[
+h\ket{0} & = \ket{+} \notag \\ 
+h\ket{1} & = \ket{-} \notag
+\]
+
+
+\paragraph{Inverse pseudo-Hadamard gate} Unlike the Hadamard gate, the pseudo-Hadamard gate is not Hermitian, and therefore not its own inverse. 
+\[
+h^\dagger &=\frac{1}{\sqrt{2}}\begin{bmatrix*}[r] 1 & -1 \\ 1 & 1 \end{bmatrix*}
+\\
+& = \tfrac{\sqrt{2}}{1+i} Y^{\half} \notag
+\]
+\begin{center}
+\input{circuits/inv_ph.tex} or \input{circuits/SqrtY.tex}
+\end{center}
+
+A quarter turn anti-clockwise about the $\widehat{y}$ axis.
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+
+   \draw[->] (1.5,0) -- node[above] {$Y^{\half}$} ++(1.0, 0) ;
+
+ \begin{scope}[xshift=4.0cm] 
+    \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,-1.2) node[below] {$\widehat{x}$};
+   \end{scope}
+	 \end{scope}
+ \end{tikzpicture}
+ }
+ \end{center}
+
+
+
+\paragraph{S gate} (Phase, P, ``ess'') Square root of the $Z$-gate, $SS=Z$.
+\index{S gate}%
+\index{Phase gate|see{S gate}}%
+\index{P gate|see{S (Phase) gate}}%
+%\index{\input{circuits/S.tex}@S|see{S gate}}
+\[ 
+S & = Z^{\half} \\
+&= \begin{bmatrix}1 & 0 \\ 0 & i \end{bmatrix}
+\notag
+\\ \notag
+& \simeq R_z(+\tfrac{\pi}{2})
+\]
+\begin{center}
+\input{circuits/S.tex}
+\end{center}
+
+Historically called the phase gate (and denoted by $P$), since it shifts the phase of the one state relative to the zero state. This is a bit confusing because we have to make the distinction between the phase gate and applying a global phase. Often referred to as simple the S (``ess'') gate in contemporary discourse. 
+
+
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+ 
+
+   \draw[->] (1.5,0) -- node[above] {$S$} ++(1.0, 0) ;
+
+ \begin{scope}[xshift=4.0cm] 
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (-1.35,0) node[right ] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+	 \end{scope}
+ \end{tikzpicture}
+ }
+ \end{center}
+
+
+
+\paragraph{Inverse S gate} Hermitian conjugate of the $S$ gate, and an alternative square-root of $Z$, $S^\dagger S^\dagger = Z$.
+\[
+S^\dagger 
+& = Z^{-\half}
+\\
+&= \begin{bmatrix} 1 & 0 \\ 0 & -i \end{bmatrix}
+\notag 
+\\ \notag
+& \simeq R_z(-\tfrac{\pi}{2})
+\]
+\begin{center}
+\input{circuits/S_H.tex}
+\end{center}
+\todo{alt Circuit}
+
+A quarter turn clockwise about the $\widehat{z}$ axis.
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+ 
+
+   \draw[->] (1.5,0) -- node[above] {$S^\dagger$} ++(1.0, 0) ;
+
+ \begin{scope}[xshift=4.0cm] 
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.2) node[left] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+	 \end{scope}
+ \end{tikzpicture}
+ }
+ \end{center}
+Can be generated from the $S$ gate, $SSS= S^\dagger$.
+
+
+
+
+\subsection{Hadamard gates}
+
+
+\paragraph{Hadamard gate}\index{Hadamard gate}\index{H@$\Gate{H}$|see {Hadamard gate}}
+The Hadamard gate is one of the most interesting and useful of the common gates. Its effect is a $\pi$ rotation in the Bloch sphere about the axis
+$\tfrac{1}{\sqrt{2}}(\widehat{x}+\widehat{z})$, % FIXME: \hat not working!?
+essentially half way between the Z and X gates (Fig.~\ref{Fig:GateCoords}).
+%
+\[
+H & = \tfrac{1}{\sqrt{2}}\begin{bmatrix*}[r]1 & 1 \\ 1 & -1 \end{bmatrix*} \\
+	& \simeq R_{\vec{n}}(\pi), \quad \vec{n} = \tfrac{1}{\sqrt{2}}(1, 0, 1) \notag
+\]
+
+\begin{center}
+\input{circuits/H.tex}
+\end{center}
+
+
+
+In terms of the Bloch sphere, the Hadamard gate interchanges the $x$ and $y$ axes, and inverts the $y$ axis.
+\makeatletter
+\tikzoption{canvas is plane}[]{\@setOxy#1}
+\def\@setOxy O(#1,#2,#3)x(#4,#5,#6)y(#7,#8,#9)%
+  {\def\tikz@plane@origin{\pgfpointxyz{#1}{#2}{#3}}%
+   \def\tikz@plane@x{\pgfpointxyz{#4}{#5}{#6}}%
+   \def\tikz@plane@y{\pgfpointxyz{#7}{#8}{#9}}%
+   \tikz@canvas@is@plane
+  }
+\makeatother  
+
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+     \draw[dashed] (0,0) -- (0.707,0.707) node {$\bullet$} ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is plane={O(0,0.707,0.707)x(1,0,0)y(0,1,-1)}]
+   	\centerarc[blue,->](0,0)(105:285:0.25)
+   \end{scope}  
+    
+   \draw[->] (1.5,0) -- node[above] {H} ++(1.0, 0) ;
+ \end{tikzpicture}
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.2) node[left] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{x}$};
+   \end{scope}
+
+	 
+ \end{tikzpicture}
+ }
+ \end{center}
+ 
+It is also worth noting that a Hadamard similarity transform interchanges $X$ and $Z$ gates,
+\[
+HXH = Z, \qquad HYH &= -Y, \qquad HZH = X \notag 
+\\
+%\]
+%\[
+H R_x(\theta) H = R_z(\theta) , \qquad H R_y(\theta) H &= R_y(-\theta) , \qquad H R_z(\theta) H = R_x(\theta) 
+\notag
+\]
+
+\todo{Rotation gate effect follows form Taylor expansion}
+
+
+One reason that the Hadamard gate is so useful is that it acts on the computation basis states to create superpositions of zero and one states. These states are common enough that they have their own notation, $\ket{+}$ and \ket{-}.
+\[
+H\ket{0} & = \tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1}) = \ket{+}
+\notag
+\\
+H\ket{1} & = \tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1}) = \ket{-} 
+\notag
+\]
+The square of the Hadamard gate is the identity $HH=I$. This is easy to show with some simple algebra, or by considering that the Hadamard is a 180 degree rotation in the Bloch sphere, or by noting that the Hadamard matrix is both Hermitian and unitary, so the Hadamard must be its own inverse. As a consequence, the Hadamard converts the \ket{+}, \ket{-} Hadamard basis back to the \ket{0}, \ket{1} computational basis.
+\index{computational basis} \index{Hadamard basis} \index{$\ket{+}$}\index{$\ket{-}$}
+\[
+H\ket{+} & = \ket{0} \notag \\ 
+H\ket{-} & = \ket{1} \notag
+\notag
+\]
+
+The Hadamard gate is named for the \define{Hadamard transform} (Or \define{Walsh-Hadamard transform}), which in the context of quantum computing is the simultaneous application of Hadamard gates to multi-qubits. We will return this transform presently \todo{ref}. \index{Hadamard transform}\index{Walsh-Hadamard transform}
+
+It is also worth noting a couple useful decompositions (up to phase).
+\begin{center}
+\input{circuits/H.tex} $\simeq$
+\input{circuits/H_ZY.tex}
+\end{center}
+
+
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below] {$\widehat{x}$};
+%     \draw[dashed] (0,0) -- (1.,1.) ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.175) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+   \end{scope}
+
+%   \begin{scope}[canvas is zx plane at y=1.0]	
+%   	\centerarc[blue,->](0,0)(270:90:0.25)
+%   \end{scope}
+    
+   \draw[->] (1.5,0) -- node[above] {$Z$} ++(0.5, 0) ;
+
+	\begin{scope}[xshift=3.5cm]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (-1.35,0) node[above] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.175) node[left] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+   \end{scope}
+   \draw[->] (1.5,0) -- node[above] {$Y^{\frac{1}{2}}$} ++(0.5, 0) ;
+
+	\end{scope}
+
+
+	\begin{scope}[xshift=7.0cm]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.175) node[left] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{x}$};
+   \end{scope}
+
+	\end{scope}
+ \end{tikzpicture}
+}
+ \end{center}
+
+\begin{center}
+\input{circuits/H.tex} $\simeq$
+\input{circuits/H_SVS.tex}
+\end{center}
+
+
+\begin{center}
+\adjustbox{scale=0.55}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below] {$\widehat{x}$};
+%     \draw[dashed] (0,0) -- (1.,1.) ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.35) node[above] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+   \end{scope}
+
+%   \begin{scope}[canvas is zx plane at y=1.0]	
+%   	\centerarc[blue,->](0,0)(270:90:0.25)
+%   \end{scope}
+    
+   \draw[->] (1.5,0) -- node[above] {$S$} ++(0.5, 0) ;
+
+	\begin{scope}[xshift=3.5cm]
+    \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (-1.35,0) node[right] {$\widehat{y}$};
+%     \draw[dashed] (0,0) -- (1.,1.) ;
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.175) node[right] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{z}$};
+   \end{scope}
+      \draw[->] (1.5,0) -- node[above] {$V$} ++(0.5, 0) ;
+
+	\end{scope}
+
+
+	\begin{scope}[xshift=7.0cm]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (-1.35,0) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.175) node[left] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{x}$};
+   \end{scope}
+   
+   \draw[->] (1.5,0) -- node[above] {$S$} ++(0.5, 0) ;
+
+	\end{scope}
+	\begin{scope}[xshift=10.5cm]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,-1.175) node[left] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.175) node[above] {$\widehat{x}$};
+   \end{scope}
+
+	\end{scope}	
+ \end{tikzpicture}
+}
+ \end{center}
+ 
+Here, $V$ is the square-root of the $X$ gate, and $S$ is the square-root of Z, each of which is a quarter turn in the Bloch sphere.
+ 
+ 
+% [TODO (elsewhere?): H is 1-qubit QFT. Multiqubit hadamard transform]   
+% TODO
+% 1-qubit Fourier transform
+% Named for Hadamard transform (Walsh-Hadamard transform) 
+% Explain +/- states, "polar basis" Hadamard basis? Also angled arrows?
+% Create supposition of all computational basis states
+% Hermitian, so own inverse
+% When introduced into quantum computing?
+
+
+
+\paragraph{Hadamard-like gates}
+\index{Hadamard-like gates}
+If we peruse the sphere of 1-qubit gates, Fig.~\ref{Fig:GateCoords}, we can see that there are 6 different Hadamard-like gates that lie between the main $\widehat{x}$, $\widehat{y}$, $\widehat{z}$ axes. (Recall that gates on opposite sides of the sphere's surface are the same up to phase.) Each of these gates can be obtained from straightforward transform so the Hadamard gate. For instance, $S H S^\dagger$ is the Hadamard-like gate between the $Z$ and $Y$ gates, which interchanges the $y$ and $z$ axis, and flips the $x$-axis.
+
+
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+	     \draw[dashed] (0,0) -- (0.707,0.707) node {$\bullet$};
+   \end{scope}
+
+%       \begin{scope}[canvas is plane={O(0.707,0.707,0)x(0,1,-1)y(1,0,0)}]
+%       	\centerarc[blue,->](0,0)(290:105:0.25)
+%       \end{scope}  
+
+  \begin{scope}[canvas is plane={O(0.707,0.707,0)x(0,1,0)y(1,0,0)}]
+   	\centerarc[thick, blue,->](0,0)(310:125:0.25)
+	\draw (0,0) node {$\bullet$};
+   \end{scope}  
+             
+    
+   \draw[->] (1.5,0) -- node[above] {$S H S^\dagger$} ++(1.0, 0) ;
+ \end{tikzpicture}
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (-1.35,0) node[above ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{z}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{y}$};
+   \end{scope}
+
+	 
+ \end{tikzpicture}
+ }
+ \end{center}
+
+
+\begin{figure}[tp]
+%\begin{figure}[t]
+\begin{center}
+ \begin{tikzpicture}[scale=3]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     \draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.2,0) node[ below left] {$\theta\ n_x$};     
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     \draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right ] {$\theta\ n_y$};     
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+     \draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[above ] {$\theta\ n_z$};     
+   \end{scope}
+
+%	\node[fill=white] at (0,0,0) {$I$};
+%
+%	\node[fill=white] at (0,1,0) {$Z$};
+%	\node[fill=white] at (0,0.5,0) {$S$};
+%	\node[fill=white] at (0,0.25,0) {$T$};			
+%	\node[fill=white] at (0,-0.5,0) {${S^\dagger}$};
+%	\node[fill=white] at (0,-0.25,0) {$T^\dagger$};	
+%	% \node[fill=white] at (0,-1,0) {Z};
+%		
+%	\node[fill=white] at (0,0,1) {$X$};
+%	\node[fill=white] at (0,0,0.5) {$V$};
+%	\node[fill=white] at (0,0,-0.5) {$V^\dagger$};	
+%	% \node[fill=white] at (0,0,-1) {X};
+%	
+	\node[fill=white] at (0,{sqrt(1/2)},{sqrt(1/2)}) {$H$};
+	\node[fill=white] at ({sqrt(1/2)},0, {sqrt(1/2)}) {$VHV^\dagger$};	
+	\node[fill=white] at ({sqrt(1/2)},{sqrt(1/2)}, 0) {$SHS^\dagger$};	
+	\node[fill=white] at (0,{-sqrt(1-0.64)}, {0.8}) {$Y^{\frac{1}{2}} H Y^{\text{-}\frac{1}{2}}$};
+	\node[fill=white] at ({-sqrt(1-0.64)}, 0, {0.8}) {$V^\dagger H V$};	
+	\node[fill=white] at ({-sqrt(1/2)},{sqrt(1/2)}, 0) {$S^\dagger H S$};
+			
+%%	\node[fill=white] at (0,0,1) {H};
+%	
+%	\node[fill=white] at (1,0,0) {$Y$};
+%	\node[fill=white] at (0.5,0,0) {${h^\dagger}$};	
+%	\node[fill=white] at (-0.5,0,0) {${h}$};	
+	% \node[fill=white] at (-1,0,0) {$Y$};
+ \end{tikzpicture}
+ \end{center}
+ \label{Fig:GateCoordsHadamard}
+\caption{Coordinates of the 6-Hadamard like gates. \todo{CHECK!}}
+\end{figure}
+This particular Hadamard-like gate takes the computational Z-basis to the Y-basis.
+\[
+S H S^\dagger \ket{0} =  \tfrac{1}{\sqrt{2}}(\ket{0}+i\ket{1})  = \ket{+i} \notag \\
+S H S^\dagger \ket{1} =  \tfrac{1}{\sqrt{2}}(\ket{0}-i\ket{1})  = \ket{-i} \notag
+\]
+% These Hadamard-like gates are all Clifford gates (\S \ref{ChClifford}), and 
+The coordinates of all 6 Hadamard-like gates are shown in Fig.~\ref{???}, and listed in Table~\ref{???} in the same block as the Hadamard gate. 
+
+\todo{Maybe move to Clifford chapter}
+
+
+\paragraph{Hadamard power gate}
+\todo{Define via Rn}
+
+\[
+H_H = \frac{\pi}{2} (\frac{1}{\sqrt{2}}(X + Z) - I)
+\]
+
+\[
+ H^t = e^{i \pi t/2}
+        \begin{bmatrix*}[r]
+            \cos(\tfrac{t}{2}) + \tfrac{i}{\sqrt{2}}\sin(\tfrac{t}{2})) &
+            \tfrac{i}{\sqrt{2}} \sin(\tfrac{t}{2}) \\
+            \tfrac{i}{\sqrt{2}} \sin(\tfrac{t}{2}) &
+            \cos(\tfrac{t}{2}) -\tfrac{i}{\sqrt{2}} \sin(\frac{t}{2})
+        \end{bmatrix*}
+\]
+
+
+
+
+
+
+
+
+
+\subsection{T gates}
+All the of preceding discrete 1-qubit gates (Pauli gates, quarter turns, Hadamard and Hadamard-like gates) are examples of a special class of gates called Clifford gates. Although important, the Clifford gates have the notable restricting that they aren't universal -- you can't build an arbitrary qubit rotation from Clifford gates alone. The is because the Clifford gates always map the x, y and z axes back onto themselves. In order to be computational universal, it is necessary to have at least one non-Clifford gate in your gate set, and the most common choice for that non-Clifford gate is the $T$ gate, one eight of a rotation anti-clockwise about the $z$ axis. A gate set consisting of all Cliffords and the T gate is often written as ``Clifford+T''.
+\index{Clifford+T}\index{Clifford gates}
+
+\todo{Wordsmith}
+\todo{Index}
+\todo{Forward reference to Clifford chapter}
+\todo{Explain "gate set"}
+
+\paragraph{T gate} ("tee", $\pi/8$) Forth root of the $Z$ gate, $T^4=Z$.
+\index{T gate}
+\index{$\pi/8$ gate}
+
+\[
+T & = Z^{\frac{1}{4}} \\
+\notag
+& = \begin{bmatrix}1 & 0 \\ 0 & e^{i \frac{\pi}{4}} \end{bmatrix}
+\]
+\begin{center}
+\input{circuits/T.tex}
+\end{center}
+
+The T gate has sometimes been called the $\pi/8$ gate since we can extract a phase and write the T gate as
+\[
+T = e^{i\tfrac{\pi}{8}\pi} \begin{bmatrix} e^{-i\tfrac{\pi}{8}} & 0 \\ 0 & e^{+i\tfrac{\pi}{8}} 
+\end{bmatrix}
+\notag
+\]
+
+An eight turn anti-clockwise about the $\widehat{z}$ axis.
+
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+ 
+    
+   \draw[->] (1.5,0) -- node[above] {T} ++(1.0, 0) ;
+ \end{tikzpicture}
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0.907,-0.907) node[left] {$\widehat{x}$};
+     \draw[->] (0,0) -- (0.907,0.907) node[right] {$\widehat{y}$};     
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}	 
+ \end{tikzpicture}
+ }
+ \end{center}
+
+
+\paragraph{Inverse T gate}Hermitian conjugate of the T gate.
+\index{Inverse T gate}
+\[
+T^\dagger & = Z^{-\frac{1}{4}} 
+\\ 
+\notag & = 
+\begin{bmatrix} 
+1 & 0 \\ 0 & e^{-i\tfrac{\pi}{4}} 
+\end{bmatrix}
+\\ \notag
+& \simeq R_z(\tfrac{pi}{4})
+\]
+\begin{center}
+\input{circuits/T_H.tex}
+\end{center}
+
+
+An eight turn clockwise about the $\widehat{z}$ axis.
+\begin{center}
+\adjustbox{scale=0.75}{
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (1.35,0) node[below ] {$\widehat{x}$};
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0,1.2) node[right] {$\widehat{y}$};
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+ 
+    
+   \draw[->] (1.5,0) -- node[above] {$T^\dagger$} ++(1.0, 0) ;
+ \end{tikzpicture}
+ \begin{tikzpicture}[scale=1.5]
+   \begin{scope}[canvas is zy plane at x=0]
+     \draw (0,0) circle (1cm);
+
+   \end{scope}
+
+   \begin{scope}[canvas is zx plane at y=0]
+     \draw (0,0) circle (1cm);
+     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+     \draw[->] (0,0) -- (0.807,0.807) node[right] {$\widehat{x}$};
+     \draw[->] (0,0) -- (-0.807,0.807) node[right] {$\widehat{y}$};     
+   \end{scope}
+
+   \begin{scope}[canvas is xy plane at z=0]
+     \draw (0,0) circle (1cm);
+	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+	\draw[->] (0,0) -- (0,1.2) node[above] {$\widehat{z}$};
+   \end{scope}
+
+	 
+ \end{tikzpicture}
+ }
+ \end{center}
+
+
+
+
+
+\subsection{Global phase}
+
+\paragraph{Global phase gate} (phase-shift)~\cite{Barenco1995b,???,???}
+\[
+\text{Ph}(\alpha) &= 􏰔 e^{i\alpha} I  \\
+& = \begin{bmatrix} e^{i\alpha} & 0 \\ 0 & e^{i\alpha} \end{bmatrix}
+\notag
+\]
+\begin{center}
+\input{circuits/Ph.tex}
+\end{center}
+To shift the global phase we multiply the quantum state by a scalar. So it is not necessary to assign a phase shift to any particular qubit. But on those occasions where we want to keep explicit track of the phase in a circuit, it is useful to assign a global phase shift to a particular qubit and temporal location, e.~g.\
+\begin{center}
+\input{circuits/RX.tex}
+$=$
+\input{circuits/PhDeke.tex}
+\end{center}
+
+This gate was originally called the phase-shift gate~\cite{Barenco1995b}, but unfortunately the 1-qubit gate that shifts the phase of the 1 state relative the the zero state is also called the phase-shift gate~\ref{???},
+which is potentially confusing. 
+
+
+\paragraph{Omega gate}~\cite{???,???}
+\[
+\omega^k &= \text{Ph}(\tfrac{\pi}{4}k) 
+\\
+& = \begin{bmatrix} e^{i\frac{\pi}{4}k} & 0 \\ 0 & e^{i\frac{\pi}{4}k} \end{bmatrix}
+\notag
+\]
+An alternative parameterization of a global phase shift. This gate with integer powers crops up when constructing the 1-qubit Clifford gates from Hadamard and S gates, since $SHSHSH=\omega$. Note that $\omega^8=I$ (\ref{???}).
+\todo{Circuit}
+\todo{Forward reference}
+
+
+% [TODO: Remove figures to separate files]
+% [TODO: Am I using the terms 'phase' and 'phase factor' consistantly]
+
+
+% TODO: Talk about this when do 1-qubit deke
+%    \paragraph{QASM U3 gate}
+%    ...
+

@@ -1,0 +1,167 @@
+
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = on_gates.tex
+
+\clearpage
+
+\section{Standard 3-qubit gates}
+
+\paragraph{Toffoli gate (controlled-controlled-not, CCNOT)}\cite{Toffoli1980a, Barenco1995b}
+
+\[
+\text{CCNOT} =
+\begin{bsmallmatrix}
+ 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+\end{bsmallmatrix}
+\]
+$$
+\input{circuits/ccnot.tex}
+$$
+
+\newcommand{\sm}{{\text{-}}} % Small minus
+
+\[
+\ham{CCNOT} & = -\tfrac{\pi}{8}(I_0-Z_0)(I_1-Z_1)(I_2-X_2) \\
+& =
+\tfrac{\pi}{2} \begin{bsmallmatrix*}[r]
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & \sm 1 & 1 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 1 & \sm 1 \\
+\end{bsmallmatrix*}
+\notag
+\]
+
+
+
+\paragraph{Fredkin gate (controlled-swap, CSWAP)}\cite{Fredkin1982a,???}
+\[
+\text{CSWAP} = 
+\begin{bsmallmatrix}
+ 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+\end{bsmallmatrix}
+\]
+
+$$
+\input{circuits/cswap.tex}
+$$
+
+\[
+\ham{CSWAP} & = -\tfrac{\pi}{8}(I_0-Z_0)(X_1 X_2 + Y_1 Y_2 + Z_1 Z_2 - I_1 I_2)\\
+& =
+\tfrac{\pi}{2} \begin{bsmallmatrix*}[r]
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & \text{-}1 & 1 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 1 & \text{-}1 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{bsmallmatrix*}
+\notag
+\]
+
+\paragraph{CCZ gate (controlled-controlled-Z)}
+\[
+CCZ=
+\begin{bsmallmatrix*}[r]
+ 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & \sm1 \\
+\end{bsmallmatrix*}
+\]
+$$
+\input{circuits/ccz.tex}
+$$
+
+
+
+
+\paragraph{Peres gate}~\cite{Peres1985a}
+\[
+\text{Peres} = 
+\Left[ \begin{smallmatrix}
+                1& 0& 0& 0& 0& 0& 0& 0 \\
+                0& 1& 0& 0& 0& 0& 0& 0 \\
+                0& 0& 1& 0& 0& 0& 0& 0 \\
+                0& 0& 0& 1& 0& 0& 0& 0 \\
+                0& 0& 0& 0& 0& 0& 0& 1 \\
+                0& 0& 0& 0& 0& 0& 1& 0 \\
+                0& 0& 0& 0& 0& 1& 0& 0 \\
+                0& 0& 0& 0& 1& 0& 0& 0 
+\end{smallmatrix} \Right]
+\]
+Another gate that is universal for classical reversible computing. It is equivalent to a Toffoli followed by a CNOT gate.
+
+$$
+\input{circuits/peres.tex}
+$$
+
+
+
+
+\paragraph{Deutsch gate}~\cite{Deutsch1989a, Barenco1995a, Shi2018a}
+ Mostly of historical interest, since this was the first quantum gate to be shown to be computationally universal~\cite{Deutsch1989a}. 
+\[
+\text{Deutsch}(\theta) =
+\begin{bsmallmatrix}
+                1& 0& 0& 0& 0& 0& 0& 0 \\
+                0& 1& 0& 0& 0& 0& 0& 0 \\
+                0& 0& 1& 0& 0& 0& 0& 0 \\
+                0& 0& 0& 1& 0& 0& 0& 0 \\
+                0& 0& 0& 0& 1& 0& 0& 0 \\
+                0& 0& 0& 0& 0& 1& 0& 0 \\
+                0& 0& 0& 0& 0& 0& i \cos(\theta) & \sin(\theta) \\
+                0& 0& 0& 0& 0& 0& \sin(\theta)& i \cos(\theta)
+\end{bsmallmatrix}
+\]
+Examining the controlled unitary sub-matrix, the Deutsch gate can be thought of as a controlled-controlled-$i\Gate{R_x}(\theta)^2$ gate. gate.
+$$
+\text{Deutsch}(\theta) = 
+\input{circuits/Deutsch}
+$$
+
+Barenco~\cite{Barenco1995a} demonstrated a construction of the Deutsch gate from 2-qubit ``Barenco'' gates, demonstrating that 2-qubits gates are sufficient for universality.
+$$
+ \input{circuits/Deutsch}
+ \simeq 
+\adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \qw & \ctrl{2} & \ctrl{1} & \qw & \ctrl{1} & \qw \\
+& \ctrl{1} & \qw & \gate{\text{Bar}(0, \tfrac{\pi}{2}, \tfrac{\pi}{2})} & \ctrl{1} & \gate{\text{Bar}(0, \tfrac{\pi}{2}, \tfrac{\pi}{2})} & \qw \\
+& \gate{\text{Bar}(0, \tfrac{\pi}{4}, \tfrac{\theta}{2})} & \gate{\text{Bar}(0, \tfrac{\pi}{4}, \tfrac{\theta}{2})} & \qw & \gate{\text{Bar}(\pi, -\tfrac{\pi}{4}, \tfrac{\theta}{2})} & \qw & \qw
+\end{quantikz}
+} 
+% \input{circuits/deutsch_to_barenco}
+ $$
+
+
+% Also cite: https://journals.aps.org/prapplied/abstract/10.1103/PhysRevApplied.9.051001
+% for proposed physical implementation Shi2018a
+
+
+% QFT: Quantum Fourier transform,=. Not to be confuesd wiht, in different conetxts Quantu Field Theory, or Quanutm Flutuation theorem~\cite{Theotherqft}. At least Q alwyas standas for Quantum.
+

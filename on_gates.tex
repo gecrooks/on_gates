@@ -1,0 +1,395 @@
+
+% !TEX TS-program = XeLaTeX
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[notes,pagebackref,annotate]{bespoke5}
+\usepackage{bespoke5math}
+\usepackage{standalone}
+%\usepackage[braket, qm]{qcircuit}
+\usepackage[flushleft]{threeparttable}
+\usepackage{adjustbox}
+\usepackage[backref=true,totoc=section]{enotez}
+
+\usepackage{amsmath}
+
+%\usepackage{pythontex}
+
+\usepackage{mathtools}
+
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{backgrounds,fit,decorations.pathreplacing,shapes}  % TikZ libraries
+\tdplotsetmaincoords{80}{35}
+\usetikzlibrary{quantikz}
+
+\setlength{\tabcolsep}{2pt}
+
+\usepackage{makeidx} 
+
+\makeindex
+
+%\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+
+
+
+\def\centerarc[#1](#2)(#3:#4:#5)% Syntax: [draw options] (center) (initial angle:final angle:radius)
+    { \draw[#1] ($(#2)+({#5*cos(#3)},{#5*sin(#3)})$) arc (#3:#4:#5); }
+
+
+
+
+
+\newcommand{\Gate}[1]{\ensuremath{{\sf{#1}}}}
+\newcommand{\arxiv}[1]{{arXiv}:\href{http://arxiv.org/abs/#1}{#1}}
+
+\newcommand{\loceq}{\sim}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\renewcommand{\half}{\ensuremath{\tfrac{1}{2}}}
+%\newcommand{\quarter}{\ensuremath{\tfrac{1}{4}}}
+\newcommand{\uni}[1]{{U_{\text{#1}}}}
+\newcommand{\ham}[1]{{H_{\text{#1}}}}
+\newcommand{\define}[1]{{\sl #1}}
+
+% Avoids problems with underscores (_) and such like in DOIs
+\renewcommand{\doi}[1]{\textsc{doi}: \href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
+
+
+
+
+\newcommand{\normalhbadness}{9000}
+\hbadness=\normalhbadness
+
+
+
+
+
+% META DATA
+\newcommand{\thetitle}{Gates, States, and Circuits \\ \small ~\\ Notes on the circuit model of quantum computation}
+\newcommand{\thepdftitle}{Gates, States, and Circuits: Notes on the circuit model of quantum computation}
+\newcommand{\thesubject}{Gates, States, and Circuits}
+\newcommand{\theversion}{0.5}
+\newcommand{\theauthor}{Gavin E.\ Crooks}
+\newcommand{\thepdfauthor}{Gavin E. Crooks}
+
+\hypersetup{ 
+	pdfauthor={\thepdfauthor}, 
+	pdftitle={\thepdftitle} ,
+	pdfsubject={\thesubject}
+}
+
+\hidenotes
+
+
+
+\begin{document}
+\nocite{???}
+
+\title{\thetitle}
+\author{\href{http://threeplusone.com/}{Gavin E.\ Crooks}}
+\date{\isotoday}
+
+\preprint{
+Tech. Note 014 v\theversion ~~ {\sc beta} \\~\\
+\href{https://threeplusone.com/gates}{http://threeplusone.com/gates}
+}
+\maketitle
+
+\thispagestyle{empty}
+
+\tableofcontents
+
+% Use short alternative Table and Figure captions to keep one line per
+\clearpage
+\listoffigures
+\phantomsection\addcontentsline{toc}{section}{List of figures}
+%\thispagestyle{chapter}
+\clearpage % BOOK
+%\newpage
+%\thispagestyle{chapter}
+\phantomsection\addcontentsline{toc}{section}{List of tables}
+\listoftables
+\clearpage
+
+
+% [TODO: Move everything out of this file. It's just a stub.]
+% [TODO: Rename so that ends up near top of file lists?]
+
+\include{ChIntro}
+%\include{ChMathStruct}
+
+%\section{Quantum mechanics}
+
+\include{ChPauli}
+\include{ChBloch}
+\include{ChStdGates1}
+%\end{document}
+
+\include{ChDeke1}
+\include{ChCanonical}
+\include{FigWeylChamber}
+
+\include{ChStdGates2}
+
+%\clearpage
+%\section{Entaglement}
+%\subsection{Perfect entanglers}
+%
+%\begin{center}
+%\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+%\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+%      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+%      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+%      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+%      (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;      
+%\draw[fill=teal, opacity=0.2]    (1,0,0) -- (0.5,0.5,0.5) -- (1.5,0.5,0.5)  -- cycle;
+%\draw[fill=teal, opacity=0.2]    (1,1,0) -- (0.5,0.5,0.5) -- (1.5,0.5,0.5)  -- cycle;
+%\draw[fill=teal, opacity=0.2]    (1,0,0) -- (0.5,0.5,0) -- (1,1,0)  --(1.5,0.5,0)  -- cycle;
+%\draw[fill=teal, opacity=0.2]    (1,0,0) -- (1.5,0.5,0.5) -- (1.5,0.5,0)  -- cycle;
+%\draw[fill=teal, opacity=0.2]    (1,0,0) -- (0.5,0.5,0.5) -- (0.5,0.5,0)  -- cycle;
+%\draw[fill=teal, opacity=0.2]    (1,1,0) -- (1.5,0.5,0.5) -- (1.5,0.5,0)  -- cycle;
+%\draw[fill=teal, opacity=0.2]    (1,1,0) -- (0.5,0.5,0.5) -- (0.5,0.5,0)  -- cycle;
+%\node (L) at (1, 0, -0.25) {Perfect entaglers};
+%\end{tikzpicture}
+%\end{center}
+
+
+%\section{Canonical decomposition} % Decomposition of 2-qubit gates}
+%
+%\section{Controlled-unitary gates}
+
+\input{ChStdGates3}
+
+%\section{Pauli rotation gates} % Naming?
+%
+%\section{Pauli gate decomposition} % Naming?
+
+\input{ChTwoLevel}
+
+\input{ChClifford}
+
+%
+%\section{Metrics}
+%
+%\section{Measurement}
+%
+%\section{Classical simulation}
+%
+%\section{Compilation}
+%
+%\section{State preparation}
+%% Bell states, bell inequality?
+%% Quantum random number generation
+%
+%\section{Quantum teleportation}
+%
+%\section{Swap test}
+%
+%\section{Quantum phase estimation}
+%
+%\section{VQE}
+%
+%\section{Quantum chemistry}
+%
+%\section{QAOA}
+%
+%\section{QML}
+%
+%\section{Gradients}
+%
+%\section{Quantum Fourier Transform}
+%
+%
+%\endnote{In other contexts QFT can stand for Quantum Field Theory, or Quantum Fluctuation Theorem~\cite{???}. Q is always Quantum}
+%
+%
+%\section{Swap networks}
+%
+%\section{Quantum walk}
+%
+%\section{Random circuit sampling}%}Quantum supremacy}
+%
+%
+%\section{Error correction}
+
+%
+%\section{Deutsch-Joza algorithm}
+%\section{DV algorithm}
+%\section{Simon's Problem}
+%\section{Shor's quantum factoring algorithm}
+%
+%\begin{quote}
+%\emph{Considerable ingenuity will be needed if these obstacles [to practical quantum computing] are to be overcome; the quantum factoring algorithm of Shor shows that there is considerable value in overcoming these obstacles}
+%---~David~P.~Diviencero~\cite{DiVincenzo1995a}
+%\end{quote}
+%
+%
+%\section{Grover's search algorithm}
+%%
+
+% ==== Appendix ====
+\appendix
+\include{ChMath}
+
+\section{Weyl Chamber}
+
+
+%    \begin{center}
+%    \adjustbox{scale=0.65}{\input{on_weyl}}
+%    \end{center}
+\begin{figure*}[hb!]
+\adjustbox{scale=0.75}{\input{on_weyl}}
+\caption{The Weyl chamber of canonical non-local 2 qubit gates. (Print, cut, fold, and paste)}
+\label{weyl_fig}
+\end{figure*}
+
+%\include{FigWeyl}
+
+\clearpage
+\printendnotes
+\include{ChBib}
+\include{ChIndex}
+
+\thispagestyle{empty}
+\include{Colophon}     % TODO: Move
+
+
+\end{document}
+
+%\section{Match gates}
+%\section{Decomposition of standard 3-qubit gates}
+%\section{Random gates}
+%\section{Control gates}
+%\section{Hamiltonians}
+%\section{Decomposition of 2-qubit gates}
+%\section{Swap networks}
+
+
+
+% ===========================================================================
+
+
+
+%
+%\begin{figure}
+%\begin{center}
+% \begin{tikzpicture}[scale=3]
+%   \begin{scope}[canvas is zy plane at x=0]
+%     \draw (0,0) circle (1cm);
+%     %\draw[ultra thin] (-1,0) -- (1,0) (0,-1) -- (0,1);
+%     \draw[->] (0,0) -- (1.2,0) node[below ] {$n_x$};
+%   \end{scope}
+%
+%
+%   \begin{scope}[canvas is zx plane at y=0]
+%     \draw (0,0) circle (1cm);
+%     %\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+%     \draw[->] (0,0) -- (0,1.1) node[right] {$n_y$};
+%   \end{scope}
+%
+%   \begin{scope}[canvas is xy plane at z=0]
+%   	\draw[-,line width=4pt,draw=white] (1,0) arc(0:190:1cm);
+%
+%     \draw (0,0) circle (1cm);
+%	%\draw (-1,0) -- (1,0) (0,-1) -- (0,1);
+%	\draw[->] (0,0) -- (0,1.1) node[above] {$n_z$};
+%	
+%   \end{scope}
+%
+%
+%	\node[] at ({sqrt(1/2)},{sqrt(1/2)},0) {$\bullet$};
+%	\node[] at ({sqrt(1/2)},0,{sqrt(1/2)}) {$\bullet$};
+%	\node[] at (0,{sqrt(1/2)},{sqrt(1/2)}) {$\bullet$};
+%	\node[] at ({-sqrt(1/2)},{sqrt(1/2)},0) {$\bullet$};
+%	\node[] at ({sqrt(1/2)},0,{-sqrt(1/2)}) {$\bullet$};
+%	\node[] at (0,{-sqrt(1/2)},{sqrt(1/2)}) {$\bullet$};
+%
+%	\node[] at ({-sqrt(1/2)},{-sqrt(1/2)},0) {$\bullet$};
+%	\node[] at ({-sqrt(1/2)},0,{-sqrt(1/2)}) {$\bullet$};
+%	\node[] at (0,{-sqrt(1/2)},{-sqrt(1/2)}) {$\bullet$};
+%	\node[] at ({sqrt(1/2)},{-sqrt(1/2)},0) {$\bullet$};
+%	\node[] at ({-sqrt(1/2)},0,{sqrt(1/2)}) {$\bullet$};
+%	\node[] at (0,{sqrt(1/2)},{-sqrt(1/2)}) {$\bullet$};
+%
+%
+%	\node[] at ({sqrt(4/27)},{sqrt(4/27)},{sqrt(4/27)}) {$\bullet$};
+%	\node[] at ({sqrt(4/27)},{sqrt(4/27)},{-sqrt(4/27)}) {$\bullet$};
+%	\node[] at ({sqrt(4/27)},{-sqrt(4/27)},{sqrt(4/27)}) {$\bullet$};
+%	\node[] at ({sqrt(4/27)},{-sqrt(4/27)},{-sqrt(4/27)}) {$\bullet$};
+%	\node[] at ({-sqrt(4/27)},{sqrt(4/27)},{sqrt(4/27)}) {$\bullet$};
+%	\node[] at ({-sqrt(4/27)},{sqrt(4/27)},{-sqrt(4/27)}) {$\bullet$};
+%	\node[] at ({-sqrt(4/27)},{-sqrt(4/27)},{sqrt(4/27)}) {$\bullet$};
+%	\node[] at ({-sqrt(4/27)},{-sqrt(4/27)},{-sqrt(4/27)}) {$\bullet$};
+%
+%
+% \end{tikzpicture}
+% \end{center}
+%\caption{Sphere of 1-qubit gates. Each point within this sphere represents a unique (up to phase) 1-qubit gate. 
+%Antipodal points on the surface represent the same gate.}
+%\end{figure}
+
+
+
+
+% \section{Note on Notation and Nomenclature}
+
+
+% \paragraph*{Mike and Ike}~\cite{Nielsen2000a,Nielsen2010a}
+
+% \section{Miscellaneous Mathematics}
+
+
+
+%\paragraph{Acknowledgments}
+%Consideration of importance of the canonical gates and gate decompositions arose from many conversations with Eric C. Peterson.
+
+
+% TODO
+% generalization of CCNOT with multiple controls (some negative)
+
+
+
+
+
+
+%%%%%%%%%%%% Supplemental %%%%%%%%%%%%
+
+\clearpage
+\part{Supplemental}
+
+\nocite{Deutsch1985a}
+
+\section{Introduction}
+A computer is a physical device that can systematically process information. The original computers were people particularly adept at adding and multiplying numbers. But people are not particularly good as manipulating abstract information;  we take years to train, still make mistakes, and then die at inconvenient moments taking our stores of information with us.  But long ago mankind realized we could offload the computational load onto the physical environment. We developed abstract symbols for verbal and numerical information, paper and ink as external information stores, and mechanical devices to manipulate those symbols. 
+
+Writing and the abacus, the first mechanical computational device, were invented in Mesopotamia over 5000 years ago. Two millennia ago the Greeks were building elaborate analogy computers to calculate the passage of the sun, moon, and planets through the heavens. But not until the industrial revolution di the idea of a general purpose computer begin to take shape. Charles Babbage had the vision of a steam powered engine for systematic calculations of complex functions; and then even more fore-sited he conceived of an ``analytic engine'', the first inklings of a general purpose programmable computer. 
+A program is just an algorithm, a systematic step-by-step procedure for carrying out a complex computation. And a program is itself information, and therefore the instructions for operating a computer can be stored and manipulated by the computer itself. A programmable computer can be fed instructions that allow it to carry out any computation. Babbage was well ahead of this time. Neither his difference nor analytic engines could be built with the technology of then available time. It took the development of electronic switches (electro-mechanical relays, vacuums valves, and ultimately silicon transistors) to realize his vision of a general purpose computational engine a century latter.  
+
+Turing universal computer. Church-Turing 
+
+From the Second World War onwards we have witnessed a computational revolution that matches in scope and import of the preceding agricultural and industrial revolutions.  Just as the amount of food one man can grow has dramatically increased, or the power one man can exert, so to has the amount of information that one man can access and process has grown immensely. terrabyes per second.
+
+Abstract away most of the physical details. However, almost forgotten in the computer revolution was the central truth that a computer is a physical device. Information, however apparently abstract, is ultimately stored in physical objects. And a computer is a machine that has to obey the laws of physics. However, implicit in the early development of computer theory was the idea that reality obeys the commonsense laws of logic. In our current parlance, the implicit physical laws of underlying conventional computers are classical.      
+ 
+
+
+However abstract the computation or information appears, at the bottom the information is stored in a material systems and manipulated with the laws of physics. 
+
+
+
+
+\end{document}
+
+
+% PROGRESS
+% 2019-05-24	9 pages
+% 2019-05-25	Added quantikz latex circuit support to quantumflow
+% 2019-05-26	Programmatically generate most circuits
+% 2020-02-13    v3 12 pages
+% 2020-06-01	v4 14 pages
+
+

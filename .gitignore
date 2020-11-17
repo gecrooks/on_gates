@@ -274,3 +274,11 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+# Custom
+GECLibrary2.bib
+GSC_Literature
+circuits/*.tex
+version.txt
+.DS_Store
+

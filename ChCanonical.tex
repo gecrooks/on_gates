@@ -1,0 +1,184 @@
+
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = on_gates.tex
+
+\clearpage
+\section{The canonical gate}
+The canonical gate is a 3-parameter quantum logic gate that acts on two qubits~\cite{???,???,???}.
+\[
+\Gate{CAN}&(t_x, t_y, t_z) 
+\notag \\ = 
+&\exp\Bigl(-i\frac{\pi}{2}  (t_x X\otimes X + t_y Y\otimes Y + t_z Z \otimes Z) \Bigr)
+\]
+Here, $X=(\begin{smallmatrix}0 & 1 \\ 1 & 0\end{smallmatrix})$,
+$Y=(\begin{smallmatrix}0 & \text{-}i \\ i & 0\end{smallmatrix})$, 
+and $Z=(\begin{smallmatrix}1 & 0 \\ 0 & \text{-}1\end{smallmatrix})$ are the 1-qubit Pauli matrices.
+
+Note that other parameterizations are common in the literature. Often there will be a sign flip and/or the $\frac{\pi}{2}$ factor is absorbed into the parameters. The parameterization used here the nice feature that it corresponds to powers of direct products of Pauli operators (up to phase) (see~\eqref{XX}, \eqref{YY}, \eqref{ZZ}) .
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+ & \gate[2]{CAN(t_x, t_y, t_z)} & \qw \\
+ &                              & \qw
+\end{quantikz}}
+\simeq
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{XX^{t_x}} &\gate[2]{YY^{t_y}} &\gate[2]{ZZ^{t_z}} & \qw \\
+ &                          &  &  & \qw
+\end{quantikz}}
+$$
+
+
+The canonical gate is, in a sense, the elementary 2-qubit gate, since any other 2-qubit gate can be decomposed into a canonical gate, and
+local 1-qubit interactions~\cite{Zhang2003a,Zhang2004a,Blaauboer2008a,Watts2013a}.
+%\[
+%\label{canonical}
+%\text{\small
+%\Qcircuit @C=0.5em @R=1em {
+%  & \multigate{1}{U_0} & \qw & & \dstick{\simeq} & &
+%  & \gate{U_1}
+%  & \multigate{1}{\Gate{CAN}(t_x, t_y, t_z)}
+%  & \gate{U_3}
+%  & \qw
+%  \\
+%    & \ghost{U_0} & \qw & &  & &
+% & \gate{U_2} 
+% & \ghost{\Gate{CAN}(t_7, t_8, t_9)}
+% & \gate{U_4} 
+%& \qw
+%}}
+%\]
+%
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{U_0} & \qw \\
+&  & \qw
+\end{quantikz}}
+\simeq
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate{U_1} & \gate[2]{CAN(t_x, t_y, t_z)} & \gate{U_3} & \qw \\
+& \gate{U_2} &                             & \gate{U_4} & \qw
+\end{quantikz}}
+$$
+
+
+Here we use '$\simeq$' to indicate that two gates have the same unitary operator up to a global (and generally irrelevant) phase factor. We'll use '$\loceq'$ to indicate that two gates are locally equivalent, in that they can be mapped to one another by local 1-qubit rotations. 
+% TODO: Cite B paper for \sim notation for locally equivalent gates?
+
+The canonical gate is periodic in each parameters with period 4, or period 2 if we neglect a $-1$ global phase factor. Thus we can constrain each parameter to the range $[-1,1)$. Since $X\otimes X$,  $Y\otimes Y$, and $Z \otimes Z$ all commute, the parameter space has the topology of a 3-torus.
+
+However, the canonical coordinates of any given 2-qubit gate are not unique since we have considerable freedom in the prepended and appended local gates. To remove these symmetries we can constraint the canonical parameters to a ``Weyl chamber''~\cite{???,???}.
+\begin{equation}
+(\tfrac{1}{2} \ge  t_x \ge t_y \ge t_z \ge 0) \cup (\tfrac{1}{2} \ge (1-t_x) \ge t_y \ge t_z > 0 )
+\label{WeylChamber}
+\end{equation}
+This Weyl chamber forms a  trirectangular tetrahedron.  All gates in the Weyl chamber are locally inequivalent (They cannot be obtained from each other via local 1-qubit gates). The net of the Weyl chamber is illustrated in Fig.~\ref{weyl_fig}, and the coordinates of many common 2-qubit gates are listed in table~\ref{weyl_table}. Code for performing a canonical-decomposition, and therefore of determining the Weyl coordinates, can be found in the decompositions subpackage of {\tt QuantumFlow}~\cite{QuantumFlow}.
+
+
+
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+%\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+%\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw [dashed] (0,0,0) -- (2,0,0) -- (2,2,0)  -- (0,2,0) -- cycle
+      (0,0,0) -- (0,0,2) -- (2,0,2)  -- (2,0,0) -- cycle
+      (0,0,0) -- (0,0,2) -- (0,2,2)  -- (0,2,0) -- cycle;
+\draw [dashed] (2,2,2) -- (2,2,0);
+\draw [dashed] (2,2,2) -- (2,0,2);
+\draw [dashed] (2,2,2) -- (0,2,2);
+
+\draw [dotted] (0,0,0) -- (2,2,2);
+\draw [dotted] (0,0,2) -- (2,2,0);
+\draw [dotted] (0,2,0) -- (2,0,2);
+\draw [dotted] (2,0,0) -- (0,2,2);
+
+\end{tikzpicture}
+\end{center}
+
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\text{CAN}(t_x,t_y,t_z)} & \qw \\
+&  & \qw
+\end{quantikz}}
+\simeq
+$$
+
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \qw & \targ{} & \gate{Z^{t_z - \half}} & \ctrl{1} & \qw & \targ{} & \gate{S^\dagger} & \qw \\
+& \gate{S} & \ctrl{-1} & \gate{Y^{t_x - \half}} & \targ{} & \gate{Y^{\half - t_y}} & \ctrl{-1} & \qw & \qw
+\end{quantikz}}
+$$
+
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\text{CAN}(t_x,t_y,0)} & \qw \\
+&  & \qw
+\end{quantikz}}
+\simeq
+$$
+
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate{\text{V}} & \gate{\text{Z}} & \ctrl{1} & \gate{X^{t_x}} & \ctrl{1} & \gate{\text{V}} & \gate{\text{Z}} & \qw \\
+& \gate{\text{V}} & \gate{\text{Z}} & \targ{} & \gate{Z^{t_y}} & \targ{} & \gate{\text{V}} & \gate{\text{Z}} & \qw
+\end{quantikz}
+}
+$$
+% Figures out for myself with some trial and error
+
+
+
+
+
+\def\arraystretch{1.5}
+\begin{table}[tp]
+\caption{Canonical coordinates of common 2-qubit gates}
+\label{weyl_table}
+\begin{threeparttable}
+%\begin{center}
+\centering
+\begin{tabular}{lccccccc}
+		\text{Gate}		& $t_x$ 	& $t_y$	& $t_z$ & & $t'_x$ 	& $t'_y$	& $t'_z$	\\
+				& $\leq$\half & & &  &>\half & & \\ 
+				& $\qquad$& & $\qquad$& $\qquad$& $\qquad$&  $\qquad$& $\qquad$\\
+% Points \\
+$\Gate{I_2}$						& 0		& 0		& 0	& & 1 &0&0	\\
+$\Gate{CNOT}$  / $\Gate{CZ}$ / \Gate{MS}	&\half	& 0		& 0		\\
+$\Gate{iSWAP}$ / $\Gate{DCNOT}$ &\half	& \half		& 0		& & $\tfrac{3}{4}$ & \half & 0	\\
+$\Gate{SWAP}$  					&\half	& \half		& \half		\\
+\\
+CV					&$\tfrac{1}{4}$	& $0$		& 0		& & $\tfrac{3}{4}$ & 0 & 0	\\
+$\sqrt{\Gate{iSWAP}}$  			&$\tfrac{1}{4}$	& $\tfrac{1}{4}$		& 0		& & $\tfrac{3}{4}$ & $\tfrac{1}{4}$ & 0	\\
+${\Gate{DB}}$  					&$\tfrac{3}{8}$	& $\tfrac{3}{8}$		& 0		& & $\tfrac{5}{8}$ & $\tfrac{3}{8}$ & 0	\\
+$\sqrt{\Gate{SWAP}}$  			&$\tfrac{1}{4}$	& $\tfrac{1}{4}$		& $\tfrac{1}{4}$		\\
+$\sqrt{\Gate{SWAP}}^\dagger$  	& & & & &$\tfrac{3}{4}$	& $\tfrac{1}{4}$		&$\tfrac{1}{4}$	\\
+\\
+$B$  							&\half	& $\tfrac{1}{4}$		& 0		\\
+$\Gate{ECP}$  					&\half	& $\tfrac{1}{4}$		&  $\tfrac{1}{4}$	\\
+$\Gate{QFT_2}$  				&\half	& \half		&  $\tfrac{1}{4}$	\\
+$\Gate{Sycamore}$				&\half	& \half		&  $\tfrac{1}{12}$	\\
+\\
+% Edges
+Ising / $\Gate{CPHASE}$	& $t$ & 0 & 0 \\
+$\Gate{XY}$	& $t$ & $t$ & 0 & & $t$ & 1-$t$ & 0  \\
+Exchange	/ $\Gate{SWAP}^\alpha$	& $t$ & $t$ & $t$ & & $t$ & 1-$t$ & 1-$t$ \\
+$\Gate{PSWAP}$ 	& \half & \half & $t$ \\
+\\
+% Surfaces
+Special orthogonal 	& $t_x$ & $t_y$ & 0 \\
+Improper orthogonal 	& \half & $t_y$ & $t_z$ \\
+\Gate{XXY} 	&$t$ & $t$ & $\delta$ & &$t$ & 1-$t$ & $\delta$ \\
+			& $\delta$ &  $t$ & $t$ & & $\delta$ &  $t$ & $t$  \\					
+
+\end{tabular}
+%\end{center}
+%\begin{tablenotes}
+%\item[]\small Note:  There is a symmetry on the base of the Weyl chamber such that $(t_x, t_y, 0)$ is equivalent to $(1-t_x, t_y, 0)$. I've  listed both coordinates for clarity, although the formal definition of the Weyl chamber~\eqref{WeylChamber} excludes the second form.
+%\end{tablenotes}
+\end{threeparttable}
+\label{default}
+\end{table}%

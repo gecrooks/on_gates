@@ -1,0 +1,1043 @@
+
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = on_gates.tex
+
+\clearpage
+
+\section{Standard 2-qubit gates}
+
+
+\subsection{Clifford gates}
+There are four unique 2-qubits gates in the Clifford group (up to local 1-qubit Cliffords): the identity, \Gate{CNOT}, \Gate{iSWAP}, and \Gate{SWAP} gates.
+
+\paragraph{Identity gate}
+\[ 
+I_2 &=
+\Left(\begin{smallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1 
+\end{smallmatrix}\Right)
+\\
+& = \Gate{CAN}(0, 0, 0) \notag
+\]
+%\[
+%\Qcircuit @C=0.5em @R=1.5em {
+%  & \qw &  \qw&  \qw  \\
+%  & \qw &  \qw &  \qw
+%  }
+%  \notag
+%\]
+
+\paragraph{Controlled-NOT gate (CNOT, controlled-X, CX)}
+\[
+\Gate{CNOT} &=
+\Left(\begin{smallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 1 \\
+  0 & 0 & 1 & 0 
+\end{smallmatrix}\Right)
+\\ \notag
+& \loceq \Gate{CAN}(\half, 0, 0) \notag
+\]
+\[
+H_{\Gate{CNOT}} & = \half(I-Z)\otimes H_X \notag
+\\
+& = -\tfrac{\pi}{4} (I-Z)\otimes(I-X)
+\notag
+\]
+Commonly represented by the circuit diagrams
+$$
+\input{circuits/cnot.tex}
+\text{ or }
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+  & \ctrl{1} &  \qw  \\
+  & \gate{X} &  \qw 
+\end{quantikz}}
+$$
+
+%\[
+%\Qcircuit @C=0.5em @R=1.5em {
+%  & \ctrl{1} &  \qw  \\
+%  & \targ &  \qw 
+%  }
+%  \qquad
+%  \text{ or }
+%  \qquad 
+%\Qcircuit @C=0.5em @R=1.5em {
+%  & \ctrl{1} &  \qw  \\
+%  & \gate{X} &  \qw 
+%  }
+%  \notag  \ .
+%\] 
+
+The \Gate{CNOT} gate is not symmetric between the two qubits. But we can switch control $\bullet$
+%\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}] &\qw \bullet &  \qw\end{quantikz}}
+and target $\oplus$
+%\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}] &\targ{} &  \qw\end{quantikz}} 
+% $\Qcircuit @C=0.5em @R=1.5em {& \targ{} &  \qw}$
+with local Hadamard gates.
+%\[
+%\text{\small
+%\Qcircuit @C=0.5em @R=1.5em {\small
+%  & \ctrl{1} &  \qw  & \raisebox{-3em}{=} & & \gate{H} & \targ &   \gate{H}& \qw  \\
+%  & \targ &  \qw &  & & \gate{H} & \ctrl{-1}  &  \gate{H} & \qw 
+%  } 
+%  }
+%  \notag
+%\]
+%
+$$
+\input{circuits/cnot.tex}
+=
+\input{circuits/cnot_switch.tex}
+$$
+
+
+
+\paragraph{\Gate{iSWAP}-gate}
+\[
+\Gate{iSWAP} &= 
+\Left(\begin{smallmatrix}
+1 & 0 & 0 & 0 \\
+0 & 0 & i  & 0 \\
+0 & i & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{smallmatrix}\Right)
+\\
+& \simeq \Gate{CAN}(-\sfrac{1}{2}, -\sfrac{1}{2}, 0) \notag
+\]
+
+
+
+
+\paragraph{\Gate{SWAP}-gate}
+\[
+\Gate{SWAP} &= 
+\Left(\begin{smallmatrix}
+1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{smallmatrix}\Right)
+\\
+& \simeq \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{2}, \sfrac{1}{2}) \notag
+% CHECKME: Local or exact?
+\]
+
+
+
+$$
+\input{circuits/swap.tex}
+=
+\input{circuits/swap_to_cnot.tex}
+$$
+
+%\[
+%\Qcircuit @C=1.5em @R=1.5em {
+%& \lstick{0} & \qswap \qwx[1] & \qw & \push{ } & \ctrl{1} & \targ & \ctrl{1} & \qw \\
+%& \lstick{1} & \qswap & \qw & \push{ } & \targ & \ctrl{-1} & \targ & \qw
+%}
+%\notag
+%\]
+
+
+\subsection{XX gates}
+
+Gates in the XX (or Ising) class have coordinates $\Gate{CAN}(t, 0, 0)$, 
+which forms the front edge of the Weyl chamber. This includes the identity and
+$\Gate{CNOT}$ gates.
+
+% TODO: Controlled-U gates
+
+\paragraph{XX gate (Ising)}
+\[
+\Gate{XX}(t) &= e^{-i \sfrac{\pi}{2} t X\otimes X}
+\label{XX}
+\\ \notag& =
+\begin{bsmallmatrix}
+ \cos(\sfrac{\pi}{2}t) & 0 & 0 & - i\sin(\sfrac{\pi}{2}t) \\
+  0 & \cos(\sfrac{\pi}{2}t) & - i\sin(\sfrac{\pi}{2}t)  & 0 \\
+  0 & - i\sin(\sfrac{\pi}{2}t)  & \cos(\sfrac{\pi}{2}t) & 0 \\
+  - i\sin(\sfrac{\pi}{2}t)  & 0 & 0 & \cos(\sfrac{\pi}{2}t)
+\end{bsmallmatrix}
+\\ \notag
+& = \Gate{CAN}(t, 0, 0) \notag
+\]
+
+$$\input{circuits/xx.tex}$$
+
+\paragraph{Mølmer-Sørensen gate (MS)}~\cite{Molmer1999a,Haffner2008a}
+\[
+\Gate{MS}  & = 
+\frac{1}{\sqrt{2}} \Left(\begin{smallmatrix}
+  1 & 0 & 0 & i \\
+  0 & 1 & i & 0 \\
+  0 & i & 1 & 0 \\
+  i & 0 & 0 & 1
+\end{smallmatrix}\Right)
+\\ \notag
+& = \Gate{CAN}(-\half, 0, 0) \notag \\
+& \loceq \Gate{CAN}(\half, 0, 0) \notag \\
+& \loceq \Gate{CNOT} \notag
+\]
+Proposed as a natural gate for laser driven trapped ions. Locally equivalent to \Gate{CNOT}. 
+The Mølmer-Sørensen gate, or more exactly its complex conjugate $MS^\dagger =\Gate{CAN}(\half, 0, 0)$
+is the natural canonical representation of the CNOT/CZ/MS gate family.
+
+
+\paragraph{Magic gate (M)}~\cite{???,???,???}
+\[
+\Gate{M}  & = 
+\frac{1}{\sqrt{2}} \begin{bsmallmatrix*}[r]
+  1 & i & 0 & 0 \\
+  0 & 0 & i & 1 \\
+  0 & 0 & i & -1 \\
+  1 & -i & 0 & 0
+\end{bsmallmatrix*}
+\\
+& \loceq \Gate{CAN}(\half, 0, 0)
+\]
+% Origins of Magic basis? S. Hill and W. K. Wootters, Phys. Rev. Lett. 78, 5022 (1997)
+% 
+% Cited in https://arxiv.org/pdf/quant-ph/0011050.pdf
+\cite{Vatan2004a} % Optimal Quantum Circuits for General Two-Qubit Gates
+
+$$
+\input{circuits/magic.tex}
+\simeq
+\input{circuits/magic_circ.tex}
+$$
+
+\paragraph{YY gate}
+\[
+\Gate{YY}(t) &= e^{-i \sfrac{\pi}{2} t Y\otimes Y}
+\label{YY}
+\\ \notag& =
+\Left(\begin{smallmatrix}
+ \cos(\sfrac{\pi}{2}t) & 0 & 0 & + i\sin(\sfrac{\pi}{2}t) \\
+  0 & \cos(\sfrac{\pi}{2}t) & - i\sin(\sfrac{\pi}{2}t)  & 0 \\
+  0 & - i\sin(\sfrac{\pi}{2}t)  & \cos(\sfrac{\pi}{2}t) & 0 \\
+  + i\sin(\sfrac{\pi}{2}t)  & 0 & 0 & \cos(\sfrac{\pi}{2}t)
+\end{smallmatrix}\Right)
+\\ \notag
+& = \Gate{CAN}(0, t, 0) \notag
+\\
+& \loceq \Gate{CAN}(t, 0, 0) \notag
+\]
+$$\input{circuits/yy.tex}$$
+
+
+\paragraph{ZZ gate}
+\[
+\Gate{ZZ}(t) &= e^{-i \sfrac{\pi}{2} t Z\otimes Z}
+\\ \notag& =
+\Left(\begin{smallmatrix}
+ 1 & 0 & 0 & 0 \\
+  0 & e^{-i \pi t}  & 0  & 0 \\
+  0 & 0  & e^{-i \pi t} & 0 \\
+ 0  & 0 & 0 & 1
+\end{smallmatrix}\Right)
+\\ \notag
+& = \Gate{CAN}(0, 0, t) \notag
+\\
+& \loceq \Gate{CAN}(t, 0, 0) \notag
+\]
+
+$$\input{circuits/zz.tex}$$
+
+\paragraph{Controlled-Y gate}
+\[
+\Gate{CY} &=
+\Left(\begin{smallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & -i \\
+  0 & 0 & +i & 0
+\end{smallmatrix}\Right)
+\\ \notag
+& \loceq \Gate{CAN}(\half, 0, 0) \notag
+\]
+
+Commonly represented by the circuit diagram:
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+  & \ctrl{1} &  \qw  \\
+  & \gate{Y} &  \qw 
+\end{quantikz}}
+$$
+
+
+\paragraph{Controlled-Z gate} (CZ or CSIGN)
+\[
+\Gate{CZ} &=
+\Left(\begin{smallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & -1
+\end{smallmatrix}\Right)
+\\ \notag
+& \loceq \Gate{CAN}(\half, 0, 0) \notag
+\]
+
+Commonly represented by the circuit diagrams
+% FIXME
+%\[
+%\Qcircuit @C=0.5em @R=1.5em {
+%  & \ctrl{1} &  \qw  \\
+%  & \ctrl{-1} &  \qw 
+%  }
+%  \qquad
+%  \text{ or }
+%  \qquad 
+%\Qcircuit @C=0.5em @R=1.5em {
+%  & \ctrl{1} &  \qw  \\
+%  & \gate{Z} &  \qw 
+%  }
+%  \notag  \ .
+%\] 
+%
+%\[
+%\text{\small
+%\Qcircuit @C=0.5em @R=1.5em {\small
+%  & \ctrl{1} &  \qw  & \raisebox{-3em}{=} & &  \qw& \ctrl{1} &  \qw & \qw  \\
+%  & \ctrl{-1} &  \qw &  & & \gate{H} & \targ  &  \gate{H} & \qw 
+%  } }
+%  \notag
+%\]
+
+$$
+\input{circuits/cz.tex}
+\text{ or }
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+  & \ctrl{1} &  \qw  \\
+  & \gate{Z} &  \qw 
+\end{quantikz}}
+$$
+
+$$
+\input{circuits/cz.tex}
+\simeq
+\input{circuits/cnot_to_cz.tex}
+$$
+
+\paragraph{Controlled-V gate} (square root of CNOT gate):
+\[
+CV & = 
+\Left(\begin{smallmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & \sfrac{1+i}{2} & \sfrac{1-i}{2} \\
+  0 & 0 & \sfrac{1-i}{2} & \sfrac{1+i}{2}
+\end{smallmatrix}\Right) 
+\\ 
+& \loceq \Gate{CAN}(\sfrac{1}{4}, 0, 0) \notag
+%\\
+%& = 
+%\Left(\begin{smallmatrix}
+% \cos(\sfrac{\pi}{8}) & 0 & 0 & -i \sin(\sfrac{\pi}{8}) \\
+%  0 &  \cos(\sfrac{\pi}{8}) & -i \sin(\sfrac{\pi}{8}) & 0 \\
+%  0 & -i \sin(\sfrac{\pi}{8}) & \cos(\sfrac{\pi}{8}) & 0 \\
+%  -i \sin(\sfrac{\pi}{8}) & 0 & 0 & \cos(\sfrac{\pi}{8}) 
+%\end{smallmatrix}\Right) \notag
+\]
+
+% FIXME: Wrong diagram for CV gate. Not interchangeable. Should fail?
+$$
+\input{circuits/cv.tex}
+$$
+
+$$
+\input{circuits/cv.tex}
+\simeq
+\input{circuits/cv_to_cpt.tex}
+$$
+
+
+The $CV$ gate is a square-root of \Gate{CNOT}, since the  V-gate is the square root of the X-gate
+$$
+\input{circuits/cv2.tex}
+=
+\input{circuits/cnot.tex}
+$$
+Note that the inverse $\Gate{CV}^\dagger$ is a distinct square-root of \Gate{CNOT}. However \Gate{CV} and $\Gate{CV}^\dagger$ are locally equivalent, which is a consequence of the symmetry about $t_x=\half$ on the bottom face of the Weyl chamber. 
+
+
+\paragraph{Barenco gate}:
+\todo{TODO}
+
+
+\subsection{XY gates}
+
+Gates in the XY class forms two edges of the Weyl chamber with
+ coordinates $\Gate{CAN}(t, t, 0)$ (for $t\leq\half$) and $\Gate{CAN}(t, 1-t, 0)$ (for $t>\half$).
+This includes the identity and $\Gate{iSWAP}$ gates.
+
+
+\paragraph{\Gate{XY}-gate}
+Also occasionally referred to as the $\Gate{piSWAP}$ (or parametric iSWAP) gate.
+\[
+\Gate{XY}(t) &= 
+\Left(\begin{smallmatrix}
+1 & 0 & 0 & 0 \\
+0 & \cos(\pi t) & -i \sin(\pi t) & 0 \\
+0 & -i\sin(\pi t) & \cos(\pi t)  & 0 \\
+0 & 0 & 0 & 1
+\end{smallmatrix}\Right)
+\\
+& = \Gate{CAN}(t, t, 0) \notag
+\\
+& \loceq \Gate{CAN}(t, 1-t, 0) \notag
+\]
+% FIXME: piSWAP has different sign on sin?
+
+
+\paragraph{Double Controlled NOT gate}(DCNOT)\cite{Collins2001a}
+\[
+\Gate{DCNOT} & = 
+\Left[\begin{smallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 0 & 0 & 1 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 
+\end{smallmatrix}\Right]
+\\
+& \loceq \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{2}, 0) \notag
+\]
+A CNOT gate immediately followed by another CNOT with control and target interchanged. The DCNOT gate is in the iSWAP locality class.
+$$
+\input{circuits/dcnot.tex}
+\simeq
+\input{circuits/iswap_to_dcnot.tex}
+$$
+Note that unlike iSWAP, action of DCNOT is not invariant to the interchange of qubits. 
+
+%\Qcircuit @C=1.5em @R=1.5em {
+%& \lstick{0} & \ctrl{1} & \targ & \qw & \push{ } & \gate{H} & \gate{S^\dag} & \multigate{1}{{ \text{iSWAP}}} & \qw & \qw \\
+%& \lstick{1} & \targ & \ctrl{-1} & \qw & \push{ } & \gate{S^\dag} & \qw & \ghost{{ \text{iSWAP}}} & \gate{H} & \qw
+%}
+
+
+\paragraph{Givens gate}
+\[
+\Gate{Givens} & = \exp(-i \theta (Y\otimes X - X\otimes Y) / 2)
+\\ & =
+\begin{bsmallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & \cos(\theta) & -\sin(\theta) & 0 \\
+  0 & \sin(\theta) & \cos(\theta) & 0 \\
+  0 & 0 & 0 & 1 
+\end{bsmallmatrix}
+\\
+& \loceq \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{2}, 0) \notag
+\]
+
+
+
+\paragraph{\Gate{bSWAP} (Bell-Rabi) gate}~\cite{Poletto2012a}
+\[
+\Gate{bSWAP} &=
+\Left(\begin{smallmatrix}
+  0& 0 & 0 & -i \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  -i& 0 & 0 & 0 
+\end{smallmatrix}\Right)
+\begin{bsmallmatrix*}[c]
+  0& 0 & 0 & -i \\
+  0 & +1 & 0 & 0 \\
+  0 & 0 & +1 & 0 \\
+  -i& 0 & 0 & 0 
+\end{bsmallmatrix*}
+\\ & = \Gate{CAN}(\sfrac{1}{2}, -\sfrac{1}{2}, 0) \notag % CHECKME
+\\ & \loceq \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{2}, 0) \notag % CHECKME
+\]
+
+\paragraph{Mystery gate}
+\todo{What is this called and where did it come from? Seen in Mike \& Ike?}
+
+\[
+\Left[\begin{smallmatrix*}[r]
+  +1& 0 & 0 & 0 \\
+  0 & +1 & +1 & 0 \\
+  0 & -1 & +1 & 0 \\
+  0& 0 & 0 & +1 
+\end{smallmatrix*}\Right]
+\\ & \loceq \Gate{Can}(\sfrac{1}{2}, \sfrac{1}{2}, 0) \notag 
+\]
+
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& &\gate[2]{\Gate{Can}(\sfrac{1}{2},\sfrac{1}{2},0)} & \gate{S} & \qw \\
+&  & & \gate{S^\dagger} & \qw
+\end{quantikz}}
+$$
+
+
+\paragraph{{Dagwood Bumstead} (DB) gate}~\cite{Peterson2020a}
+Of all the gates in the \Gate{XY} class, the Dagwood Bumstead-gate makes the biggest sandwiches. \cite[Fig.~4]{Peterson2020a}
+
+\[
+\Gate{DB} &= 
+\begin{bsmallmatrix}
+1 & 0 & 0 & 0 \\
+0 & \cos(\sfrac{3\pi}{8} ) & -i \sin(\sfrac{3\pi}{8}) & 0 \\
+0 & -\sin(\sfrac{3\pi}{8}) & \cos(\sfrac{3\pi}{8})  & 0 \\
+0 & 0 & 0 & 1
+\end{bsmallmatrix}
+\\
+& = \Gate{XY}(\sfrac{3}{8}) \notag \\
+& = \Gate{CAN}(\sfrac{3}{8}, \sfrac{3}{8}, 0) \notag
+\]
+
+
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw [fill, Maroon] (0.75, 0.75, 0) circle [radius=0.04];
+\draw [fill, Maroon] (1.25, 0.75, 0) circle [radius=0.04];
+\node (B)		at (0.75, 0.75, 0) {};
+\node (B2)		at (1.25, 0.75, 0) {};
+\node (B_L) at (1, 1.5, -0.5) {${\Gate{DB}}$};
+\draw[ultra thin, ->] (B_L) -- (B);
+\draw[ultra thin, ->] (B_L) -- (B2);
+\end{tikzpicture}
+\end{center}
+
+
+\subsection{Exchange-interaction gates}
+
+Includes the identity and \Gate{SWAP} gates.
+
+\paragraph{\Gate{EXCH} (XXX) gate}
+\[
+ \Gate{EXCH}(t)  & = \Gate{CAN}(t, t, t)
+\]
+
+\paragraph{SWAP-alpha gates}
+\[
+ \Gate{SWAP}^\alpha  & \loceq \Gate{CAN}(\alpha, \alpha, \alpha)
+\]
+% See Blaauboer2008a for matrix
+
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw [ultra thick, Maroon] (0, 0, 0) -- (1,1,1) -- (2, 0, 0);
+
+\node (SWAP) at (1, 1, 1) {};
+\draw [fill, Maroon] (SWAP) circle [radius=0.04]  ;
+\node (SWAP_L) at (2, 1, 1) {${\Gate{SWAP}}$};
+\draw[ultra thin, ->] (SWAP_L) -- (SWAP);
+
+\node (SRSWAP) at (0.5, 0.5, 0.5) {};
+\draw [fill, Maroon] (SRSWAP) circle [radius=0.04]  ;
+\node (SRSWAP_L) at (-.5, 0.5, 0.5) {${\Gate{\sqrt{SWAP}}}$};
+\draw[ultra thin, ->] (SRSWAP_L) -- (SRSWAP);
+
+\node (SRSWAPI) at (1.5, 0.5, 0.5) {};
+\draw [fill, Maroon] (SRSWAPI) circle [radius=0.04]  ;
+\node (SRSWAPI_L) at (2.5, 0.5, 0.5) {${\Gate{\sqrt{SWAP}^\dagger}}$};
+\draw[ultra thin, ->] (SRSWAPI_L) -- (SRSWAPI);
+
+\node (I2) at (2, 0, 0) {};
+\draw [fill, Maroon] (I2) circle [radius=0.04]  ;
+\node (I2_L) at (2.5, 0, 0) {${\Gate{I}}$};
+\draw[ultra thin, ->] (I2_L) -- (I2);
+
+\node (I) at (0, 0, 0) {};
+\draw [fill, Maroon] (I) circle [radius=0.04]  ;
+\node (I_L) at (-0.5, 0, 0) {${\Gate{I}}$};
+\draw[ultra thin, ->] (I_L) -- (I);
+
+
+\node (L) at (1, 0, -0.25) {Exchange gates};
+
+\end{tikzpicture}
+\end{center}
+
+
+
+\paragraph{\Gate{\sqrt{SWAP}}-gate}
+\[
+ \Gate{\sqrt{SWAP}}  
+ % CHECKME
+ & =  \Left(\begin{smallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & \half(1+i) & \half(1-i) & 0 \\
+  0 & \half(1-i) & \half(1+i) & 0 \\
+  0 & 0 & 0 & 1 
+\end{smallmatrix} \Right)
+\\ \notag
+ & = \Gate{CAN}(\sfrac{1}{4}, \sfrac{1}{4}, \sfrac{1}{4})
+\notag
+\]
+
+
+\paragraph{Inverse \Gate{\sqrt{SWAP}}-gate}
+\[
+ \Gate{\sqrt{SWAP}}^\dagger 
+  % CHECKME 
+ & =  \Left(\begin{smallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & \half(1-i) & \half(1+i) & 0 \\
+  0 & \half(1+i) & \half(1-i) & 0 \\
+  0 & 0 & 0 & 1 
+\end{smallmatrix} \Right)
+\\ \notag
+ & = \Gate{CAN}(\sfrac{3}{4}, \sfrac{1}{4}, \sfrac{1}{4})
+\]
+Because of the symmetry around $t_x=\half$ on the base of the Weyl chamber, the \Gate{CNOT} and \Gate{iSWAP} gates only have
+one square root. But the \Gate{SWAP} has two locally distinct square
+roots, which are inverses of each other. 
+
+
+\subsection{Parametric SWAP gates}
+The class of parametric SWAP (PSWAP) gates forms the back edge of the Weyl chamber, $\Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{2}, t_z)$, connecting the \Gate{SWAP} and \Gate{iSWAP} gates.
+These gates can be decomposed into a \Gate{SWAP} and \Gate{ZZ} gate.
+
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{2}, t_z)} & \qw \\
+&  & \qw
+\end{quantikz}}
+\simeq
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \swap{1} &\gate[2]{ZZ^{t_z-\half}} & \qw \\
+& \targX{} &  & \qw
+\end{quantikz}}
+$$
+
+
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw [ultra thick, Maroon] (1, 1, 0) -- (1,1,1);
+\node (QFT) at (1, 1, 0.5) {};
+\draw [fill, Maroon] (QFT) circle [radius=0.04]  ;
+\node (QFT_L) at (2, 1, 0.5) {${\Gate{QFT}}$};
+\draw[ultra thin, ->] (QFT_L) -- (QFT);
+\node (iSWAP) at (1, 1, 0) {};
+\draw [fill, Maroon] (iSWAP) circle [radius=0.04]  ;
+\node (iSWAP_L) at (2, 1, 0) {${\Gate{iSWAP}}$};
+\draw[ultra thin, ->] (iSWAP_L) -- (iSWAP);
+\node (SWAP) at (1, 1, 1) {};
+\draw [fill, Maroon] (SWAP) circle [radius=0.04]  ;
+\node (SWAP_L) at (2, 1, 1) {${\Gate{SWAP}}$};
+\draw[ultra thin, ->] (SWAP_L) -- (SWAP);
+\node (Sycamore) at (1, 1, 0.16666) {};
+\draw [fill, Maroon] (Sycamore) circle [radius=0.04]  ;
+\node (Sycamore_L) at (2, 1, 0.16666) {${\Gate{Sycamore}}$};
+\draw[ultra thin, ->] (Sycamore_L) -- (Sycamore);
+
+\node (L) at (1, 0, -0.25) {\Gate{pSWAP} gates};
+\end{tikzpicture}
+\end{center}
+
+The Sycamore gate is discussed under XXY gates [ref].
+
+\paragraph{\Gate{pSwap} gate} (parametric swap)~\cite{Smith2016a}
+The parametric swap gate as originally defined in the QUIL quantum programming language.
+\[
+ \Gate{pSWAP}(\theta)  
+ & =  \Left(\begin{smallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 0 & e^{i\theta} & 0 \\
+  0 & e^{i\theta} & 0 & 0 \\
+  0 & 0 & 0 & 1 
+\end{smallmatrix} \Right) 
+\\ \notag
+ & \loceq \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{2}, \half - \sfrac{\theta}{\pi})
+\]
+
+
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\Gate{pSWAP}(\theta)} & \qw \\
+&  & \qw
+\end{quantikz}}
+\simeq
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate{Y} &\gate[2]{CAN(t,t,\half-\sfrac{\theta}{\pi})} & \qw \\
+&  & & \gate{Y} & \qw
+\end{quantikz}}
+$$
+$$
+{}\qquad\qquad\qquad\simeq
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \swap{1} & \qw      &\gate[2]{ZZ^{\half-\sfrac{\theta}{\pi}}} & \qw      & \qw \\
+& \targX{} & \gate{Y} &                                         & \gate{Y} & \qw 
+\end{quantikz}}
+$$
+
+%FIXME
+%\[
+%\label{pswap}
+%\text{\small
+%\Qcircuit @C=0.5em @R=1em {
+%& \multigate{1}{\Gate{pSWAP}(\theta)} & \qw & & \dstick{\simeq} & &
+%  & \qw & \gate{Y} & \multigate{1}{\Gate{CAN}(t,t,\half-\frac{\theta}{\pi})} & \qw & \qw
+%  \\
+%      & \ghost{\Gate{pSWAP}(\theta)} & \qw & &  & &
+%	& \qw  & \qw & \ghost{\Gate{CAN}(t,t,\half-{\theta}{\pi}}  & \gate{Y} & \qw
+%	}}
+%\]
+
+
+% FIXME
+%\[
+%\label{pswap}
+%\text{\small
+%\Qcircuit @C=0.5em @R=1em {
+%& \multigate{1}{\Gate{pSWAP}(\theta)} & \qw & & \dstick{\simeq} & &
+%  & \qw & \qw & \qswap & \qw & \qw &\multigate{1}{ZZ^{\half-\frac{\theta}{\pi}}} & \qw & \qw
+%  \\
+%      & \ghost{\Gate{pSWAP}(\theta)} &  \qw & &  & &
+%	& \qw  & \qw & \qswap \qwx  & \qw & \gate{Y} & \ghost{ZZ^{\half-\frac{\theta}{\pi}}} & \gate{Y} & \qw
+%	}}
+%\]
+
+
+\paragraph{Quantum Fourier transform (QFT)}~\cite{???}
+We will discuss the quantum Fourier transform (QFT) latter [ref]. The QFT can be applied to any number of qubits. For 2-qubits, the QFT gate is in the PSWAP class, half way between SWAP and iSWAP.
+\[
+ \Gate{QFT_2}  
+& = 
+\half \begin{bsmallmatrix*}[r]
+       1 &  1      &     1     &      1 \\
+          1       &   i & -1 & -i \\
+          1     &     -1 & 1 & -1 \\
+         1&  -i        &   -1      &    i
+         \end{bsmallmatrix*}
+ \\ 
+ & \loceq \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{2}, \sfrac{1}{4})
+\notag
+\]
+% See Blaauboer2008a0.pdf (45) Decomposition, plus more comments
+% FIXME: Swap goes at end?
+%
+$$
+\input{circuits/qft.tex}
+\simeq
+\input{circuits/qft_circ.tex}
+$$
+
+
+\subsection{Orthogonal gates}
+\todo{FIXME: This classification can't be quite right}
+
+An orthogonal gate, in this context, is a gate that can be represented by an orthogonal matrix (up to local 1-qubit rotations.)
+The special orthogonal gates have determinant $+1$ and coordinates $\Gate{CAN}(t_x, t_y, 0)$, which covers the bottom surface of the canonical Weyl chamber.
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;      
+\draw[fill, color=teal, opacity=0.2]    (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle;
+\node (L) at (1, 0, -0.25) {Special orthogonal gates};
+\end{tikzpicture}
+\end{center}
+
+% https://arxiv.org/pdf/quant-ph/0308006.pdf
+
+The improper orthogonal gates have determinant $-1$ and coordinates $\Gate{CAN}(\half, t_y, t_z)$, which is a plane connecting the \Gate{CNOT}, 
+\Gate{iSWAP}, and  \Gate{SWAP} gates.
+% CHECKME: what about where these 2-intersect!?
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw[fill, color=teal, opacity=0.2]    (1,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+\node (L) at (1, 0, -0.25) {Improper orthogonal gates};
+\end{tikzpicture}
+\end{center}
+
+% Both: CNOT and CZ
+
+
+% TODO: Decomposition
+
+\paragraph{\Gate{B} (Berkeley) gate}~\cite{Zhang2004b}
+Located in the middle of the bottom face of the Weyl chamber.
+\[
+ \Gate{B}  
+& = 
+\Left(\begin{smallmatrix}
+        \cos(\sfrac{\pi}{8}) &  0      &     0     &      i \sin(\sfrac{\pi}{8}) \\
+          0       &   \cos(\sfrac{3\pi}{8}) & i \sin(\sfrac{3\pi}{8}) & 0 \\
+          0     &     i \sin(\sfrac{3\pi}{8}) & \cos(\sfrac{3\pi}{8}) & 0 \\
+         i \sin(\sfrac{\pi}{8}) &  0        &   0      &     \cos(\sfrac{\pi}{8}) 
+         \end{smallmatrix}\Right)
+\\ \notag
+& = 
+\tfrac{\sqrt{2-\sqrt{2}}}{2}\Left(\begin{smallmatrix}
+        1+\sqrt{2} &  0      &     0     &      i \\
+          0       &   1 & i (1+\sqrt{2})  & 0 \\
+          0     &     i (1+\sqrt{2})  & 1 & 0 \\
+         i  &  0        &   0      &     1+\sqrt{2}  
+         \end{smallmatrix}\Right)        
+\\ \notag
+    & = \Gate{CAN}(-\sfrac{1}{2}, -\sfrac{1}{4}, 0)
+%\\ \notag
+  %  & \loceq \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{4}, 0)
+\]
+
+The \Gate{B}-gate, as originally defined, has canonical parameters outside our Weyl chamber due to differing conventions for parameterization of the canonical gate. But of course it can be  moved into our Weyl chamber with local gates. 
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{B} & \qw \\
+&                              & \qw
+\end{quantikz}}
+\simeq
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+&  \gate{Z} & \gate[2]{CAN(\tfrac{1}{2}, \tfrac{1}{4}, 0)} & \gate{Y} & \qw \\
+&   \gate{Y}              & &  \gate{Z}   &\qw
+\end{quantikz}}
+$$
+
+
+The B-gate is half way between the \Gate{CNOT} and \Gate{DCNOT} ($\sim$ \Gate{iSWAP}) gates, and thus it can be constructed from 3 \Gate{CV} (square root of \Gate{CNOT}) gates.
+$$
+\input{circuits/b.tex}
+\loceq
+\input{circuits/b_circ.tex}
+$$
+% TODO: Add local gates
+
+Notably two-B gates are sufficient to create any other 2-qubit gate (whereas, for example, we need 3 CNOT's in general)~\cite{Zhang2004b} 
+\endnote{Open Problem: Zang et al.\cite{Zhang2004b} derive the analytic decomposition of the canonical gate to a B gate sandwich only up to local gates. Derive an analytic formula for the necessary local gates to complete the canonical to B-sandwich decomposition. 
+(page~\pageref{en_zhang})}\label{en_zhang}
+$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{CAN(t_x, t_y, t_z)} & \qw \\
+&                              & \qw
+\end{quantikz}}
+\loceq
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+&  \gate[2]{B} & \qw & \gate{Y^{-t_x}}& \qw & \gate[2]{B} & \qw \\
+&               & \gate{Z^{s_z}}& \gate{Y^{s_y}}&     \gate{Z^{s_z}}&  &\qw
+\end{quantikz}}
+$$
+% TODO: Move this to section on decompositions?
+
+% See Blaauboer2008a0.pdf, defines B gate as parameterized gate, talks about implementation
+
+\[
+s_y &= +\tfrac{1}{\pi} \arccos \left(1 - 4 \sin^2\half\pi t_y \cos^2\half\pi t_z\right) \notag \\
+s_z & = -\tfrac{1}{\pi}\arcsin \sqrt{\frac{\cos \pi t_y \cos \pi t_z}{1 - 2 \sin^2\half\pi t_y \cos^2\half\pi t_z}}
+\]
+% TODO: Check equation. Add to QF
+
+
+
+\def\sep{0.25}  % Separation between gates and gate labels
+
+% begin ECP
+\paragraph{\Gate{ECP}-gate}~\cite{Peterson2020a}
+
+\[
+ \Gate{ECP}  
+&=
+ \frac{1}{2} \Left(\begin{smallmatrix}
+2 c & 0 & 0 & - i 2  s \\
+0 & (1 + i) (c - s) & (1 - i) (c + s) & 0 \\
+0 & (1 - i) (c + s) & (1 + i) (c - s)  & 0 \\
+-i 2 s & 0 & 0 & 2 c
+\end{smallmatrix}\Right)
+\\ \notag
+& \qquad c = \cos(\tfrac{\pi}{8})=\sqrt{\tfrac{2 + \sqrt{2}}{2}} 
+\\ \notag
+& \qquad s = \sin(\tfrac{\pi}{8})=\sqrt{\tfrac{2 - \sqrt{2}}{2}} 
+ \\ \notag
+ & = \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{4}, \sfrac{1}{4})
+\]
+The peak of the pyramid of gates in the Weyl chamber
+that can be created with a square-root of iSWAP sandwich.
+Equivalent to $\Gate{Can}(\tfrac{1}{2}, \tfrac{1}{4}, \tfrac{1}{4})$. 
+
+$$
+\input{circuits/ecp.tex}
+\simeq
+\input{circuits/ecp_to_sqrtiswap.tex}
+$$
+
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0) -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0) -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0) -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0) -- cycle
+      (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw   (0,0,0) -- (1,0.5,0.5) -- (2,0,0)  -- cycle;
+\draw    (0,0,0) -- (1,0.5,0.5) -- (1,1,0)  -- cycle;
+\draw[fill, color=teal, opacity=0.2]    (0,0,0) -- (1,0.5,0.5) -- (2,0,0)  -- cycle;
+\draw [fill, color=Maroon] (1, 0.5, 0) circle [radius=0.04];
+\node (B)		at (1, 0.5, 0) {};
+\node (B_L) at (2, 0.5, 0) {${\Gate{B}}$};
+\draw[ultra thin, ->] (B_L) -- (B);
+
+\node (ECP) at (1, 0.5, 0.5) {};
+\draw [fill, Maroon] (ECP) circle [radius=0.04]  ;
+\node (ECP_L) at (2, 0.5, 0.5) {${\Gate{ECP}}$};
+\draw[ultra thin, ->] (ECP_L) -- (ECP);
+\node (L) at (1, 0, -0.25) {\Gate{B} and \Gate{ECP} gates, and ECP pyramid};
+\end{tikzpicture}
+\end{center}
+
+% end ECP
+
+
+% begin W
+\paragraph{\Gate{W}-gate}~\cite{???}
+A 2-qubit orthogonal and Hermitian gate (and therefore also symmetric) $\Gate{W}^\dagger=\Gate{W}$,
+that applies a Hadamard gate to a duel-rail encoded qubit.
+\[
+\Gate{W} &= \Left[
+\begin{smallmatrix*}[c] 
+    1&0&0&0 \\
+    0&\tfrac{1}{\sqrt{2}}&\tfrac{1}{\sqrt{2}}&0 \\
+    0&\tfrac{1}{\sqrt{2}}&-\tfrac{1}{\sqrt{2}}&0 \\
+    0&0&0&1
+\end{smallmatrix*}
+\Right] 
+\\ \notag
+ & \loceq \Gate{ECP} = \Gate{CAN}(\sfrac{1}{2}, \sfrac{1}{4}, \sfrac{1}{4})
+\]
+
+$$
+\adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\text{W}} & \qw \\
+&  & \qw
+\end{quantikz}
+}
+\simeq
+\input{circuits/w_to_ch_cnot.tex}
+$$
+
+This $W$ gate is locally equivalent to \Gate{ECP}, 
+$$
+\adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\text{W}} & \qw \\
+&  & \qw
+\end{quantikz}
+}
+\simeq
+\input{circuits/w_to_ecp.tex}
+$$
+% TODO: Insert circuit. Self cite for?
+and thus three CNOT gates are necessary (and sufficient) to generate the gate.
+$$
+\adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\text{W}} & \qw \\
+&  & \qw
+\end{quantikz}
+}
+\simeq
+\input{circuits/w_to_cnot.tex}
+$$
+
+The $W$ gate has the useful property that it diagonlizes the swap gate~\cite{???}.
+$$
+\adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\text{W}} & \swap{1} & \gate[2]{\text{W}} & \qw\\ 
+&  & \targX{} & & \qw
+\end{quantikz}
+}
+=
+\Left[
+\begin{smallmatrix*}[c] 
+    1&0&0&0 \\
+    0&1&0&0 \\
+    0&0&-1&0 \\
+    0&0&0&1
+\end{smallmatrix*}
+\Right] 
+$$
+
+
+% TODO: Diagonalizes SWAP
+
+
+% end W
+
+
+
+
+
+
+
+
+
+
+\subsection{\Gate{XXY} gates}
+The remaining faces of the Weyl chamber are the XXY family. Thanks to the Weyl symmetries, this family covers all three faces that meet at the \Gate{SWAP} gate.
+\[
+ \Gate{XXY}(t, \delta)  & = \Gate{CAN}(t, t, \delta)
+\]
+
+
+\paragraph{\Gate{FSIM} (Ferminoic Simulator) gate}~\cite{???}
+\todo{TODO}
+
+
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;  
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;          
+\draw[fill, color=teal, opacity=0.2]    (0,0,0) -- (1,1,0) -- (1,1,1)  -- cycle;
+\end{tikzpicture}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;      
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw[fill, color=teal, opacity=0.2]    (2,0,0) -- (1,1,0) -- (1,1,1)  -- cycle;
+\end{tikzpicture}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;      
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw[fill, color=teal, opacity=0.2]    (0,0,0) -- (1,0,0) -- (1,1,1)  -- cycle;
+\end{tikzpicture}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;      
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw[fill, color=teal, opacity=0.2]    (1,0,0) -- (2,0,0) -- (1,1,1)  -- cycle;
+\end{tikzpicture}
+
+\end{center}
+
+
+
+\paragraph{\Gate{Sycamore} gate}~\cite{???}
+\todo{TODO}
+

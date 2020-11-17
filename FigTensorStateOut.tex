@@ -1,0 +1,104 @@
+ \documentclass[border=5pt]{standalone}
+     \usepackage[svgnames]{xcolor}
+   
+    \usepackage{tikz}
+    \usetikzlibrary{matrix,decorations.pathreplacing, calc, positioning,fit}
+    \usepackage{amsmath}
+    \usepackage{mathtools}
+ 
+    \begin{document}
+
+    
+   \begin{tikzpicture}[>=stealth,thick,baseline]
+    \matrix [matrix of math nodes, row sep=1.5em, column sep=1.5em,](A){ 
+    v_{0,0,0} \\
+    v_{0,0,1} \\
+    v_{0,1,0} \\
+	v_{0,1,1} \\
+	v_{1,0,0} \\
+	v_{1,0,1} \\
+	v_{1,1,1} \\ 
+    v_{1,1,0} \\
+    };
+    
+
+%	\draw (A-1-1.north west){}+(-0.1,+0.1) -- (A-1-1){}+(2,0);
+
+	\draw[]  ($(A-1-1.north west) + (-0.2,+0.2)$) -- ($(A-8-1.south west) + (-0.2,-0.2)$);
+	\draw[]  ($(A-1-1.north west) + (-0.2,+0.2)$) -- ++(0.1,0);
+	\draw[]  ($(A-8-1.south west) + (-0.2,-0.2)$) -- ++(0.1,0); 	
+
+	\draw[]  ($(A-1-1.north east) + (+0.2,+0.2)$) -- ($(A-8-1.south east) + (+0.2,-0.2)$);
+	\draw[]  ($(A-1-1.north east) + (+0.2,+0.2)$) -- ++(-0.1,0);
+	\draw[]  ($(A-8-1.south east) + (+0.2,-0.2)$) -- ++(-0.1,0); 	
+
+
+	\draw[thin]  ($(A-1-1.north west) + (-0.1,+0.1)$) -- ($(A-4-1.south west) + (-0.1,-0.1)$);
+	\draw[thin]  ($(A-1-1.north west) + (-0.1,+0.1)$) -- ++(0.1,0);
+	\draw[thin]  ($(A-4-1.south west) + (-0.1,-0.1)$) -- ++(0.1,0);
+
+	\draw[thin]  ($(A-5-1.north west) + (-0.1,+0.1)$) -- ($(A-8-1.south west) + (-0.1,-0.1)$);
+	\draw[thin]  ($(A-5-1.north west) + (-0.1,+0.1)$) -- ++(0.1,0);
+	\draw[thin]  ($(A-8-1.south west) + (-0.1,-0.1)$) -- ++(0.1,0);
+
+
+	\draw[thin]  ($(A-1-1.north east) + (+0.1,+0.1)$) -- ($(A-4-1.south east) + (+0.1,-0.1)$);
+	\draw[thin]  ($(A-1-1.north east) + (+0.1,+0.1)$) -- ++(-0.1,0);
+	\draw[thin]  ($(A-4-1.south east) + (+0.1,-0.1)$) -- ++(-0.1,0);
+
+	\draw[thin]  ($(A-5-1.north east) + (+0.1,+0.1)$) -- ($(A-8-1.south east) + (+0.1,-0.1)$);
+	\draw[thin]  ($(A-5-1.north east) + (+0.1,+0.1)$) -- ++(-0.1,0);
+	\draw[thin]  ($(A-8-1.south east) + (+0.1,-0.1)$) -- ++(-0.1,0);
+
+
+
+
+	\draw[ultra thin]  (A-1-1.north west) -- ++(0.1,0);
+	\draw[ultra thin]  (A-1-1.north west) -- 
+	                   (A-2-1.south west);
+	\draw[ultra thin]  (A-2-1.south west) -- ++(0.1,0);	
+	
+	\draw[ultra thin]  (A-1-1.north east) -- ++(-0.1,0);
+	\draw[ultra thin]  (A-1-1.north east) -- 
+	                   (A-2-1.south east);
+	\draw[ultra thin]  (A-2-1.south east) -- ++(-0.1,0);	
+	
+	\draw[ultra thin]  (A-3-1.north west) -- ++(0.1,0);
+	\draw[ultra thin]  (A-3-1.north west) -- 
+	                   (A-4-1.south west);
+	\draw[ultra thin]  (A-4-1.south west) -- ++(0.1,0);	
+	
+	\draw[ultra thin]  (A-3-1.north east) -- ++(-0.1,0);
+	\draw[ultra thin]  (A-3-1.north east) -- 
+	                   (A-4-1.south east);
+	\draw[ultra thin]  (A-4-1.south east) -- ++(-0.1,0);	
+	
+	\draw[ultra thin]  (A-5-1.north west) -- ++(0.1,0);
+	\draw[ultra thin]  (A-5-1.north west) -- 
+	                   (A-6-1.south west);
+	\draw[ultra thin]  (A-6-1.south west) -- ++(0.1,0);	
+	
+	\draw[ultra thin]  (A-5-1.north east) -- ++(-0.1,0);
+	\draw[ultra thin]  (A-5-1.north east) -- 
+	                   (A-6-1.south east);
+	\draw[ultra thin]  (A-6-1.south east) -- ++(-0.1,0);	
+	
+	\draw[ultra thin]  (A-7-1.north west) -- ++(0.1,0);
+	\draw[ultra thin]  (A-7-1.north west) -- 
+	                   (A-8-1.south west);
+	\draw[ultra thin]  (A-8-1.south west) -- ++(0.1,0);	
+	
+	\draw[ultra thin]  (A-7-1.north east) -- ++(-0.1,0);
+	\draw[ultra thin]  (A-7-1.north east) -- 
+	                   (A-8-1.south east);
+	\draw[ultra thin]  (A-8-1.south east) -- ++(-0.1,0);	
+
+
+    \end{tikzpicture}
+
+    
+    
+\end{document}
+    
+    
+    

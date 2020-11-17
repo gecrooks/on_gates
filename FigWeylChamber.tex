@@ -1,0 +1,78 @@
+
+\begin{figure*}[tp]
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=6.0]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+%\draw [ultra thick, Maroon] (0, 0, 0) -- (1,1,1) -- (2, 0, 0);
+
+\node (SWAP) at (1, 1, 1) {};
+\node (SWAP_L) at (1+0.25, 1, 1) {${\Gate{SWAP}}$};
+\draw[thin, ->] (SWAP_L) -- (SWAP);
+
+\node (SRSWAP) at (0.5, 0.5, 0.5) {};
+\node (SRSWAP_L) at (0.5-0.25, 0.5, 0.5) {${\Gate{\sqrt{SWAP}}}$};
+\draw[ultra thin, ->] (SRSWAP_L) -- (SRSWAP);
+
+\node (SRSWAPI) at (1.5, 0.5, 0.5) {};
+\node (SRSWAPI_L) at (1.5+0.25, 0.5, 0.5) {${\Gate{\sqrt{SWAP}^\dagger}}$};
+\draw[ultra thin, ->] (SRSWAPI_L) -- (SRSWAPI);
+
+\node (I2) at (2, 0, 0) {};
+\node (I2_L) at (2, 0, -0.25) {${{I}}$};
+\draw[ultra thin, ->] (I2_L) -- (I2);
+
+\node (I) at (0, 0, 0) {};
+\node (I_L) at (0, 0, -0.25) {${{I}}$};
+\draw[ultra thin, ->] (I_L) -- (I);
+
+\node (CNOT) at (1, 0, 0) {};
+\node (CNOT_L) at (1, 0, -0.25) {${\Gate{CNOT}}$};
+\draw[ultra thin, ->] (CNOT_L) -- (CNOT);
+
+\node (SRCNOT) at (0.5, 0, 0) {};
+\node (SRCNOT_L) at (0.5, 0, -0.25) {${\Gate{CV}}$};
+\draw[ultra thin, ->] (SRCNOT_L) -- (SRCNOT);
+
+\node (SRCNOT2) at (1.5, 0, 0) {};
+\node (SRCNOT2_L) at (1.5, 0, -0.25) {${\Gate{CV}}$};
+\draw[ultra thin, ->] (SRCNOT2_L) -- (SRCNOT2);
+
+\node (iSWAP) at (1, 1, 0) {};
+\node (iSWAP_L) at (1, 1, -0.25) {${\Gate{iSWAP}}$};
+\draw[ultra thin, ->] (iSWAP_L) -- (iSWAP);
+
+\node (B) at (1, 0.5, 0) {};
+\node (B_L) at (1, 0.5, -0.25) {${\Gate{B}}$};
+\draw[ultra thin, ->] (B_L) -- (B);
+
+\node (ECP) at (1, 0.5, 0.5) {};
+\node (ECP_L) at (1-0.25, 0.5, 0.5) {${\Gate{ECP}}$};
+\draw[ultra thin, ->] (ECP_L) -- (ECP);
+
+\node (QFT) at (1, 1, 0.5) {};
+\node (QFT_L) at (1+0.25, 1, 0.5) {${\Gate{QFT}}$};
+\draw[ultra thin, ->] (QFT_L) -- (QFT);
+
+\node (SRiSWAP) at (0.5, 0.5, 0) {};
+\node (SRiSWAP_L) at (0.5, 0.5, -0.25) {${\Gate{\sqrt{iSWAP}}}$};
+\draw[ultra thin, ->] (SRiSWAP_L) -- (SRiSWAP);
+
+\node (SRiSWAP2) at (1.5, 0.5, 0) {};
+\node (SRiSWAP2_L) at (1.5, 0.5, -0.25) {${\Gate{\sqrt{iSWAP}}}$};
+\draw[ultra thin, ->] (SRiSWAP2_L) -- (SRiSWAP2);
+
+\draw[thick,->] (0,0,0) -- (0.25,0,0) node[anchor=north east]{${t_x}$};
+\draw[thick,->] (0,0,0) -- (0,0.25,0) node[anchor= west]{${t_y}$};
+\draw[thick,->] (0,0,0) -- (0,0,0.25) node[anchor=south]{${t_z}$};
+
+\end{tikzpicture}
+\end{center}
+
+\caption{Location of the 11 principal 2-qubit gates in the Weyl chamber. All of these gates have coordinates of the form $\Gate{CAN}(\sfrac{1}{4}k_x, \sfrac{1}{4}k_y, \sfrac{1}{4}k_z)$, for integer $k_x$, $k_y$, and $k_z$.
+Note there is a symmetry on the bottom face such that $CAN(t_x, t_y, 0) \loceq CAN(\half-t_x, t_y, 0)$.
+}
+\end{figure*}
