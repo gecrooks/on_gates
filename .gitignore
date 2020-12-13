@@ -280,5 +280,6 @@ GECLibrary2.bib
 GSC_Literature
 circuits/*.tex
 version.txt
+version.tex
 .DS_Store
 

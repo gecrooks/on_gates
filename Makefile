@@ -8,6 +8,7 @@ help:
 
 
 build: ## Build on_gates
+	git tag --points-at HEAD > version.txt
 	latexmk -xelatex on_gates.tex
 
 
@@ -23,10 +24,17 @@ circuits:  ## Build latex circuits
 	cd circuits && ./latex_circuits.py
 
 
-version: ## Extract version from git tag and write to version.tex
-	git tag --points-at HEAD > version.txt
-	@cat version.txt
+version: _version_check build ## Build and tag new version `>make version TAG=0.6`
+	git add on_gates.pdf
+	git commit -m "New version ${TAG}"
+	git tag -a ${TAG} -m "v${TAG}"
+	@echo "To complete push: git push origin ${TAG}"
+
+_version_check:
+	@echo "Checking for clean git repo..."
+	echo ${TAG} > version.tex
 
 
 .PHONY: help
 .PHONY: circuits
+.PHONY: version version_check
