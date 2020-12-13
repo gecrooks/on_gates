@@ -24,17 +24,14 @@ circuits:  ## Build latex circuits
 	cd circuits && ./latex_circuits.py
 
 
-version: version_check build ## Build and tag new version `>make version TAG=0.6`
-	git add on_gates.pdf # version.txt?
-	git commit -m "New version${TAG}"
+version: _version_check build ## Build and tag new version `>make version TAG=0.6`
+	git add on_gates.pdf
+	git commit -m "New version ${TAG}"
 	git tag ${TAG}
 	@echo "To complete push: git push origin ${TAG}"
 
-version_check:
+_version_check:
 	@echo "Checking for clean git repo..."
-	git diff-index --quiet HEAD 
-
-	@echo "Build and tag new version: Are you sure? [y/N] " && read ans && [ $${ans:-N} = y ]
 	echo ${TAG} > version.tex
 
 
