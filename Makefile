@@ -27,7 +27,7 @@ circuits:  ## Build latex circuits
 version: _version_check build ## Build and tag new version `>make version TAG=0.6`
 	git add on_gates.pdf
 	git commit -m "New version ${TAG}"
-	git tag ${TAG}
+	git tag -a ${TAG} -m "v${TAG}"
 	@echo "To complete push: git push origin ${TAG}"
 
 _version_check:
