@@ -28,7 +28,7 @@ version: version_check build ## Build and tag new version `>make version TAG=0.6
 	git add on_gates.pdf # version.txt?
 	git commit -m "New version${TAG}"
 	git tag ${TAG}
-	@echo "To complete push: `git push origin ${TAG}`"
+	@echo "To complete push: git push origin ${TAG}"
 
 version_check:
 	@echo "Checking for clean git repo..."
