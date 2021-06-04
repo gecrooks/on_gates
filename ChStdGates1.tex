@@ -504,7 +504,7 @@ R_{\vec{n}}(\theta) &
 \end{quantikz}
 }
 \end{center}
-Clearly, the Pauli rotation gates are special cases of the general rotation gate.
+Clearly the Pauli rotation gates are special cases of the general rotation gate.
 \[
 R_x(\theta) & = R_{\vec{n}}(\theta), \quad \vec{n} = (1, 0, 0) \notag \\
 R_y(\theta) & = R_{\vec{n}}(\theta), \quad \vec{n} = (0, 1, 0) \notag \\
@@ -516,7 +516,7 @@ See figures~\ref{???} and~\ref{???}.
 
 \todo{Some better name for this gate?}
 
-You might reasonably be wondering why there is a factor of half in the definitions of the rotation gates. A 1-qubit gate is represented by an element of group $SU(2)$, which are rotations in a 2-dimensional complex vector space. But we are visualizing the effect of these gates as rotations in 3-dimensional Euclidean space. These spacial rotations are elements of the special orthogonal gate $SO(3)$. But there is an accidental correspondence between these two groups. We can map two elements of $SU(2)$ (differing by only a -1 phase) to each element of $SO(3)$ while keeping the group structure. In the jargon, $SU(2)$ is a double cover of $SO(3)$. This correspondence is what allows us to visulize 1-qubit gates as rotations in 3-space. But because of this doubling up, a rotation of $\theta$ radians in the Bloch sphere corresponds to a rotation of only $\half \theta$ in the complex vector space. We have to go twice around the Bloch sphere, $\theta =4\pi$, to get back to the same gate with the same phase.
+You might reasonably be wondering why there is a factor of half in the definitions of the rotation gates. A 1-qubit gate is represented by an element of the group $SU(2)$, which are rotations in a 2-dimensional complex vector space. But we are visualizing the effect of these gates as rotations in 3-dimensional Euclidean space, which are elements of the special orthogonal gate $SO(3)$. We can do this because there is an accidental correspondence between these two groups that allows us to visualize 1-qubit gates as rotations in 3-space. We can map two elements of $SU(2)$ (differing by only a -1 phase) to each element of $SO(3)$ while keeping the group structure. In the jargon, $SU(2)$ is a double cover of $SO(3)$. Because of this doubling up, a rotation of $\theta$ radians in the Bloch sphere corresponds to a rotation of only $\half \theta$ in the complex vector space. We have to go twice around the Bloch sphere, $\theta =4\pi$, to get back to the same gate with the same phase.
 
 
 \todo{Check double cover nomenclature}
@@ -1228,9 +1228,9 @@ H\ket{-} & = \ket{1} \notag
 \notag
 \]
 
-The Hadamard gate is named for the \define{Hadamard transform} (Or \define{Walsh-Hadamard transform}), which in the context of quantum computing is the simultaneous application of Hadamard gates to multi-qubits. We will return this transform presently \todo{ref}. \index{Hadamard transform}\index{Walsh-Hadamard transform}
+The Hadamard gate is named for the \define{Hadamard transform} (Or \define{Walsh-Hadamard transform}), which in the context of quantum computing is the simultaneous application of Hadamard gates to multiple-qubits. We will return this transform presently\todo{ref}. \index{Hadamard transform}\index{Walsh-Hadamard transform} % Have I?
 
-It is also worth noting a couple useful decompositions (up to phase).
+It is also worth noting a couple of useful decompositions (up to phase).
 \begin{center}
 \input{circuits/H.tex} $\simeq$
 \input{circuits/H_ZY.tex}
@@ -1565,12 +1565,13 @@ The coordinates of all 6 Hadamard-like gates are shown in Fig.~\ref{???}, and li
 
 \[
 H_H = \frac{\pi}{2} (\frac{1}{\sqrt{2}}(X + Z) - I)
+\notag
 \]
 
 \[
  H^t = e^{i \pi t/2}
         \begin{bmatrix*}[r]
-            \cos(\tfrac{t}{2}) + \tfrac{i}{\sqrt{2}}\sin(\tfrac{t}{2})) &
+            \cos(\tfrac{t}{2}) + \tfrac{i}{\sqrt{2}}\sin(\tfrac{t}{2}) &
             \tfrac{i}{\sqrt{2}} \sin(\tfrac{t}{2}) \\
             \tfrac{i}{\sqrt{2}} \sin(\tfrac{t}{2}) &
             \cos(\tfrac{t}{2}) -\tfrac{i}{\sqrt{2}} \sin(\frac{t}{2})
