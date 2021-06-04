@@ -352,8 +352,6 @@ write_latex(fname, circ0)
 write_latex(fname+'_res', circ1)
 
 
-
-
 fname = 'pauli_deke'
 circ0 = qf.Circuit([qf.Rz(Symbol(r'\theta_0'), 0),
                    qf.Ry(Symbol(r'\theta_1'), 0),
@@ -376,6 +374,18 @@ circ0 = qf.Circuit([
     qf.XPow(Symbol(r'\frac{\theta}{\pi}'), 0)
     ])
 write_latex(fname, circ0)
+
+
+fname = 'a_to_cnot'
+circ = qf.Circuit(qf.translate_A_to_CNot(qf.A(Symbol('theta'), Symbol('phi'), 0, 1)))
+write_latex(fname, circ)
+
+fname = 'a_to_can'
+circ = qf.Circuit(qf.translate_A_to_Can(qf.A(Symbol('theta'), Symbol('phi'), 0, 1)))
+write_latex(fname, circ)
+
+
+
 
 
 print()

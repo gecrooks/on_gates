@@ -909,7 +909,7 @@ $$
 
 
 % begin W
-\paragraph{\Gate{W}-gate}~\cite{???}
+\paragraph{\Gate{W}-gate}~\cite{???}\index{W gate}
 A 2-qubit orthogonal and Hermitian gate (and therefore also symmetric) $\Gate{W}^\dagger=\Gate{W}$,
 that applies a Hadamard gate to a duel-rail encoded qubit.
 \[
@@ -957,7 +957,7 @@ $$
 \input{circuits/w_to_cnot.tex}
 $$
 
-The $W$ gate has the useful property that it diagonlizes the swap gate~\cite{???}.
+The $W$ gate has the useful property that it diagonalizes the swap gate~\cite{???}.
 $$
 \adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
 & \gate[2]{\text{W}} & \swap{1} & \gate[2]{\text{W}} & \qw\\ 
@@ -974,14 +974,55 @@ $$
 \end{smallmatrix*}
 \Right] 
 $$
+% Is there a name for this CZ equivalent gate? Also turns up as A(0,0)
+
+\paragraph{\Gate{A}-gate}~\cite{Barkoutsos2018a, Gard2020a}\index{A gate}\endnote{Open problem: What is the analytic decomposition of the A-gate Hamiltonian (in the Pauli basis).}
+A 2-qubit 2-parameter gate in the improper-orthogonal local-equivalency class.
+\[
+\Gate{A}(\theta, \phi) &= \Left[
+\begin{smallmatrix*}[c] 
+    1&0&0&0 \\
+    0&\cos(\theta)&e^{+i \phi} \sin(\theta)&0 \\
+    0&e^{-i \phi} \sin(\theta)& -\cos(\theta)&0 \\
+    0&0&0&1
+\end{smallmatrix*}
+\Right] 
+\\ \notag
+ &  \loceq\Gate{CAN}(\sfrac{1}{2}, \tfrac{\theta}{\pi}, \tfrac{\theta}{\pi})
+\]
+This gate is notable in that it conserves the number of $1$s (versus $0$s) in the computational basis~\cite{Barkoutsos2018a, Gard2020a}. It has utility in VQE~\ref{???} ansatzs as a particle-conversing mixer. 
+
+In the Weyl chamber, the A-gate spans the line connecting the CNOT and SWAP gates~\cite{Gard2020a}. 
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw [ultra thick, Maroon] (1, 0, 0) -- (1,1,1);
+\node (L) at (1, 0, -0.25) {\Gate{A} gates};
+\end{tikzpicture}
+\end{center}
+The $\Gate{W}$ and $\Gate{Swap}$ gates are special cases, and $\Gate{A}(0, 0)$ is locally equivalent to CNOT.
+\[
+\Gate{A}(0, 0) &\loceq \Gate{CNOT} \notag \\
+\Gate{A}(\tfrac{\pi}{4}, 0) &= \Gate{W} \notag \\
+\Gate{A}(\tfrac{\pi}{2}, 0) &= \Gate{SWAP} \notag
+\]
+The $A$-gate requires a 3-CNOT decomposition in general~\cite{Gard2020a}.
+$$
+\Gate{A}(\theta, \phi)\simeq
+\input{circuits/a_to_cnot.tex}
+$$
+$$\simeq
+\input{circuits/a_to_can.tex}
+$$
 
 
-% TODO: Diagonalizes SWAP
+% end A-gate
 
-
-% end W
-
-
+ 
 
 
 
