@@ -1,0 +1,51 @@
+
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = on_gates.tex
+
+\clearpage
+
+\section{Multi-qubit gates}
+
+\subsection{Controlled unitary gates}
+
+\subsection{Two-level unitary gates}
+
+A 2-level unitary is a unitary operation that acts non-trivially on only 2-states. For 2-qubits, any controlled-unitary gate is 2-level,
+\[
+\begin{bsmallmatrix}
+    1 & 0 & 0 & 0 \\ 
+    0 & 1 & 0 & 0 \\ 
+    0 & 0 & a & c \\ 
+    0 & 0 & b & d        
+\end{bsmallmatrix}
+\]
+where the 2x2 submatrix $\begin{bsmallmatrix}
+    a & c \\ 
+    b & d        
+\end{bsmallmatrix}$ 
+is unitary. But the active states need not be the last two. Any permutation of a controlled 1-qubit gate is also a two-level unitary, such as 
+\[
+\begin{bsmallmatrix}
+    a & c & 0 & 0 \\ 
+    b & d & 0 & 0 \\ 
+    0 & 0 & 1 & 0 \\ 
+    0 & 0 & 0 & 1        
+\end{bsmallmatrix}
+\text{or}
+\begin{bsmallmatrix}
+    a & 0 & 0 & c \\ 
+    0 & 1 & 0 & 0 \\ 
+    0 & 0 & 1 & 0 \\ 
+    b & 0 & 0 & d        
+\end{bsmallmatrix} \ .
+\]
+Similarly any multi-controlled 2x2 unitary, or permutation of the same, is a 2-level unitary. 
+
+Two-level unitaries are important because we can systematically decompose an arbitrary unitary into a sequence of 2-level unitaries, and 2-level unitaries themselves can be decomposed into controlled-unitary gates. 
+
+% Cite Reck1994
+\subsection{Multiplexed gates}
+
+\subsection{Diagonal gates}
+
+

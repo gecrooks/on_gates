@@ -7,78 +7,45 @@
 \section{Decomposition of 1-qubit gates}
 A general 1-qubit gate corresponds to some 2 by 2 unitary matrix,
 \[
-V = 
+U = 
 e^{i\alpha}\begin{bsmallmatrix}
 a & -b^* \\
 b & a^*
 \end{bsmallmatrix}\]
-where $\alpha$ is real, $a$ and $b$ are complex with $|a|^2 + |b|^2 = 1$.
-Given such a generic unitary, we would like to represent the gate using standard parameterized gates.   
+where $a$ and $b$ are complex with $|a|^2 + |b|^2 = 1$, and  $\alpha$ is real.
+Given such a generic unitary, we would like to represent this gate using standard parameterized gates.   
 
 The first step to deke\endnote{
 {\sl deke} {\sl |dek|} verb --- To decompile, deconstruct, or decompose.
 \\ 1995  Neal Stephenson {\sl The Diamond Age} ``We gotta deke all this stuff now'' Easy come, easy go.
-} a gate is to extract the phase factor $\alpha$,
+\index{deke}}\index{deke} a gate is to extract the phase factor $\alpha$,
 \[
 V = e^{i\alpha} U
 \]
-so that $V$ is a special unitary matrix with $\det V=1$. In general, if we multiply a special unitary matrix by a complex phase $c$ then $\det cV=c^k$ where $k$ is the rank of the matrix, i.e. $k=2^n$ for n qubit. (The determinate is the product of the eigenvalues, and multiplying a matrix by a constant multiplies each of the eigenvalues). [TODOO: Wordsmith]
-
-Thus the determinate of U is $\det U=e^{i 2 \alpha }$, and we can extract the phase factor $\alpha$ with some trigonometry.
+so that $V$ is a special unitary matrix with $\det V=1$. In general, if we multiply a special unitary matrix by a complex phase $c$ then $\det cU=c^k$ where $k$ is the rank of the matrix, i.e. $k=2^n$ for $n$ qubits. This follows since the determinate is the product of the eigenvalues, and multiplying a matrix by a constant multiplies each eigenvalue by that constant.
+Thus the determinate of $U$ is $\det U=e^{i 2 \alpha }$, and we can extract the phase factor $\alpha$ with some trigonometry.
 \[
-\alpha = \half \text{arctan2}(\Im(\det U), \Re(\det U))
+\alpha = \half \operatorname{arctan2}\bigl(\Im(\det U), \Re(\det U)\bigr)
+\label{phase_extraction}
 \]
+% TODO: CHECK
 
-\todo{Explain arctan2}
+The two-argument arctangent function $\operatorname{arctan2}(y,x)$ returns the angle~$\theta$ between x-axis and the ray from the origin to $(x, y)$. In contrast the single argument arctangent function $\arctan(y/x)$ only gives the correct answer for $x>0$ since it can't distinguish between $(x,y)$ and $(-x, -y)$.\index{arctan2}
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+\draw[->] (-3,0) -- (3, 0);
+\draw[->] (0,-3) -- (0, 3);
+\draw[-o, dashed] (0,0) --(2.5, 2) node[right] {$(x,y)$} node [midway, above, sloped] (r) {$r$};
+\draw[->] (0:2) arc[radius=2, start angle=0, end angle=35] node [midway, right] {$\theta = \operatorname{arctan2}(y,x)$};
+\end{tikzpicture}
+\end{center}
+For a complex number $x+iy = r e^{i\theta}$, the modulus (or magnitude) $r=\sqrt{x^2+y^2}$ and the phase (or argument) is $\theta = \operatorname{arctan2}(y,x)$. 
 
-
-\subsection{Bloch rotation decomposition}
-
-\[
-R_{\vec{n}}(\theta) =
-\begin{bmatrix*}
-	\cos(\half\theta) - i n_z \sin(\half\theta)  &
-	- n_y \sin(\half\theta)-i n_x \sin(\half\theta)  \\
-	n_y \sin(\half\theta)-i n_x \sin(\half\theta)   & 
-	\cos(\half\theta) + i n_z \sin(\half\theta)
-\end{bmatrix*}
-\]
-
-\[
-	N &= \sqrt{(\Im V_{0,1})^2 + (\Re V_{0,1})^2 + (\Im V_{0,0})^2} \\
-	n_x & = -\Im V_{0,1}/N  \notag \\
-	n_y & = - \Re V_{0,1}/N \notag \\
-	n_z & = - \Im V_{0,0}/N \notag \\
-s = \sin(\half\theta) &= - \Im V_{0, 0} / n_z \notag \\ 
-c = \cos(\half\theta)  &= \Re V_{0, 0}  \notag \\
-\theta &= 2\ \text{arctan2}(s, c) \notag
-\]
-
-
-%-\Im V_{0,1} - \Re V_{0,1} - \Im U_{0,0}
-%
-%    U = asarray(gate.asoperator())
-%    U /= np.linalg.det(U) ** (1/2)
-%
-%    nx = - U[0, 1].imag
-%    ny = - U[0, 1].real
-%    nz = - U[0, 0].imag
-%    N = np.sqrt(nx**2 + ny**2 + nz**2)
-%    if N == 0:  # Identity
-%        nx, ny, nz = 1, 1, 1
-%    else:
-%        nx /= N
-%        ny /= N
-%        nz /= N
-%    sin_halftheta = N
-%    cos_halftheta = U[0, 0].real
-%    theta = 2 * np.arctan2(sin_halftheta, cos_halftheta)
-
-
-\subsection{Z-Y decompositions}
+\subsection{Z-Y-Z decomposition}\index{ZYZ decomposition}
+\label{sec:ZYZdeke}
+\index{Pauli-rotation decomposition}
 \todo{Naming. Pauli deke? Euler? Z-Y-Z or Z-Y?}
-\endnote{The Z-Y decomposition is apparently of relatively ancient origin, long know in the theory of light polarization~\cite{Sousa2006a}}
-
+Any 1-qubit gate can be decomposed as a sequence of Z, Y, and Z rotations, and a phase~\cite{Barenco1995b}\endnote{The Z-Y decomposition is of ancient origin, long know in the theory of light polarization~\cite{Sousa2006a}}.
 \[
 U =  e^{i\alpha}\ R_z(\theta_2)\ R_y(\theta_1)\ R_z(\theta_0)
 \]
@@ -92,9 +59,14 @@ $=$
 \end{center}
 Note that we have numbered the three angles in chronological order, and recall that time runs right-to-left in operator notation, but left-to-right in circuit notation. 
 
+%%For example, the $R_x$ gate can be generated by an $R_y$ gate sandwiched between quarter turns about the z-axis.
+%%\[
+%%\Gate{R_x}(\theta) =  \ R_z(-\tfrac{\pi}{2})\ R_y(\theta)\ R_z(+\tfrac{\pi}{2})
+%%\]
+If multiply out the circuit, then we get the following universal 1-qubit gate.
 \[
-V = 
-\begin{bmatrix}
+U = 
+e^{i\alpha} \begin{bmatrix}
 +e^{+i(+\half\theta_2 + \half\theta_0)} \cos(\half\theta_1) 
 & -e^{-i(-\half\theta_2 + \half\theta_0)} \sin(\half\theta_1) 
 \\
@@ -102,124 +74,95 @@ V =
 & +e^{-i(+\half\theta_2 +\half\theta_0)} \cos(\half\theta_1)
 \end{bmatrix}
 \]
-
-
+The first step in the decomposition is to extract the phase using Eq.~\eqref{phase_extraction}, leaving a special unitary matrix $V = e^{-i\alpha} U$.
+%
 The value of $\theta_1$ can be calculated from the absolute value of either the diagonal or off-diagonal elements, provided those entries aren't close to zero.
 For instance, the Z-gate has zero off-diagonal entries, whereas the X-gate has zeros on the diagonal. But the diagonal and off-diagonal entries can't approach zero at the same time.  So to calculate $\theta_1$ with greatest numerical accuracy, we use whichever element has the largest absolute value.
 \[
 \theta_1 = 
   \begin{cases}
-		2 \arccos(|U_{00}|), & |U_{00}| \geq |U_{01}|\\	
-		2 \arcsin(|U_{01}|), & |U_{00}| < |U_{01}|		
+		2 \arccos(|V_{00}|), & |V_{00}| \geq |V_{01}|\\	
+		2 \arcsin(|V_{01}|), & |V_{00}| < |V_{01}|		
 	\end{cases} 
 \]
 
-Having extracted $\theta_1$, we can now calculate the sum $\theta_0+\theta_1$ from $U_{11}$ using the $\text{arctan2}$ function, \eqref{arctan2},
+Having extracted $\theta_1$, we can now calculate the sum $\theta_0+\theta_1$ from $V_{11}$ using the $\operatorname{arctan2}$ function.\index{arctan2}
 \[
  \theta_0 + \theta_2 =  
-  2\ \text{arctan2}\Left(\Im(\frac{U_{11}}{\cos(\half\theta_1)}),\ \Re(\frac{U_{11}}{\cos(\half\theta_1)})\Right)
+  2\ \operatorname{arctan2}\Left(\Im(\frac{V_{11}}{\cos(\half\theta_1)}),\ \Re(\frac{V_{11}}{\cos(\half\theta_1)})\Right)
 \ .
+\label{theta_sum}
 \]
 except if $\cos(\half\theta_1)=0$ then $\theta_0 + \theta_2 = 0$.
 
-Similarly we can extract the difference  $\theta_0 - \theta_2$ from $U_{10}$.
+
+
+Similarly we can extract the difference  $\theta_0 - \theta_2$ from $V_{10}$.
 \[
- \theta_0 - \theta_2 = 2\ \text{arctan2}\Left(\Im(\frac{U_{10}}{\sin(\half\theta_1)}),\ \Re(\frac{U_{10}}{\sin(\half\theta_1)})\Right)
+ \theta_0 - \theta_2 = 2\ \operatorname{arctan2}\Left(\Im(\frac{V_{10}}{\sin(\half\theta_1)}),\ \Re(\frac{V_{10}}{\sin(\half\theta_1)})\Right)
  \, 
+ \label{theta_diff}
 \]
 again with an exception that if $\sin(\half\theta_1)=0$ then $\theta_0 - \theta_2 = 0$.
 %
-Taking the sum and differences of \eqref{???} and \eqref{???} yields $\theta_0$ and $\theta_2$, which completes the decomposition. 
+Taking the sum and differences of~\eqref{theta_sum} and~\eqref{theta_diff} yields $\theta_0$ and $\theta_2$, which completes the decomposition. 
 
-Instead of rotation gates, we could express the same decomposition as Pauli-power gates with a simple reparameterization. 
+Instead of rotation gates, we could express the same decomposition as Pauli-power gates with a reparameterization. 
 \[
 U = & e^{i\alpha'}\ Z^{t_2}\ Y^{t_1}\ Z^{t_0}
-%= e^{i\alpha}\ R_z(\theta_2)\ R_y(\theta_1)\ R_z(\theta_0)
 \\
-& \alpha' = \alpha + ??? \notag \\
+& \alpha' = \alpha -(\theta_0+\theta_1+\theta_2)/\pi \notag \\
 & t_0 = \theta_0/\pi \notag\\
 & t_1 = \theta_1/\pi \notag\\
 & t_2 = \theta_2/\pi \notag
 \]
+\index{Pauli-power gates! decomposition}
 
-For the IBM-??? architecture the natural 1-qubit gates are $R_z$ and $V$ (the square root of $X$)~\cite{???}. There isn't a direct access to $R_y$ rotations or general $R_x$ rotations, but this is only a minor restriction since $R_z(\theta) = V^\dagger R_y(\theta) V$, (Ref) and we can therefore decompose 1-qubit gates to a 5-gate sequence.
+\subsection{V-Z decomposition}\index{V-Z decomposition}
+For some superconducting qubit architectures the natural 1-qubit gates are Z-rotations $R_z$ and $V$ \eqref{V}\endnote{Note that here \Gate{V} refers to a specific 1-qubit gate, the square-root of the \Gate{X} gate, whereas elsewhere $V$ is used to denote a general unitary or special unitary matrix. Such notational ambiguities are inevitable since there's only so many squiggles to go around~\cite{???}.}  the square root of $X$~\cite{???}. There isn't direct access to $R_y$ rotations or general $R_x$ rotations, but this is only a minor inconvenience since $R_z(\theta) = V^\dagger R_y(\theta) V$, \secref{???} and we can therefore decompose 1-qubit gates to a 5-gate sequence,
 \[
-U =  e^{i\alpha}\ R_z(\theta_2)\ V^\dagger\ R_z(\theta_1)\ V\  R_z(\theta_0)
+U =  e^{i\alpha}\ R_z(\theta_2)\ V^\dagger\ R_z(\theta_1)\ V\  R_z(\theta_0)  \ .
 \]
 \todo{Circuit}
 \todo{Name of IBM architecture? Check location of dagger on Vs}
-% ZVZVZ deke
 
 
 
-% ================================================================================
-\subsection{ABC decomposition}
-
-Another useful trick is to decompose a 1-qubit unitary as $U = e^{i\alpha} AXBXC $~\cite{Barenco1995b}, where
-\[
-A &= R_z(\theta_2) \ R_y(\half\theta_1) \ ,\notag \\
-B &=  R_y(-\half\theta_1)\ R_z(-\half\theta_0 -\half\theta_2)\ ,\notag \\
-C &= R_z(\half\theta_0 -\half\theta_2) \ . \notag
-\]
-Note that $ABC=I$. We will use this relation in the decomposition of 2 qubit gates \todo{Forward ref}. 
-
-
-This decomposition is the really just the Z-Y decomposition in slight disguise.
-\[
-U &= e^{i\alpha} AXBXC 
-\notag
-\\ 
-& =
-	e^{i\alpha} 
-	R_z(\theta_2) \ R_y(\half\theta_1)
-	\ X \ R_y(-\half\theta_1)\ X 
-	\ X\ R_z(-\half\theta_0 -\half\theta_2)\ X\
-	R_z(\half\theta_0 -\half\theta_2)
-\notag \\
-& =
-	e^{i\alpha} 
-	R_z(\theta_2) \ R_y(\half\theta_1)
-	\ \phantom{X} \ R_y(+\half\theta_1)\ \phantom{X}
-	\ \phantom{X}\ R_z(+\half\theta_0 +\half\theta_2)\ \phantom{X}\
-	R_z(\half\theta_0 -\half\theta_2)
-\notag \\
-&=
-	e^{i\alpha}\
-	R_z(\theta_2) \ R_y(\theta_1)
-	R_y(\theta_1)\  
-	R_z(\theta_0)
-\]
-In the second line we insert the identity $I=XX$, and then recognize that $X\ R_z(\theta)\ X = R_x(-\theta)$ and $X\ R_y(\theta)\ X = R_y(-\theta)$. We can understand these relations by looking at the Bloch sphere. The $X$ gate isa half turn rotation about the $x$ axis, so the $z$ and $y$ axes are inverted, and the respective rotation gates induce an anti-clockwise rather than clockwise rotations relative to the original axes. 
 
  
 
 
 % ================================================================================
-\subsection{General Pauli-rotation decompositions}
+\subsection{General Euler angle decompositions}
 % TODO: Check terminology, Euler decomposition
-
+\index{Pauli-rotation decomposition}
+Instead of a Z-Y-Z decomposition, we might instead desire a different decomposition, for example X-Y-X.
 \[
 U &=  R_x(\theta_2) R_y(\theta_1) R_x(\theta_0)
 \]
-
+The trick is to perform a similarity transform that takes us back to the Z-Y-Z decomposition that we already know how to perform. 
 \[
 V = C U C^\dagger &= C R_y(\theta_2)  C^\dagger\ C R_z(\theta_1)C^\dagger\ C R_y(\theta_0) C^\dagger
 \\
-& = R_z(\theta_2) R_y(\theta_1) R_z(\theta_0)
+& = R_z(\theta_2) R_y(\theta_1) R_z(\theta_0) \notag
 \]
+Here we want the single qubit gate $C$ that moves the $+\widehat{y}$ axis to $+\widehat{x}$, but leaves the $\widehat{z}$ axis alone. Consulting page~\pageref{S} we see that the required gate is $S^\dagger$. Therefore to find the parameters of a X-Y-X decomposition we carry out the similarity transform $V=S^\dagger\ U \ S$ and then perform a Z-Y-Z decomposition. 
 
-We want the single qubit gate $C$ that moves the +Y axis to +X, but leaves the Z axis alone. This is a Clifford gate, and consulting table~\ref{tab:Clifford1q} we see that the gate is $S^\dagger$. 
+There are 6 distinct proper-Euler decompositions, and the appropriate similarity transforms to Z-Y-Z are listed in Table~\ref{tab:geneuler}. These are all 1-qubit Clifford gates (Table~\ref{tab:Clifford1q}).   
 
-\begin{table}[htp]
+\begin{table}[tp]
 \caption{Euler decompositions}
 \label{tab:geneuler}
 \begin{center}
-\begin{tabular}{cl}
-Euler decomposition & Similarity transform to Z-Y-Z \\
+\begin{tabular}{cll}
+~~~ Euler decomposition ~~~ & Similarity transform to Z-Y-Z \\
     X-Y-X & $h^\dagger$ \\
-    X-Z-X & $R_n(+\tfrac{2\pi}{3}, \tfrac{1}{\sqrt{3}}, \tfrac{1}{\sqrt{3}}, \tfrac{1}{\sqrt{3}})$ \\
-    Y-X-Y & $R_n(-\tfrac{2\pi}{3}, \tfrac{1}{\sqrt{3}}, \tfrac{1}{\sqrt{3}}, \tfrac{1}{\sqrt{3}})$ \\
-    Y-Z-Y & $R_n(\pi, 0, \tfrac{1}{\sqrt{2}}, \tfrac{1}{\sqrt{2}}$ \\
+    X-Z-X & $C$ & %$R_n(+\tfrac{2\pi}{3}, \tfrac{1}{\sqrt{3}}, \tfrac{1}{\sqrt{3}}, \tfrac{1}{\sqrt{3}})$
+     \\
+    Y-X-Y & $C^\dagger$ & %$R_n(-\tfrac{2\pi}{3}, \tfrac{1}{\sqrt{3}}, \tfrac{1}{\sqrt{3}}, \tfrac{1}{\sqrt{3}})$
+     \\
+    Y-Z-Y & $V H V^\dagger$ & %$R_n(\pi, 0, \tfrac{1}{\sqrt{2}}, \tfrac{1}{\sqrt{2}})$ 
+    \\
     Z-X-Z & $S^\dagger$ \\
     Z-Y-Z & $I$
 \end{tabular}
@@ -227,36 +170,40 @@ Euler decomposition & Similarity transform to Z-Y-Z \\
 \end{table}
 
 
-% ================================================================================
-
-\subsection{Kronecker decomposition}
-\cite{VanLoan1993a, VanLoan2000a}
-% Cite: Approximation with Kronecker Products
-% Pitsianis-Van Loan algorithm 
-
+\subsection{Bloch rotation decomposition}
+\index{Bloch rotation decomposition}
+Finally lets consider the decompositions of 1-qubit gates into single rotations about a particular axis~\eqref{Rn}.
 \[
-C = A\otimes B
+R_{\vec{n}}(\theta) =
+\begin{bmatrix*}
+	\cos(\half\theta) - i n_z \sin(\half\theta)  &
+	- n_y \sin(\half\theta)-i n_x \sin(\half\theta)  \\
+	n_y \sin(\half\theta)-i n_x \sin(\half\theta)   & 
+	\cos(\half\theta) + i n_z \sin(\half\theta)
+\end{bmatrix*}
 \]
-
+Assuming that we have already extracted the phase and therefore $V$ is a 1-qubit special unitary matrix, we can proceed as follows.
 \[
-C_{mp;nq} = A_{mn}\otimes B_{pq} = [A_{mn}\cdot B_{pq}]^{T_{n\leftrightarrow p}} 
+	N &= \sqrt{(\Im V_{0,1})^2 + (\Re V_{0,1})^2 + (\Im V_{0,0})^2} \\
+	n_x & = -\Im V_{0,1}/N  \notag \\
+	n_y & = - \Re V_{0,1}/N \notag \\
+	n_z & = - \Im V_{0,0}/N \notag \\
+s = \sin(\half\theta) &= - \Im V_{0, 0} / n_z \notag \\ 
+c = \cos(\half\theta)  &= \Re V_{0, 0}  \notag \\
+\theta &= 2\ \text{arctan2}(s, c) \notag
 \]
+The one ambiguous edge case that needs to be accounted for is that the identity can be represented as a zero-radians rotation about any axis. 
 
-% TODO: Check code.
-\begin{verbatim}
-import numpy as np
-def nearest_kronecker_product(C):
-    C = C.reshape(2, 2, 2, 2)
-    C = C.transpose(0, 2, 1, 3)  
-    C = C.reshape(4, 4)
 
-    u, sv, vh = np.linalg.svd(C)
-    
-    A = np.sqrt(sv[0]) * u[:, 0].reshape(2, 2)
-    B = np.sqrt(sv[0]) * vh[0, :].reshape(2, 2)
+\subsection{Decomposition of Bloch rotation}
+A rotation about an arbitrary axis in the Bloch sphere can be analytically decomposed into a sequence of five $R_z$ and $R_y$ gates~\cite{Glendinning2010a}.
+\[
+R_{\vec{n}}(\theta) & = R_z(+\alpha) R_y(+\beta) R_z(\theta) R_y(-\beta) R_z(-\alpha) \\
+& \alpha = \operatorname{arctan2}(n_y, n_x) \notag \\
+& \beta = \operatorname{arccos}(n_z) \notag 
+\]
+%[TODO: Explanation]
+%[TODO: Turn into circuit]
 
-    return A, B
-\end{verbatim}
-We first shape C to a 4th order tensor, so that in the next line we can undo the axes transposition, before reshaping to a matrix. The singular value decomposition takes this matrix apart, and we retain the rank-1 approximation, retaining only the largest singular value and corresponding left and right singular vectors. We reshape the singular vectors to matrices to obtain our result. (multiplied by the   
-$A\otimes B$ is the closest Kronicker product to C in the Frobenius norm.
+
 
