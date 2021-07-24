@@ -12,7 +12,7 @@ Gavin E. Crooks
 
 ## Version History
 
-### v0.6 (2021-??-??)
+### v0.6 (2021-07-24)
 
 Kudos: Joaquín Keller (bug fix)
 
