@@ -10,23 +10,55 @@ from sympy import Symbol
 
 import quantumflow as qf
 
+t = Symbol('t')
+theta = Symbol('theta')
+theta0 = Symbol('theta_0')
+theta1 = Symbol('theta_1')
+theta2 = Symbol('theta_2')
+phi = Symbol('phi')
+alpha = Symbol('alpha')
+tx = Symbol("t_x")
+ty = Symbol("t_y")
+tz = Symbol("t_z")
+sx = Symbol("s_x")
+sy = Symbol("s_y")
+sz = Symbol("s_z")
+
+q0, q1, q2 = 0, 1, 2
+
 
 def write_latex(fname, circ):
     # scale = 0.75
     latex = qf.circuit_to_latex(circ, document=False, package='quantikz',
-                                qubit_labels=False)
+                                qubit_labels=False, scale=0.8)
     with open(fname + '.tex', "w") as fout:
         fout.write(latex)
 
     print('.', end='')
 
 
+fname = 'margolus_to_cnot'
+gate = qf.Margolus(q0, q1, q2)
+circ = qf.Circuit(qf.translate_margolus_to_cnot(gate))
+write_latex(fname, circ)
+
+fname = 'margolus_to_ccnot'
+gate = qf.Margolus(q0, q1, q2)
+circ = qf.Circuit([qf.X(q1), qf.CCZ(0, 1, 2), qf.X(q1), qf.CCNot(q0, q1,q2)]) 
+write_latex(fname, circ)
+
+
+
 fname = 'cnot'
 circ = qf.Circuit([qf.CNot(0, 1)])
 write_latex(fname, circ)
 
+fname = 'cnot_10'
+circ = qf.Circuit([qf.CNot(1, 0)])
+write_latex(fname, circ)
+
 fname = 'cnot_switch'
-circ = qf.Circuit([qf.H(0), qf.H(1), qf.CNot(1, 0), qf.H(0), qf.H(1)])
+circ = qf.Circuit([qf.H(0), qf.H(1), qf.CNot(0, 1), qf.H(0), qf.H(1)])
 # assert equaltiy
 write_latex(fname, circ)
 
@@ -67,6 +99,11 @@ fname = 'cz'
 circ = qf.Circuit([qf.CZ(0, 1)])
 write_latex(fname, circ)
 
+fname = 'cy'
+circ = qf.Circuit([qf.CY(0, 1)])
+write_latex(fname, circ)
+
+
 fname = 'cv'
 circ = qf.Circuit([qf.CV(0, 1)])
 write_latex(fname, circ)
@@ -83,9 +120,63 @@ fname = 'cnot_to_cz'
 circ = qf.Circuit([qf.H(1), qf.CNot(0, 1), qf.H(1)])
 write_latex(fname, circ)
 
+fname = 'cnot_to_cy'
+circ = qf.Circuit(qf.translate_cy_to_cnot(qf.CY(0, 1)))
+write_latex(fname, circ)
+
 fname = 'ccnot'
 circ = qf.Circuit([qf.CCNot(0, 1, 2)])
 write_latex(fname, circ)
+
+fname = 'ccnot_to_cnot'
+circ = qf.Circuit(qf.translate_ccnot_to_cnot(qf.CCNot(0, 1, 2)))
+write_latex(fname, circ)
+
+fname = 'cswap_to_ccnot'
+circ = qf.Circuit(qf.translate_cswap_to_ccnot(qf.CSwap(0, 1, 2)))
+write_latex(fname, circ)
+
+fname = 'cswap_to_adjacent_cnot'
+circ = qf.Circuit(qf.translate_cswap_to_cnot(qf.CSwap(0, 1, 2)))
+write_latex(fname, circ)
+
+fname = 'cswap_to_inside_cnot'
+circ = qf.Circuit(qf.translate_cswap_inside_to_cnot(qf.CSwap(0, 1, 2)))
+write_latex(fname, circ)
+
+fname = 'syc'
+circ = qf.Circuit([qf.Sycamore(0, 1)])
+write_latex(fname, circ)
+
+
+fname = 'syc_to_can'
+circ = qf.Circuit(qf.translate_syc_to_can(qf.Sycamore(0, 1)))
+write_latex(fname, circ)
+
+
+
+fname = 'ccnot_to_adjacent_cnot'
+circ = qf.Circuit(qf.H(2)) + qf.Circuit(qf.translate_ccz_to_adjacent_cnot(qf.CCNot(0, 1, 2))) + qf.Circuit(qf.H(2))
+write_latex(fname, circ)
+
+fname = 'ccz'
+circ = qf.Circuit(qf.CCZ(0, 1, 2))
+write_latex(fname, circ)
+
+
+fname = 'ccnot_to_cv'
+circ = qf.Circuit(qf.translate_ccnot_to_cv(qf.CCNot(0, 1, 2)))
+write_latex(fname, circ)
+
+
+fname = 'ccnot_to_cnot_AMMR'
+circ = qf.Circuit(qf.translate_ccnot_to_cnot_AMMR(qf.CCNot(0, 1, 2)))
+write_latex(fname, circ)
+
+fname = 'cnot_to_ccz'
+circ = qf.Circuit([qf.H(2), qf.CCNot(0, 1, 2), qf.H(2)])
+write_latex(fname, circ)
+
 
 fname = 'cswap'
 circ = qf.Circuit([qf.CSwap(0, 1, 2)])
@@ -184,19 +275,19 @@ write_latex(fname, circ0)
 
 
 fname = 'xx'
-circ = qf.Circuit([qf.XX(Symbol('t'), 0, 1, )])
+circ = qf.Circuit([qf.XX(t, 0, 1, )])
 write_latex(fname, circ)
 
 fname = 'yy'
-circ = qf.Circuit([qf.YY(Symbol('t'), 0, 1, )])
+circ = qf.Circuit([qf.YY(t, 0, 1, )])
 write_latex(fname, circ)
 
 fname = 'zz'
-circ = qf.Circuit([qf.ZZ(Symbol('t'), 0, 1, )])
+circ = qf.Circuit([qf.ZZ(t, 0, 1, )])
 write_latex(fname, circ)
 
 fname = 'RX'
-circ = qf.Circuit([qf.Rx(Symbol(r'\theta'), 0)])
+circ = qf.Circuit([qf.Rx(theta, 0)])
 write_latex(fname, circ)
 
 fname = 'RX0_RX_1'
@@ -204,7 +295,7 @@ circ = qf.Circuit([qf.Rx(Symbol(r'\theta_0'), 0), qf.Rx(Symbol(r'\theta_1'), 0)]
 write_latex(fname, circ)
 
 fname = 'RX01'
-circ = qf.Circuit(qf.Rx(Symbol(r'\theta_0+\theta_1'), 0))
+circ = qf.Circuit(qf.Rx(Symbol(r'\theta_{0}+\theta_{1}'), 0))
 write_latex(fname, circ)
 
 
@@ -213,48 +304,46 @@ circ = qf.Circuit([qf.Ry(Symbol(r'\theta_0'), 0), qf.Ry(Symbol(r'\theta_1'), 0)]
 write_latex(fname, circ)
 
 fname = 'RY01'
-circ = qf.Circuit(qf.Ry(Symbol(r'\theta_0+\theta_1'), 0))
+circ = qf.Circuit(qf.Ry(Symbol(r'\theta_{0}+\theta_{1}'), 0))
 write_latex(fname, circ)
 
 
 fname = 'RZ0_RZ_1'
-circ = qf.Circuit([qf.Rz(Symbol(r'\theta_0'), 0), qf.Rz(Symbol(r'\theta_1'), 0)])
+circ = qf.Circuit([qf.Rz(Symbol(r'\theta_{0}'), 0), qf.Rz(Symbol(r'\theta_{1}'), 0)])
 write_latex(fname, circ)
 
 fname = 'RZ01'
-circ = qf.Circuit(qf.Rz(Symbol(r'\theta_0+\theta_1'), 0))
+circ = qf.Circuit(qf.Rz(Symbol(r'\theta_{0}+\theta_{1}'), 0))
 write_latex(fname, circ)
 
 
 fname = 'RY'
-circ = qf.Circuit([qf.Ry(Symbol(r'\theta'), 0)])
+circ = qf.Circuit([qf.Ry(theta, 0)])
 write_latex(fname, circ)
 
 fname = 'RZ'
-circ = qf.Circuit([qf.Rz(Symbol(r'\theta'), 0)])
+circ = qf.Circuit([qf.Rz(theta, 0)])
 write_latex(fname, circ)
 
 fname = 'XPow'
-circ = qf.Circuit([qf.XPow(Symbol('t'), 0)])
+circ = qf.Circuit([qf.XPow(t, 0)])
 write_latex(fname, circ)
 
 fname = 'YPow'
-circ = qf.Circuit([qf.YPow(Symbol('t'), 0)])
+circ = qf.Circuit([qf.YPow(t, 0)])
 write_latex(fname, circ)
 
 fname = 'ZPow'
-circ = qf.Circuit([qf.ZPow(Symbol('t'), 0)])
+circ = qf.Circuit([qf.ZPow(t, 0)])
 write_latex(fname, circ)
 
-# FIXME
-# fname = 'ph'
+# fname = 'phadamard'
 # circ = qf.Circuit([qf.Unitary(name='h', qubits=[0], tensor=qf.I(0).tensor)])
 # write_latex(fname, circ)
 
-# FIXME
-# fname = 'inv_ph'
+# fname = 'inv_phadamard'
 # circ = qf.Circuit([qf.Unitary(name=Symbol(r'h$^\dagger$'),
-#                            qubits=[0], tensor=qf.I(0).tensor)])
+#                               qubits=[0], tensor=qf.I(0).tensor)])
 # write_latex(fname, circ)
 
 fname = 'ecp'
@@ -282,7 +371,7 @@ fname = 'peres'
 circ = qf.Circuit([qf.CCNot(0, 1, 2), qf.CNot(0, 1)])
 write_latex(fname, circ)
 
-deutsch = qf.Deutsch(Symbol(r'\theta'), 0, 1, 2)
+deutsch = qf.Deutsch(theta, 0, 1, 2)
 fname = 'deutsch'
 circ = qf.Circuit(deutsch)
 write_latex(fname, circ)
@@ -352,18 +441,146 @@ write_latex(fname, circ0)
 write_latex(fname+'_res', circ1)
 
 
+fname = 'cphase'
+circ = qf.Circuit([qf.CPhase(theta)])
+write_latex(fname, circ)
+
+
+
+
+fname = 'cphase_to_zz'
+circ = qf.Circuit(qf.translate_cphase_to_zz(qf.CPhase(theta)))
+write_latex(fname, circ)
+
+
+fname = 'cphase00_to_cphase'
+circ = qf.Circuit(qf.translate_cphase00_to_cphase(qf.CPhase00(theta)))
+write_latex(fname, circ)
+
+fname = 'cphase01_to_cphase'
+circ = qf.Circuit(qf.translate_cphase01_to_cphase(qf.CPhase01(theta)))
+write_latex(fname, circ)
+
+fname = 'cphase10_to_cphase'
+circ = qf.Circuit(qf.translate_cphase10_to_cphase(qf.CPhase10(theta)))
+write_latex(fname, circ)
+
+
+
+
+fname = 'can_decrement'
+circ = qf.Circuit([qf.Y(q0), qf.Y(q1), qf.Can(tx, ty, tz, q0, q1), qf.Z(q0), qf.Z(q1)])
+write_latex(fname, circ)
+
+fname = 'can_decrement_res'
+circ = qf.Circuit([qf.Can(tx-1, ty, tz, q0, q1)])
+write_latex(fname, circ)
+
+
+fname = 'can_flip'
+circ = qf.Circuit([qf.Z(q0), qf.Can(tx, ty, tz, q0, q1), qf.Z(q0)])
+write_latex(fname, circ)
+
+fname = 'can_flip_res'
+circ = qf.Circuit([qf.Can(-tx, -ty, tz, q0, q1)])
+write_latex(fname, circ)
+
+fname = 'can_swap'
+circ = qf.Circuit([qf.S(q0), qf.S(q1), qf.Can(tx, ty, tz, q0, q1), qf.S_H(q0), qf.S_H(q1)])
+write_latex(fname, circ)
+
+fname = 'can_swap_res'
+circ = qf.Circuit([qf.Can(ty, tx, tz, q0, q1)])
+write_latex(fname, circ)
+
+
+fname = 'can_bot'
+circ = qf.Circuit([qf.Y(q1), qf.Can(tx, ty, 0, q0, q1), qf.Z(q0), qf.Y(q0), qf.Z(q1)])
+write_latex(fname, circ)
+
+fname = 'can_bot_res'
+circ = qf.Circuit([qf.Can(1-tx, ty, 0, q0, q1)])
+write_latex(fname, circ)
+
+fname = 'can_sum'
+circ = qf.Circuit([qf.Can(sx, sy, sz, q0, q1), qf.Can(tx, ty, tz, q0, q1)])
+write_latex(fname, circ)
+
+fname = 'can_sum_res'
+circ = qf.Circuit([qf.Can(tx+sx, ty+sy, tz+sz, q0, q1)])
+write_latex(fname, circ)
+
+fname = 'ccix'
+gate = qf.CCiX(0, 1, 2)
+circ = qf.Circuit([gate])
+write_latex(fname, circ)
+
+fname = 'ccix_to_cnot'
+circ = qf.Circuit(qf.translate_ccix_to_cnot(gate))
+write_latex(fname, circ)
+
+fname = 'ccix_to_cnot_adjacent'
+circ = qf.Circuit(qf.translate_ccix_to_cnot_adjacent(gate))
+write_latex(fname, circ)
+
+fname = 'ciswap'
+gate = qf.CISwap(0, 1, 2)
+circ = qf.Circuit([gate])
+# write_latex(fname, circ)
+
+fname = 'ciswap_to_ccix'
+circ = qf.Circuit(qf.translate_ciswap_to_ccix(gate))
+write_latex(fname, circ)
+
+
+fname = "can"
+gate = qf.Can(tx, ty, tz, q0, q1)
+write_latex(fname, qf.Circuit(gate))
+
+fname = "can_to_cnot"
+circ = qf.Circuit(qf.translate_can_to_cnot(gate))
+write_latex(fname, circ)
+
+
+fname = "can_so"
+gate = qf.Can(tx, ty, 0, q0, q1)
+write_latex(fname, qf.Circuit(gate))
+
+fname = "can_to_2cnot"
+circ = qf.Circuit(qf.translate_can_to_cnot(gate))
+write_latex(fname, circ)
+
+fname ="can_io"
+gate = qf.Can(1/2, ty, tz, q0, q1)
+write_latex(fname, qf.Circuit(gate))
+
+fname = "can_to_2cnot_swap"
+circ = qf.Circuit([qf.H(0), qf.H(1), qf.V(0).H, qf.V(1).H,qf.CNot(0,1), qf.X(0)**(tz-1/2), qf.Z(1) ** (ty-1/2), qf.CNot(0, 1), qf.Swap(0,1), qf.V(0), qf.V(1), qf.H(0), qf.H(1)])
+write_latex(fname, circ)
+# print(qf.canonical_decomposition(circ.asgate()))
+# assert qf.gates_close(circ.asgate(), qf.Can(0.5, ty, tz, 0, 1))
+
+
+fname ="can_cnot"
+gate = qf.Can(1/2, 0, 0, q0, q1)
+write_latex(fname, qf.Circuit(gate))
+
+fname ="can_to_1cnot"
+circ = qf.Circuit([  qf.H(q0), qf.H(q1) ,qf.S(q0) ,qf.S(q1) ,qf.H(q1), qf.CNot(0, 1), qf.H(q0)])
+write_latex(fname, circ)
+
 fname = 'pauli_deke'
 circ0 = qf.Circuit([qf.Rz(Symbol(r'\theta_0'), 0),
                    qf.Ry(Symbol(r'\theta_1'), 0),
                    qf.Rz(Symbol(r'\theta_2'), 0),
-                   qf.Ph(Symbol(r'\alpha'), 0)]
+                   qf.Ph(alpha, 0)]
                    )
 write_latex(fname, circ0)
 
 
 fname = 'Ph'
 circ0 = qf.Circuit(
-    qf.Ph(Symbol(r'\alpha'), 0)
+    qf.Ph(alpha, 0)
     )
 write_latex(fname, circ0)
 
@@ -377,12 +594,41 @@ write_latex(fname, circ0)
 
 
 fname = 'a_to_cnot'
-circ = qf.Circuit(qf.translate_A_to_CNot(qf.A(Symbol('theta'), Symbol('phi'), 0, 1)))
+circ = qf.Circuit(qf.translate_a_to_cnot(qf.A(theta, phi, 0, 1)))
 write_latex(fname, circ)
 
 fname = 'a_to_can'
-circ = qf.Circuit(qf.translate_A_to_Can(qf.A(Symbol('theta'), Symbol('phi'), 0, 1)))
+circ = qf.Circuit(qf.translate_a_to_can(qf.A(theta, phi, 0, 1)))
 write_latex(fname, circ)
+
+fname = 'barenco_to_xx'
+circ = qf.Circuit(qf.translate_barenco_to_xx(qf.Barenco(phi, alpha, theta, 0, 1)))
+write_latex(fname, circ)
+
+
+
+
+fname = "ch"
+gate = qf.CH(q0, q1)
+write_latex(fname, qf.Circuit(gate))
+
+fname = "ch_to_cnot"
+circ = qf.Circuit(qf.translate_ch_to_cpt(gate))
+write_latex(fname, circ)
+
+
+fname = "givens_to_xy"
+gate = qf.Givens(theta, q0, q1)
+circ = qf.Circuit(qf.translate_givens_to_xy(gate))
+write_latex(fname, circ)
+
+fname = "xy"
+gate = qf.XY(t, q0, q1)
+circ = qf.Circuit(gate)
+write_latex(fname, circ)
+
+
+
 
 
 

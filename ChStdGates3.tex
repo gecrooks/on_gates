@@ -6,10 +6,17 @@
 
 \section{Standard 3-qubit gates}
 
-\paragraph{Toffoli gate (controlled-controlled-not, CCNOT)}\cite{Toffoli1980a, Barenco1995b}
+Regrettable there doesn't appear to be an easy way to characterize and visualizes the space of 3-qubit gates in the same way there is for 1-qubit (Bloch ball) and 2-qubit gates (Weyl chamber). Which is perhaps not surprising since a general 3-qubit gate has $(2^3)^2 = 64$ parameters. 
 
-\[
-\text{CCNOT} =
+However, there are only a few specific 3-qubit gates that show up in practice, most of which are directly related to the Toffoli (or controlled-controlled-not) gate.
+
+\paragraph{Toffoli gate (controlled-controlled-not, CCNot)}\cite{Toffoli1980a, Feynman1985a, Barenco1995b}
+\index{CCNot gate}
+\index{controlled-controlled-not gate|see{CCNot gate}}
+\index{Toffoli gate|see{CCNot gate}}
+A 3-qubit gate with two control and one target qubits.  Originally studied in the context of reversible classical logic, where 3-bit gates are necessary for universal computation. The target bit flips only if both control bits are one.  We often encounter this gate when converting classical logic circuits to quantum circuits.
+$$
+\text{CCNot} =
 \begin{bsmallmatrix}
  1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -20,15 +27,11 @@
  0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
  0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
 \end{bsmallmatrix}
-\]
+\quad = \ \input{circuits/ccnot.tex}
 $$
-\input{circuits/ccnot.tex}
-$$
-
 \newcommand{\sm}{{\text{-}}} % Small minus
-
 \[
-\ham{CCNOT} & = -\tfrac{\pi}{8}(I_0-Z_0)(I_1-Z_1)(I_2-X_2) \\
+\ham{CCNot} & = -\tfrac{\pi}{8}(I_0-Z_0)(I_1-Z_1)(I_2-X_2) \\
 & =
 \tfrac{\pi}{2} \begin{bsmallmatrix*}[r]
  0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -43,11 +46,37 @@ $$
 \notag
 \]
 
+%The CCNot gate is typically represented by the following circuit:
+%$$
+%\input{circuits/ccnot.tex}
+%$$
+
+The CCNot can be decomposed into a circuit of at least 6 CNots~\cite{Nielsen2000a}.
+$$\input{circuits/ccnot.tex} \simeq
+\input{circuits/ccnot_to_cnot.tex}
+$$
+The above circuit assumes that we can apply CNot gates between any of the 3 qubits. If we are instead restricted to CNots between adjacent qubits, then we can decompose into 8 \Gate{CNot} gates, which is fewer than if we added explicit Swap operations. 
+ $$\input{circuits/ccnot.tex} \simeq
+\input{circuits/ccnot_to_adjacent_cnot.tex}
+$$
+This depth 9 decomposition requires 7 CNots~\cite{Amy2013a}. Since more gates can be applied at the same time, the gate depth is less despite more 2-qubit gates.
+% Minimum T-depth of 3
+$$\input{circuits/ccnot.tex} \simeq
+\input{circuits/ccnot_to_cnot_AMMR.tex}
+$$
+Another decomposition requires 3 \Gate{CV} and 2 \Gate{CNot} gates~\cite{???}.
+$$\input{circuits/ccnot.tex} \simeq
+\input{circuits/ccnot_to_cv.tex}
+$$
 
 
-\paragraph{Fredkin gate (controlled-swap, CSWAP)}\cite{Fredkin1982a,???}
-\[
-\text{CSWAP} = 
+
+\paragraph{Fredkin gate (controlled-swap, CSwap)}\cite{Fredkin1982a,???}
+\index{controlled-swap gate}
+\index{CSwap gate|see{controlled-swap gate}}
+\index{Fredkin gate|see{controlled-swap gate}}
+$$
+\text{CSwap} = 
 \begin{bsmallmatrix}
  1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -58,14 +87,12 @@ $$
  0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
  0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
 \end{bsmallmatrix}
-\]
-
-$$
+\quad = \
 \input{circuits/cswap.tex}
 $$
-
+A controlled swap gate. Another logic gate for reversible classical computing.
 \[
-\ham{CSWAP} & = -\tfrac{\pi}{8}(I_0-Z_0)(X_1 X_2 + Y_1 Y_2 + Z_1 Z_2 - I_1 I_2)\\
+\ham{CSwap} & = -\tfrac{\pi}{8}(I_0-Z_0)(X_1 X_2 + Y_1 Y_2 + Z_1 Z_2 - I_1 I_2)\\
 & =
 \tfrac{\pi}{2} \begin{bsmallmatrix*}[r]
  0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -79,9 +106,23 @@ $$
 \end{bsmallmatrix*}
 \notag
 \]
+A CSwap can be built from 2 CNot gates and 1 CCNot (or 8 CNots in total).
+$$
+\input{circuits/cswap.tex} \simeq \input{circuits/cswap_to_ccnot.tex} 
+$$
+An adjacency respecting decomposition of the CSwap can be formed with 10 CNots if the target is the first qubit~\cite{???},
+$$
+\input{circuits/cswap.tex} \simeq \input{circuits/cswap_to_adjacent_cnot.tex} 
+$$
+or 12 CNots if the target is between the two swapped qubits~\cite{???}.
+$$
+\input{circuits/cswap.tex} \simeq \input{circuits/cswap_to_inside_cnot.tex} 
+$$
 
-\paragraph{CCZ gate (controlled-controlled-Z)}
-\[
+\paragraph{CCZ gate (controlled-controlled-Z)}~\cite{???,???}
+\index{CCZ gate}
+\index{controlled-controlled-Z|see{CCZ gate}}
+$$
 CCZ=
 \begin{bsmallmatrix*}[r]
  1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -91,17 +132,34 @@ CCZ=
  0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
  0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
  0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
- 0 & 0 & 0 & 0 & 0 & 0 & 0 & \sm1 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & \sm 1 \\
 \end{bsmallmatrix*}
+\quad = \ \input{circuits/ccz.tex}
+$$
+\[
+\ham{CCZ} & = -\tfrac{\pi}{8}(I_0-Z_0)(I_1-Z_1)(I_2-Z_2) \\
+& =
+\tfrac{\pi}{2} \begin{bsmallmatrix*}[r]
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0 & 0 & 0 & 0 &  \sm1 \\
+\end{bsmallmatrix*}
+\notag
 \]
+\todo{[TODO: Checkme hamiltonian]}
+The CCNot gate can be converted to the CCZ gate by conjugating the target qubit with Hadamard gates (in the same way that we can convert a CNot to CZ)
 $$
-\input{circuits/ccz.tex}
+\input{circuits/ccz.tex} \simeq \input{circuits/cnot_to_ccz.tex} 
 $$
+\todo{[TODO: Fix circuit diagram of CCZ] [TODO: Can move target]}
 
 
-
-
-\paragraph{Peres gate}~\cite{Peres1985a}
+\paragraph{Peres gate}~\cite{Peres1985a, Maslov2003a}\index{Peres gate} Another gate that is universal for classical reversible computing.
 \[
 \text{Peres} = 
 \Left[ \begin{smallmatrix}
@@ -115,19 +173,20 @@ $$
                 0& 0& 0& 0& 1& 0& 0& 0 
 \end{smallmatrix} \Right]
 \]
-Another gate that is universal for classical reversible computing. It is equivalent to a Toffoli followed by a CNOT gate.
-
+The Peres gate is equivalent to a Toffoli followed by a CNot gate.
 $$
 \input{circuits/peres.tex}
 $$
+% Cite https://arxiv.org/pdf/quant-ph/0403053.pdf
+% https://arxiv.org/pdf/0803.2316.pdf
 
 
-
-
-\paragraph{Deutsch gate}~\cite{Deutsch1989a, Barenco1995a, Shi2018a}
+\paragraph{Deutsch gate}~\cite{Deutsch1989a, Barenco1995a, Shi2018a}\index{Deutsch gate}
+\index{Deutsch gate}
  Mostly of historical interest, since this was the first quantum gate to be shown to be computationally universal~\cite{Deutsch1989a}. 
 \[
-\text{Deutsch}(\theta) =
+\label{Deutsch}
+\Gate{Deutsch}(\theta) =
 \begin{bsmallmatrix}
                 1& 0& 0& 0& 0& 0& 0& 0 \\
                 0& 1& 0& 0& 0& 0& 0& 0 \\
@@ -139,13 +198,13 @@ $$
                 0& 0& 0& 0& 0& 0& \sin(\theta)& i \cos(\theta)
 \end{bsmallmatrix}
 \]
-Examining the controlled unitary sub-matrix, the Deutsch gate can be thought of as a controlled-controlled-$i\Gate{R_x}(\theta)^2$ gate. gate.
+Examining the controlled unitary sub-matrix, the Deutsch gate can be thought of as a controlled-controlled-$i\Gate{R_x}^2(\theta)$ gate.
 $$
 \text{Deutsch}(\theta) = 
 \input{circuits/Deutsch}
 $$
 
-Barenco~\cite{Barenco1995a} demonstrated a construction of the Deutsch gate from 2-qubit ``Barenco'' gates, demonstrating that 2-qubits gates are sufficient for universality.
+Barenco~\cite{Barenco1995a} demonstrated a construction of the Deutsch gate from 2-qubit ``Barenco'' gates, demonstrating that a single type of 2-qubit gate is sufficient for universality.\index{Barenco gate}
 $$
  \input{circuits/Deutsch}
  \simeq 
@@ -164,4 +223,99 @@ $$
 
 
 % QFT: Quantum Fourier transform,=. Not to be confuesd wiht, in different conetxts Quantu Field Theory, or Quanutm Flutuation theorem~\cite{Theotherqft}. At least Q alwyas standas for Quantum.
+
+
+\paragraph{CCiX gate}~\cite{Selinger2013a, Quipper???, Maslov2016a}
+\index{CCiX gate}\index{doubly controlled iX gate|see{CCiX gate}} A doubly controlled iX gate.
+\[
+        \Gate{CCiX} &= \begin{bsmallmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & i \\
+                0 & 0 & 0 & 0 & 0 & 0 & i & 0
+            \end{bsmallmatrix}
+            \label{CCiX}
+\\ \notag
+ H_\Gate{CCiX} &=-\frac{\pi}{8} X_2 (1 - Z_1) (1 - Z_0)            
+\]
+Can be decomposed into 4 CNot gates,
+$$
+\input{circuits/ccix} \simeq
+\input{circuits/ccix_to_cnot}
+$$
+or 8 CNots respecting adjacency~\cite{Selinger2013a, Green2013a}.
+$$
+\input{circuits/ccix} \simeq
+\input{circuits/ccix_to_cnot_adjacent}
+$$
+
+%    Refs:
+%          http://arxiv.org/abs/1210.0974
+%    """
+%    # Kudos: Adapted from 1210.0974, via Quipper
+%
+
+\paragraph{CiSwap gate}\index{CiSwap gate} A controlled iSwap gate. 
+\index{CiSwap gate|see{controlled iSwap gate}}\index{controlled iSwap gate}
+\[
+        \Gate{CiSwap} &= \begin{bsmallmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & i & 0 \\
+                0 & 0 & 0 & 0 & 0 & i & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+            \end{bsmallmatrix} 
+\\  \notag 
+H_\Gate{CiSwap} &= \tfrac{\pi}{8}( Z_0 X_1 X_2 + Z_0 Y_1 Y_2 - X_1 X_2 - Y_1 Y_2)
+\]
+Can be decomposed into a 2 CNots and a doubly controlled-iX gate \eqref{CCiX}~\cite{gsc}.
+$$
+\adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \qw & \ctrl{2} & \qw \\
+& \qw & \gate[2]{\text{iSwap}} & \qw \\
+& \qw &  & \qw 
+& \end{quantikz}}
+\simeq
+\input{circuits/ciswap_to_ccix}
+$$
+Rasmussen and Zinner (2020)~\cite{Rasmussen2020a} discuss possible implementations using superconducting circuits.
+
+
+
+
+ 
+\paragraph{Margolus gate}~\cite{Margolus1994a,Barenco1995b,DiVincenzo1998a,Song2003a,Maslov2016a,Linke2017a}
+\index{Margolus gate}\index{simplified Toffoli gate|see{Margolus gate}}\index{relative phase Toffoli gate}
+A``simplified'' Toffoli gate, that differs from the Toffoli only by a relative phase, in that the \ket{101} state picks up a $-1$ phase. In certain circuits Toffoli gates can be replaced with such relative phase Toffoli gates, leading to lower overall gate counts~\cite{Maslov2016a}.
+ \[
+        \Gate{Margolus} &= \begin{bsmallmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & -1 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 1 & 0
+            \end{bsmallmatrix} 
+\\  \notag 
+H_\Gate{Margolus} &= \tfrac{\pi}{8}(1-Z_0)(-2 -Z_1 X_2 + Z_1 Z_2 + X_2 + Z_2)
+\]   
+    
+The Margolus gate is equivalent to a Toffoli gate plus a CCZ gate,    
+$$
+\input{circuits/margolus_to_ccnot}
+$$
+ and can be implemented with only 3 CNot gates.
+$$
+\input{circuits/margolus_to_cnot}
+$$
+Note that this decomposition is often expressed in terms of $R_y(\tfrac{\pi}{4})$, which is the same as $V T V^\dagger$ up to phase, e.g.~\citet[Ex~4.26]{Nielsen2000a}. This is a T-like gate: a counter-clockwise eighth turn of the Bloch sphere about the $\widehat{y}$-axis. \index{T-like gate}
 

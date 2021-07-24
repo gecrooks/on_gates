@@ -8,7 +8,14 @@
 %\usepackage[braket, qm]{qcircuit}
 \usepackage[flushleft]{threeparttable}
 \usepackage{adjustbox}
-\usepackage[backref=true,totoc=section]{enotez}
+\usepackage[backref=true,totoc=false]{enotez}
+\usepackage{amsmath}
+
+\setenotez{
+  list-heading = {},
+}
+
+\renewcommand{\endnote}{\footnote}
 
 \usepackage{amsmath}
 
@@ -30,9 +37,10 @@
 \makeindex
 
 %\setcounter{secnumdepth}{5}
-\setcounter{tocdepth}{5}
+\setcounter{tocdepth}{3}
 
-
+% \usepackage{unicode-math}
+%\setmathfont{XITS Math}
 
 
 \def\centerarc[#1](#2)(#3:#4:#5)% Syntax: [draw options] (center) (initial angle:final angle:radius)
@@ -40,7 +48,8 @@
 
 
 
-
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
 
 \newcommand{\Gate}[1]{\ensuremath{{\sf{#1}}}}
 \newcommand{\arxiv}[1]{{arXiv}:\href{http://arxiv.org/abs/#1}{#1}}
@@ -55,9 +64,16 @@
 \newcommand{\ham}[1]{{H_{\text{#1}}}}
 \newcommand{\define}[1]{{\sl #1}}
 
+\newcommand{\axis}[1]{\ensuremath{\widehat{#1}}}%
+
+
+
 % Avoids problems with underscores (_) and such like in DOIs
 \renewcommand{\doi}[1]{\textsc{doi}: \href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
 
+
+\newcommand{\self}{_on_gates}			% Recursive citations.
+\addcitationneeded
 
 
 
@@ -88,7 +104,8 @@
 
 
 \begin{document}
-\nocite{???}
+\nocite{\self}
+\nocite{Dirac1939a,Bloch1946a,Toffoli1980a,Fredkin1982a,Feynman1985a,Peres1985a,Deutsch1989a,VanLoan1993a,Yao1993a,Reck1994a,Margolus1994a,Barenco1995a,DiVincenzo1995a,Barenco1995b,PreskillLectureNotes,DiVincenzo1998a,Molmer1999a,Nielsen2000a,VanLoan2000a,Dorai2000a,Song2003a,Zhang2003a,Vatan2004a,Zhang2004a,Blaauboer2008a,Drury2008a,Glendinning2010a,Sakurai2010a,Aaronson2013a,Green2013a,Watts2013a,Rieffel2014a,Axler2015a,Susskind2015a,Rigetti2016a,Smith2016a,Linke2017a,Wilde2017a,Ferrie2018a,Watrous2018a,Shi2018a,Barkoutsos2018a,Matuschak2019a,Abrams2020a,Gard2020a,Peterson2020a,Rasmussen2020a,Gidney2021a,Harrigan2021a,braket}
 
 \title{\thetitle}
 \author{\href{http://threeplusone.com/}{Gavin E.\ Crooks}}
@@ -125,53 +142,34 @@ Tech. Note 014 v\theversion ~~ {\sc beta} \\~\\
 
 %\section{Quantum mechanics}
 
-\include{ChPauli}
+
 \include{ChBloch}
 \include{ChStdGates1}
-%\end{document}
-
 \include{ChDeke1}
 \include{ChCanonical}
-\include{FigWeylChamber}
 
 \include{ChStdGates2}
-
-%\clearpage
-%\section{Entaglement}
-%\subsection{Perfect entanglers}
-%
-%\begin{center}
-%\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
-%\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
-%      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
-%      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
-%      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
-%      (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;      
-%\draw[fill=teal, opacity=0.2]    (1,0,0) -- (0.5,0.5,0.5) -- (1.5,0.5,0.5)  -- cycle;
-%\draw[fill=teal, opacity=0.2]    (1,1,0) -- (0.5,0.5,0.5) -- (1.5,0.5,0.5)  -- cycle;
-%\draw[fill=teal, opacity=0.2]    (1,0,0) -- (0.5,0.5,0) -- (1,1,0)  --(1.5,0.5,0)  -- cycle;
-%\draw[fill=teal, opacity=0.2]    (1,0,0) -- (1.5,0.5,0.5) -- (1.5,0.5,0)  -- cycle;
-%\draw[fill=teal, opacity=0.2]    (1,0,0) -- (0.5,0.5,0.5) -- (0.5,0.5,0)  -- cycle;
-%\draw[fill=teal, opacity=0.2]    (1,1,0) -- (1.5,0.5,0.5) -- (1.5,0.5,0)  -- cycle;
-%\draw[fill=teal, opacity=0.2]    (1,1,0) -- (0.5,0.5,0.5) -- (0.5,0.5,0)  -- cycle;
-%\node (L) at (1, 0, -0.25) {Perfect entaglers};
-%\end{tikzpicture}
-%\end{center}
+\input{ChDeke2}
+\include{ChStdGates3}
+\include{ChDekeMulti}
+    \include{ChPauli}
+    \include{ChClifford}
 
 
-%\section{Canonical decomposition} % Decomposition of 2-qubit gates}
-%
-%\section{Controlled-unitary gates}
 
-\input{ChStdGates3}
+
+
+% Remove file
+%\include{ChMultiGates}
 
 %\section{Pauli rotation gates} % Naming?
 %
 %\section{Pauli gate decomposition} % Naming?
 
-\input{ChTwoLevel}
+%\clearpage
+%\section{Controlled unitary gates}
 
-\input{ChClifford}
+
 
 %
 %\section{Metrics}
@@ -202,11 +200,14 @@ Tech. Note 014 v\theversion ~~ {\sc beta} \\~\\
 %
 %\section{Gradients}
 %
-%\section{Quantum Fourier Transform}
+
+%\clearpage
+%\section{Quantum Fourier transform}
+%\endnote{Depending on context, QFT can stand for Quantum Fourier Transform, Quantum Field Theory, or (my personal favorite) the Quantum Fluctuation Theorem~\cite{???}. Q is always Quantum.}
 %
-%
-%\endnote{In other contexts QFT can stand for Quantum Field Theory, or Quantum Fluctuation Theorem~\cite{???}. Q is always Quantum}
-%
+%\clearpage
+%\section{Classical simulation}
+
 %
 %\section{Swap networks}
 %
@@ -233,9 +234,11 @@ Tech. Note 014 v\theversion ~~ {\sc beta} \\~\\
 %%
 
 % ==== Appendix ====
-\appendix
-\include{ChMath}
 
+\appendix
+%\include{ChMath} % Currently not needed
+
+\cleardoublepage % Open right
 \section{Weyl Chamber}
 
 
@@ -244,29 +247,35 @@ Tech. Note 014 v\theversion ~~ {\sc beta} \\~\\
 %    \end{center}
 \begin{figure*}[hb!]
 \adjustbox{scale=0.75}{\input{on_weyl}}
-\caption{The Weyl chamber of canonical non-local 2 qubit gates. (Print, cut, fold, and paste)}
+\caption[The Weyl chamber of canonical non-local 2 qubit gates]{The Weyl chamber of canonical non-local 2 qubit gates. (Print, cut, fold, and paste)}
 \label{weyl_fig}
+\index{Weyl chamber}
 \end{figure*}
-
+\clearpage
+~\thispagestyle{empty}% Blank page
 %\include{FigWeyl}
 
-\clearpage
-\printendnotes
+%\clearpage
+%\section{End notes and open problems}
+%\printendnotes
 \include{ChBib}
 \include{ChIndex}
 
 \thispagestyle{empty}
+%\begin{quote}
+%\emph{Considerable ingenuity will be needed if these obstacles [to practical quantum computing] are to be overcome; 
+%[...] %the quantum factoring algorithm of Shor shows that 
+%there is considerable value in overcoming these obstacles}
+%---~David~P.~Diviencero~\cite{DiVincenzo1995a}
+%\end{quote}
 \include{Colophon}     % TODO: Move
 
 
 \end{document}
 
 %\section{Match gates}
-%\section{Decomposition of standard 3-qubit gates}
 %\section{Random gates}
-%\section{Control gates}
 %\section{Hamiltonians}
-%\section{Decomposition of 2-qubit gates}
 %\section{Swap networks}
 
 
@@ -392,5 +401,6 @@ However abstract the computation or information appears, at the bottom the infor
 % 2019-05-26	Programmatically generate most circuits
 % 2020-02-13    v3 12 pages
 % 2020-06-01	v4 14 pages
+% 2021-07-01	79 pages
 
 

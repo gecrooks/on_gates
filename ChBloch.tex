@@ -5,45 +5,12 @@
 
 \clearpage
 \section{Bloch sphere representation of a qubit}
+\index{Bloch sphere}
+\label{sec:blochsphere}
 
-~\cite{Bloch1946a}
-
-
-\[
-\ket{\psi} = \alpha \ket{0} + \beta \ket{1}, \qquad |\alpha|^2 + |\beta|^2 =1 
-\]
-
-\[
-\ket{\psi} = e^{i\gamma} \left( \cos(\half\theta)\ket{0} +e^{i\phi}\sin(\half\theta)\ket{1}\right)
-\]
-
-\[
-\ket{\psi} \simeq \cos(\half\theta)\ket{0} +e^{i\phi}\sin(\half\theta)\ket{1}
-\]
-$0 \leq \theta \leq \pi$ and $0 \leq \phi < 2 \pi$.
-
-% Check leq pi ?
-
-%The parameters {\displaystyle \theta \,}\theta \, and {\displaystyle \phi \,}\phi \,, re-interpreted in spherical coordinates as respectively the colatitude with respect to the z-axis and the longitude with respect to the x-axis, specify a point
-
-
-${\vec {r}}=(\sin \theta \cos \phi ,\;\sin \theta \sin \phi ,\;\cos \theta )$
-on the 3-dimensional unit sphere.
-
-\[
-\ket{0} & & \vec{r}&=(0,0,+1) \notag\\
-\ket{1} & & \vec{r}&=(0,0,-1) \notag\\
-\ket{+} & =\tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1}) & \vec{r}&=(+1,0,0) \notag\\
-\ket{-} & =\tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1})  & \vec{r} &=(-1,0,0) \notag\\
-\ket{+i} &=\tfrac{1}{\sqrt{2}}(\ket{0}+i\ket{1}) & \vec{r}&=(0,+1,0) \notag\\
-\ket{-i} &=\tfrac{1}{\sqrt{2}}(\ket{0}-i\ket{1}) & \vec{r}&=(0,-1,0) \notag 
-\]
-
-\index{computational basis}
-\index{Hadamard basis}
-\index{X basis}
-\index{Y basis}
-\index{Z basis}
+We'll begin by considering the action of a quantum gate on a single quantum bit. A single classical bit (cbit) \index{cbit} is relatively boring; either it's in a zero state, or a one state. In contrast a quantum bit is a much richer object that can exist in a quantum superposition of zero and one. This state can be conveniently visualized as a point on the surface of a 3-dimensional ball, generally called the Bloch sphere~\cite{Bloch1946a,???}. The action of a 1-qubit gate is to rotate this sphere around some axis. 
+% TODO: Proove that the action of a 1-qubit gate is to rotate this sphere around some axes. 
+% TODO: Index for bit, classical bit, cbit
 
 \begin{figure}[hp]
 \begin{center}
@@ -81,11 +48,71 @@ on the 3-dimensional unit sphere.
  \notag
  \\
  \notag
- {\vec {r}}& =(\sin \theta \cos \phi ,\;\sin \theta \sin \phi ,\;\cos \theta )
+ {\widehat {n}}& =(\sin \theta \cos \phi ,\;\sin \theta \sin \phi ,\;\cos \theta )
  \]
  \end{center}
 \caption{Bloch sphere representation of single qubit states.}
 \end{figure}
+
+Ultimately, a qubit  is a physical system with two distinct states, which we conventionally label zero and one. The state of the qubit $\ket{\psi}$ can be written as a superposition of zero states $\ket{0}$, and one states $\ket{1}$.
+\[
+\ket{\psi} = a \ket{0} + b \ket{1}, \qquad |a|^2 + |b|^2 = 1 
+\]
+where the coefficients $a$ and $b$ are complex numbers. We can rewrite this as
+\[
+\ket{\psi} =& e^{i\alpha} \left( \cos(\half\theta)\ket{0} +e^{i\phi}\sin(\half\theta)\ket{1}\right)
+%\\ \notag
+%\alpha &= 
+%\\ \notag
+%\theta &= 
+%\\ \notag 
+%\phi &=
+\]
+where $\alpha$, $\theta$, and $\phi$ are real numbers. The phase factor $e^{i\alpha}$ has no observable physical effect and can be ignored. It is merely an artifact of the mathematical representation. (If we use a density matrix representation then the phase factor disappears altogether.)
+\[
+\ket{\psi} \simeq \cos(\half\theta)\ket{0} +e^{i\phi}\sin(\half\theta)\ket{1}
+\]
+We'll use $\simeq$ to indicate that two states (or gates) are equal up to a phase factor.  
+\index{$\simeq$, equal up to global phase}
+\index{phase}
+
+The parameters $\theta$ and $\phi$, can be interpreted as spherical coordinates of a point on the surface of a unit sphere, where $\theta$ is the colatitude with respect to the \axis{z}-axis and $\phi$ the longitude with respect to the \axis{x}-axis, and $0 \leq \theta \leq \pi$ and $0 \leq \phi < 2 \pi$. 
+%
+In cartesian coordinates the point on the 3-dimensional unit sphere is given by the Bloch vector \index{Bloch vector}
+${\widehat {n}}=(\sin \theta \cos \phi ,\;\sin \theta \sin \phi ,\;\cos \theta )$.
+
+% Check leq pi ?
+
+\index{computational basis}
+\index{computational basis|see{Z basis}}
+\index{standard basis}
+\index{standard basis|see{Z basis}}
+\index{Hadamard basis}
+\index{Hadamard basis|see{X basis}}
+\index{X basis}
+\index{Y basis}
+\index{Z basis}
+%
+Note that the zero state, by convention, is located at the top of the Bloch sphere, and the one state at the bottom. 
+States on opposite sides of the sphere are orthogonal, and any pair of such states provides a basis in which any state of a qubit can be represented. The other basis states located along the cartesian axes are common enough to have notation of their own. 
+\[
+\text{X basis} & &  \ket{+} & =\tfrac{1}{\sqrt{2}}(\ket{0}+\ket{1}) & \widehat{n}&=(+1,0,0) \notag\\
+& & \ket{-} & =\tfrac{1}{\sqrt{2}}(\ket{0}-\ket{1})  & \widehat{n} &=(-1,0,0) \notag\\
+\text{Y basis} & & \ket{+i} &=\tfrac{1}{\sqrt{2}}(\ket{0}+i\ket{1}) & \widehat{n}&=(0,+1,0) \notag\\
+& & \ket{-i} &=\tfrac{1}{\sqrt{2}}(\ket{0}-i\ket{1}) & \widehat{n}&=(0,-1,0) \notag \\
+\text{Z basis} & & \ket{0} & & \widehat{n}&=(0,0,+1) \notag\\
+& & \ket{1} & & \widehat{n}&=(0,0,-1) \notag
+\]
+Generically we'll call these the X, Y, and Z bases.
+The Z-basis is also called the computational or standard basis, is the one we label with zero and ones, and is generally the only basis in which we can make measurements of the system.  The X-basis is also called the Hadamard basis, since it can be generated from the computational basis with a Hadamard transform~\secref{sec:Hadamard}.
+%
+\index{$\ket{+}$}\index{$\ket{-}$}\index{$\ket{0}$}\index{$\ket{1}$}\index{$\ket{+i}$}\index{$\ket{-i}$}
+
+% TODO: Explain other bases, give examples
+
+
+Unfortunately, there aren't any real-space geometric representations of multi-qubit systems. The geometric representation of 1-qubit states by the Bloch sphere only works because of a mathematical accident that doesn't generalize.
+
 
 \begin{figure}[tp]
 \begin{center}
@@ -124,6 +151,4 @@ on the 3-dimensional unit sphere.
 \caption{Location of standard basis states on the Bloch sphere.}
 \end{figure}
 
-One-qubit gates rotate the Bloch sphere. Orthogonal states are on opposite sids of the sphere. 
 
-% TODO: Hadamard basis
