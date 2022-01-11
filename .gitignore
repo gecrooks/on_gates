@@ -279,7 +279,6 @@ TSWLatexianTemp*
 GECLibrary2.bib
 gec_bibliography.bib
 GSC_Literature
-circuits/*.tex
 version.txt
 version.tex
 .DS_Store
