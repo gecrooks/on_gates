@@ -255,10 +255,13 @@ is the natural canonical representation of the CNot/CZ/MS gate family.
 % 
 % Cited in https://arxiv.org/pdf/quant-ph/0011050.pdf
 %\cite{Vatan2004a} % Optimal Quantum Circuits for General Two-Qubit Gates
-The magic gate trasforms to the {\sl magic basis}, which has a number of useful properties. See \secref{sec:canonicaldeke}. Locally equivalent to CNot.
+The magic gate transforms to the {\sl magic basis}, which has a number of useful properties. See \secref{sec:canonicaldeke}. Locally equivalent to CNot.
 $$
-\input{circuits/magic.tex}
-\simeq
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \gate[2]{M} & \qw \\
+&  & \qw
+\end{quantikz}
+}\simeq
 \input{circuits/magic_circ.tex}
 $$
 
@@ -1047,7 +1050,11 @@ We will discuss the quantum Fourier transform (QFT) in detail latter~\secref{sec
 % FIXME: Swap goes at end?
 %
 $$
-\input{circuits/qft.tex}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \gate[2]{QFT} & \qw \\
+&  & \qw
+\end{quantikz}
+}
 \simeq
 \input{circuits/qft_circ.tex}
 $$
@@ -1195,10 +1202,16 @@ $$
 
 The B-gate is half way between the \Gate{CNot} and \Gate{DCNot} ($\sim$ \Gate{iSwap}) gates, and thus it can be constructed from 3 \Gate{CV} (square root of \Gate{CNot}) gates.
 $$
-\input{circuits/b.tex}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \gate[2]{B} & \qw \\
+&  & \qw
+\end{quantikz}
+}
 \loceq
-\input{circuits/b_circ.tex}
-$$
+\adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+&  \ctrl{1} & \ctrl{1} & \gate{V} & \qw \\
+&   \gate{V}              & \gate{V}& \ctrl{-1}   &\qw
+\end{quantikz}}$$
 % TODO: Add local gates
 
 
