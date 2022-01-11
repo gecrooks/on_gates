@@ -1,0 +1,16 @@
+name: Build LaTeX document
+on: [push]
+env: 
+  root_file: 'on_gates'
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Checkout tags
+        run: git fetch --unshallow --tags        
+      - name: Install latex
+        run: sudo apt-get install -y texlive texlive-xetex texlive-fonts-extra latexmk
+      - name: Compile LaTeX document
+        run: cd on_gates_src; make build
