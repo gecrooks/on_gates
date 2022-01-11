@@ -7,10 +7,12 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-12s\033[0m %s\n", $$1, $$2}'
 
 
-build: ## Build on_gates
-	git tag --points-at HEAD > version.txt
-	latexmk -xelatex on_gates.tex
+version: ## Extract version from git tag and write to version.tex
+	git describe --tags  --abbrev=0 > version.txt || echo "No tags"
+	@git describe --tags
 
+build:  version  ## Build latex
+	latexmk -xelatex -g on_gates.tex
 
 edit:  ## Open all tex documents
 	open *.tex
@@ -22,10 +24,6 @@ clean:	## Clean
 
 circuits:  ## Build latex circuits
 	cd circuits && ./latex_circuits.py
-
-version: ## Extract version from git tag and write to version.tex
-	git describe --tags > version.txt
-	@git describe --tags
 
 
 
