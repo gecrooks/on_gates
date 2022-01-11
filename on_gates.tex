@@ -11,9 +11,13 @@
 \usepackage[backref=true,totoc=false]{enotez}
 \usepackage{amsmath}
 
+\special{dvipdfmx:config C 0x0010}
+
 \setenotez{
   list-heading = {},
 }
+
+
 
 \renewcommand{\endnote}{\footnote}
 
@@ -105,7 +109,7 @@
 
 \begin{document}
 \nocite{\self}
-\nocite{Dirac1939a,Bloch1946a,Toffoli1980a,Fredkin1982a,Feynman1985a,Peres1985a,Deutsch1989a,VanLoan1993a,Yao1993a,Reck1994a,Margolus1994a,Barenco1995a,DiVincenzo1995a,Barenco1995b,PreskillLectureNotes,DiVincenzo1998a,Molmer1999a,Nielsen2000a,VanLoan2000a,Dorai2000a,Song2003a,Zhang2003a,Vatan2004a,Zhang2004a,Blaauboer2008a,Drury2008a,Glendinning2010a,Sakurai2010a,Aaronson2013a,Green2013a,Watts2013a,Rieffel2014a,Axler2015a,Susskind2015a,Rigetti2016a,Smith2016a,Linke2017a,Wilde2017a,Ferrie2018a,Watrous2018a,Shi2018a,Barkoutsos2018a,Matuschak2019a,Abrams2020a,Gard2020a,Peterson2020a,Rasmussen2020a,Gidney2021a,Harrigan2021a,braket}
+\nocite{Dirac1939a,Bloch1946a,Toffoli1980a,Fredkin1982a,Feynman1985a,Peres1985a,Deutsch1989a,VanLoan1993a,Yao1993a,Reck1994a,Margolus1994a,Barenco1995a,DiVincenzo1995a,Barenco1995b,PreskillLectureNotes,DiVincenzo1998a,Molmer1999a,Nielsen2000a,VanLoan2000a,Dorai2000a,Collins2001a,Song2003a,Zhang2003a,Maslov2003a,Vatan2004a,Zhang2004a,Rezakhani2004a,Blaauboer2008a,Drury2008a,Glendinning2010a,Sakurai2010a,Gidney2012a,Aaronson2013a,Amy2013a,Green2013a,Watts2013a,Rieffel2014a,Axler2015a,Susskind2015a,Rigetti2016a,Smith2016a,Linke2017a,Wilde2017a,Ferrie2018a,Watrous2018a,Shi2018a,Barkoutsos2018a,Matuschak2019a,Abrams2020a,Gard2020a,Peterson2020a,Rasmussen2020a,Gidney2021a,Harrigan2021a}
 
 \title{\thetitle}
 \author{\href{http://threeplusone.com/}{Gavin E.\ Crooks}}
@@ -147,13 +151,12 @@ Tech. Note 014 v\theversion ~~ {\sc beta} \\~\\
 \include{ChStdGates1}
 \include{ChDeke1}
 \include{ChCanonical}
-
 \include{ChStdGates2}
-\input{ChDeke2}
+\include{ChDeke2}
 \include{ChStdGates3}
 \include{ChDekeMulti}
-    \include{ChPauli}
-    \include{ChClifford}
+\include{ChPauli}
+\include{ChClifford}
 
 
 
@@ -374,7 +377,7 @@ Tech. Note 014 v\theversion ~~ {\sc beta} \\~\\
 \nocite{Deutsch1985a}
 
 \section{Introduction}
-A computer is a physical device that can systematically process information. The original computers were people particularly adept at adding and multiplying numbers. But people are not particularly good as manipulating abstract information;  we take years to train, still make mistakes, and then die at inconvenient moments taking our stores of information with us.  But long ago mankind realized we could offload the computational load onto the physical environment. We developed abstract symbols for verbal and numerical information, paper and ink as external information stores, and mechanical devices to manipulate those symbols. 
+A computer is a physical device that can systematically process information. The original computers were people particularly adept at adding and multiplying numbers. But people are not particularly good at manipulating abstract information;  we take years to train, often make mistakes, and then die at inconvenient moments taking our stores of information with us.  But long ago mankind realized we could offload the computational load onto the physical environment. We developed abstract symbols for verbal and numerical information, paper and ink as external information stores, and mechanical devices to manipulate those symbols. 
 
 Writing and the abacus, the first mechanical computational device, were invented in Mesopotamia over 5000 years ago. Two millennia ago the Greeks were building elaborate analogy computers to calculate the passage of the sun, moon, and planets through the heavens. But not until the industrial revolution di the idea of a general purpose computer begin to take shape. Charles Babbage had the vision of a steam powered engine for systematic calculations of complex functions; and then even more fore-sited he conceived of an ``analytic engine'', the first inklings of a general purpose programmable computer. 
 A program is just an algorithm, a systematic step-by-step procedure for carrying out a complex computation. And a program is itself information, and therefore the instructions for operating a computer can be stored and manipulated by the computer itself. A programmable computer can be fed instructions that allow it to carry out any computation. Babbage was well ahead of this time. Neither his difference nor analytic engines could be built with the technology of then available time. It took the development of electronic switches (electro-mechanical relays, vacuums valves, and ultimately silicon transistors) to realize his vision of a general purpose computational engine a century latter.  
@@ -383,7 +386,7 @@ Turing universal computer. Church-Turing
 
 From the Second World War onwards we have witnessed a computational revolution that matches in scope and import of the preceding agricultural and industrial revolutions.  Just as the amount of food one man can grow has dramatically increased, or the power one man can exert, so to has the amount of information that one man can access and process has grown immensely. terrabyes per second.
 
-Abstract away most of the physical details. However, almost forgotten in the computer revolution was the central truth that a computer is a physical device. Information, however apparently abstract, is ultimately stored in physical objects. And a computer is a machine that has to obey the laws of physics. However, implicit in the early development of computer theory was the idea that reality obeys the commonsense laws of logic. In our current parlance, the implicit physical laws of underlying conventional computers are classical.      
+Abstract away most of the physical details. However, almost forgotten in the computer revolution was the central truth that a computer is a physical device. Information, however apparently abstract, is ultimately stored in physical objects. And a computer is a machine that has to obey the laws of physics. However, implicit in the early development of computer theory was the idea that reality obeys the commonsense laws of logic. In our current parlance, the implicit physical laws of underlying conventional computer science are classical.      
  
 
 
@@ -399,8 +402,9 @@ However abstract the computation or information appears, at the bottom the infor
 % 2019-05-24	9 pages
 % 2019-05-25	Added quantikz latex circuit support to quantumflow
 % 2019-05-26	Programmatically generate most circuits
-% 2020-02-13    v3 12 pages
-% 2020-06-01	v4 14 pages
-% 2021-07-01	79 pages
-
+% 2020-02-13    v3 		12 pages
+% 2020-06-01	v4 		14 pages
+% 2020-12-13    v0.5.1 	59 pages
+% 2021-07-01			79 pages
+% 2021-07-24	v0.6  	82 pages
 

@@ -267,7 +267,7 @@ $$
 
 \subsection{iSwap locally equivalent gates}
 \paragraph{\Gate{iSwap} (imaginary swap) gate}\index{iSwap gate}\cite{???,???,???}
-\index{imaginary swap gate| see{iSwap gate}}
+\index{imaginary swap gate| see{iSwap gate}}\hypertarget{}{iSwap}
 \[
 \Gate{iSwap} &= 
 \Left(\begin{smallmatrix}
@@ -281,7 +281,7 @@ $$
 \]
 \todo{Discussion}
 
-\paragraph{\Gate{fSwap} (fermionic swap) gate}\index{fSwap gate}\index{fermionic swap gate|see {\Gate{fSwap} gate}}~\cite{???}
+\paragraph{\Gate{fSwap} (fermionic swap) gate}\index{fSwap gate}\index{fermionic swap gate|see {\Gate{fSwap} gate}}~\cite{???}\hypertarget{}{fSwap}
 \[
 \Gate{fSwap} &= 
 \Left(\begin{smallmatrix}
@@ -296,7 +296,7 @@ $$
 The fermionic swap gate swaps adjacent fermionic modes in
 the Jordan-Wigner representation. A qubit in a zero state represents a fermion (typically an electron) in an orbital, and a zero state represents a hole. Since the qubits are representing identical fermions, swapping two particles has to apply a $-1$ phase to the state.  \index{Jordan-Wigner representation}
 
-\paragraph{Double Controlled NOT gate}(DCNot)\cite{Collins2001a}
+\paragraph{Double Controlled NOT gate}(DCNot)\cite{Collins2001a, Zhang2004a}
 \index{DCNot gate}\index{Double Controlled NOT gate|see {DCNot gate}}
 \[
 \Gate{DCNot} & = 
@@ -309,7 +309,7 @@ the Jordan-Wigner representation. A qubit in a zero state represents a fermion (
 \\
 & \loceq \Gate{Can}(\sfrac{1}{2}, \sfrac{1}{2}, 0) \notag
 \]
-A CNot gate immediately followed by another CNot with control and target interchanged. The DCNot gate is in the iSwap locality class.
+A \Gate{CNot} gate immediately followed by another \Gate{CNot} with control and target interchanged. The \Gate{DCNot} gate is in the \Gate{iSwap} locality class.
 $$
 \input{circuits/dcnot.tex}
 \simeq
@@ -362,9 +362,9 @@ A gate that swaps the state of two-qubits, located at the apex of the Weyl chamb
 0 & 0 & 0 & 1
 \end{smallmatrix}\Right)
 \\
-& = \Gate{Can}(\sfrac{1}{2}, \sfrac{1}{2}, \sfrac{1}{2}) \notag
+& \simeq \Gate{Can}(\sfrac{1}{2}, \sfrac{1}{2}, \sfrac{1}{2}) \notag
 \\ \notag
-H_{\Gate{Swap}} &= \sfrac{\pi}{4}( X\otimes X + Y\otimes Y +  Z \otimes Z)
+H_{\Gate{Swap}} &= \sfrac{\pi}{4}( X\otimes X + Y\otimes Y +  Z \otimes Z + I \otimes I )
 \]
 
 Swap gates are needed in physical realizations of quantum computers to move qubits into physical proximity so other gates can be performed between neighbors. In some cases this can be achieved by physically moving qubits. For example Honeywell's ion trap architecture can physically shift ions around the trap~\cite{???}. But in many cases physically moving qubits isn't possible. Swap gates can be synthesized from other quantum gates, most notable 1 Swap requires 3 CNot gates.
@@ -822,16 +822,17 @@ Includes the identity and \Gate{Swap} gates.
 
 \paragraph{Swap-alpha gate}\cite{Fan2005a,Blaauboer2008a} Powers of the Swap gate
 \index{Swap-alpha gate}\index{Swap gate}
+\hypertarget{SwapPow}{Target}
 \[
  \Gate{Swap}^\alpha  & = 
- e^{-\frac{\pi}{2}\alpha}
+ e^{+\frac{\pi}{2}\alpha}
  \begin{bsmallmatrix}
-   e^{-i\frac{\pi}{4}\alpha}& 0 & 0 & 0 \\
+   e^{-i\frac{\pi}{2}\alpha}& 0 & 0 & 0 \\
   0 & \cos(\frac{\pi}{2}\alpha) & i\sin(\frac{\pi}{2}\alpha) & 0 \\
   0 &  i\sin(\frac{\pi}{2}\alpha) &  \cos(\frac{\pi}{2}\alpha) & 0 \\
   0 & 0 & 0 &  e^{-\frac{\pi}{2}\alpha}
  \end{bsmallmatrix}
-  = \Gate{Can}(\tfrac{\alpha}{2}, \tfrac{\alpha}{2}, \tfrac{\alpha}{2})
+  \simeq \Gate{Can}(\tfrac{\alpha}{2}, \tfrac{\alpha}{2}, \tfrac{\alpha}{2})
 \]
 
 
@@ -1091,6 +1092,65 @@ The improper orthogonal gates have representations with determinant~$-1$ and coo
 
 % Both: CNot and CZ
 
+The line of gates locally equivalent to $\Gate{Can}(\half, t_y, 0)$ are in both the special and improper orthogonal local equivalency classes.
+Theses are know as special perfect entangling  (SPE) gates~\cite{Rezakhani2004a,Koponen2005a,Musz2013a}, or super-controlled gates~\cite{Ye2004a,Huang2021a}).
+\index{special perfect entangling gates}
+\index{SPE gates|see{special perfect entangling gates}}
+\index{super-controlled gates|see{special perfect entangling gates}}
+\begin{center}
+\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
+\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
+      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
+      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
+\draw [ultra thick, Maroon] (1, 0, 0) -- (1,1,0);
+\node (L) at (1, 0, -0.25) {Special perfect entangling gates};
+\end{tikzpicture}
+\end{center}
+
+By way of illustration, these three orthogonal operators are all in the \Gate{CNot} local equivalency class, but have determinate of $-1$, $-1$, and $1$, respectively.
+\[
+\begin{bsmallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 1 \\
+  0 & 0 & 1 & 0 
+\end{bsmallmatrix}
+\qquad
+\begin{bsmallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & -1 
+\end{bsmallmatrix}
+\qquad
+\begin{bsmallmatrix}
+ 1& 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 1 \\
+  0 & 0 & -1 & 0 
+\end{bsmallmatrix}
+\notag
+\]
+These are a \Gate{CNot}, a \Gate{CZ}, and a \Gate{CNot} followed by a \Gate{CZ}.
+
+% gates: CNOT, CZ, CNOT-CZ
+
+
+% TODO: Best name for these gates?
+% See Musz2013a Unitary quantum gates, perfect entangles, and unistocahstic maps
+
+
+
+%[6℄ M.-Y. Ye, G.-C. Guo, and Y.-S. Zhang (2004), quant-ph/0407108.
+%A. T. Rezakhani (2004), quant-ph/0405046.
+%
+%https://arxiv.org/pdf/quant-ph/0503141.pdf
+%https://arxiv.org/pdf/quant-ph/0407108.pdf
+
+
+
 
 % TODO: Decomposition
 
@@ -1320,12 +1380,6 @@ $$
  
 
 
-
-
-
-
-
-
 \subsection{\Gate{XXY} gates}
 The remaining faces of the Weyl chamber are the XXY family. Thanks to the Weyl symmetries, this family covers all three faces that meet at the \Gate{Swap} gate.
 \[
@@ -1441,18 +1495,4 @@ Synthesizing other gates from sycamore gates is mathematically somewhat involved
 \end{tikzpicture}
 \end{center}
 
-
-% TODO: Best name for these gates?
-% See Musz2013a Unitary quantum gates, perfect entangles, and unistocahstic maps
-\begin{center}
-\begin{tikzpicture}[tdplot_main_coords, scale=2.5]
-\draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
-      (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
-      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
-      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
-\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
-\draw [ultra thick, Maroon] (1, 0, 0) -- (1,1,0);
-\node (L) at (1, 0, -0.25) {Special perfect entangling gates};
-\end{tikzpicture}
-\end{center}
 
