@@ -244,9 +244,9 @@ A_0
 A_1
 \end{array}\right)
 \]
-where the A's and B's are unitary, and $C$ and $S$ are diagonal matrices with $C^2+S^2=I$. It follows that we can write $C=\text{diag}(\cos(\theta_0), \cos(\theta_1), \ldots)$, and $S=\text{diag}(\sin(\theta_0), \sin(\theta_1), \ldots)$, wherefore the name of this decomposition\endnote{This is a special case of the full cosine-sine decomposition, but sufficient for our purposes} . 
+where the A's and B's are unitary, and $C$ and $S$ are diagonal matrices with $C^2+S^2=I$. It follows that we can write $C=\text{diag}(\cos(\theta_0), \cos(\theta_1), \ldots)$, and $S=\text{diag}(\sin(\theta_0), \sin(\theta_1), \ldots)$, wherefore the name of this decomposition\endnote{This is a special case of the fully general cosine-sine decomposition, but sufficient for our purposes.}. 
 
-The initial and final blocks are equivalent to conditional gates, with a single control qubits, and potentially many target qubits. The central block is a multiplexed-Ry gate with the first qubit as target. We can spot this pattern because the overall $\begin{psmallmatrix}C & -S\\ +S & C\end{psmallmatrix}$ block structure has the same relationship between parameters as the \Gate{R_Y} gate. (Although the $\theta$ parameters of the \Gate{R_Y} gates and those of the cosine-sine decomposition differ by a factor of 2, for the usual reasons~\cite{???})
+The initial and final blocks are equivalent to conditional gates, with a single control qubit, and potentially many target qubits. The central block is a multiplexed-Ry gate with the first qubit as target. We can spot this pattern because the overall $\begin{psmallmatrix}C & -S\\ +S & C\end{psmallmatrix}$ block structure has the same relationship between parameters as the \Gate{R_Y} gate. (Although the $\theta$ parameters of the \Gate{R_Y} gates and those of the cosine-sine decomposition differ by a factor of 2, for the usual reasons~\cite{???})
 
 
 
@@ -675,95 +675,4 @@ A = U^{\dagger}_{10} U^{\dagger}_{20} U^{\dagger}_{30} U^{\dagger}_{21} U^{\dagg
 \]
 
 %\subsection{Decomposition of two-level unitary gates}
-
-\clearpage
-
-\section{Classical reversible logic}
-
-
-
-
-\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
-\lstick{A} & \ctrl{1} & \qw \rstick{A}\\
-\lstick{B}  & \ctrl{1} & \qw \rstick{B}\\
-\lstick{T} & \targ{} & \qw \rstick{T + AB}
-\end{quantikz}
-}
-
-\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
-& \lstick{A} & \ctrl{1} & \qw & \rstick{A} \\
-& \lstick{B} & \ctrl{1} & \qw & \rstick{B} \\
-& \lstick{T} & \targ{} & \qw & \rstick{T+AB}
-\end{quantikz}
-}
-
-$$
-\input{circuits/C7Not_labels}
-$$
-
-
-$$
-\input{circuits/C7Not_labels_1}
-$$
-
-\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
-\lstick{A} & \ctrl{1} & \qw \rstick{A}\\
-\lstick{B}  & \ctrl{1} & \qw \rstick{B}\\
-\lstick{C}  & \ctrl{1} & \qw \rstick{C}\\
-\lstick{D}  & \ctrl{1} & \qw \rstick{D}\\
-\lstick{E}  & \ctrl{1} & \qw \rstick{E}\\
-\lstick{F}  & \ctrl{1} & \qw \rstick{F}\\
-\lstick{G}  & \ctrl{1} & \qw \rstick{G}\\
-\lstick{T} & \targ{} & \qw \rstick{T + ABCDEFG} \\
-\lstick{b} & \qw & \qw \rstick{b}
-\end{quantikz}
-}
-
-\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
-\lstick{A}	& \ctrl{1} 	& \qw		& \ctrl{1} 	& \qw 		& \qw\rstick{A}\\
-\lstick{B}  & \ctrl{1} 	& \qw 		& \ctrl{1} 	& \qw		& \qw\rstick{B}\\
-\lstick{C}  & \ctrl{1} 	& \qw		& \ctrl{1} 	& \qw 		& \qw\rstick{C}\\
-\lstick{D}  & \ctrl{5} 	& \qw		& \ctrl{5} 	& \qw 		& \qw\rstick{D}\\
-\lstick{E}  & \qw 		& \ctrl{1} 	& \qw		& \ctrl{1}  & \qw\rstick{E}\\
-\lstick{F}  & \qw 	 	& \ctrl{1} 	& \qw		& \ctrl{1}  & \qw\rstick{F}\\
-\lstick{G}  & \qw 		& \ctrl{1} 	& \qw		& \ctrl{1}  & \qw\rstick{G}\\
-\lstick{T} 	& \qw 		& \targ{} 	& \qw 		& \targ{}   & \qw\rstick{T + ABCDEFG} \\
-\lstick{b} 	& \targ{}	& \ctrl{-1}	& \targ{} 	& \ctrl{-1} & \qw \rstick{b}
-\end{quantikz}
-}
-
-\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
-\lstick{A}	& \ctrl{1}	& \qw		& \qw		& \qw		& \qw\rstick{A}\\
-\lstick{B}  & \ctrl{1} 	& \qw		& \qw		& \qw		& \qw\rstick{B}\\
-\lstick{0}  & \targ{}	& \ctrl{1}	& \qw		& \qw		& \qw\rstick{AB}\\
-\lstick{C}  & \qw 		& \ctrl{1}	& \qw		& \qw		& \qw\rstick{C}\\
-\lstick{0}  & \qw 		& \targ{}	& \ctrl{1}	& \qw		& \qw\rstick{ABC}\\
-\lstick{D}  & \qw		& \qw 		& \ctrl{1}	& \qw 		& \qw\rstick{D}\\
-\lstick{T} 	& \qw 		& \qw 		& \targ{} 	& \qw   	& \qw\rstick{T + ABCD} \\
-\end{quantikz}
-}
-
-\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
-\lstick{A}	& \ctrl{1}	& \qw		& \qw		& \qw		& \ctrl{1}	& \qw\rstick{A}\\
-\lstick{B}  & \ctrl{1} 	& \qw		& \qw		& \qw		& \ctrl{1}	& \qw\rstick{B}\\
-\lstick{0}  & \targ{}	& \ctrl{1}	& \qw		& \ctrl{1}	& \targ{}	& \qw\rstick{0}\\
-\lstick{C}  & \qw 		& \ctrl{1}	& \qw		& \ctrl{1}	& \qw 		& \qw\rstick{C}\\
-\lstick{0}  & \qw 		& \targ{}	& \ctrl{1}	& \targ{}	& \qw 		& \qw\rstick{0}\\
-\lstick{D}  & \qw		& \qw 		& \ctrl{1}	& \qw 		& \qw 		& \qw\rstick{D}\\
-\lstick{T} 	& \qw 		& \qw 		& \targ{} 	& \qw   	& \qw 		& \qw\rstick{T + ABCD} \\
-\end{quantikz}
-}
-
-\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
-\lstick{A}	& \ctrl{1}	& \qw		& \qw		& \qw		& \ctrl{1}	& \qw\rstick{A}\\
-\lstick{B}  & \ctrl{1} 	& \qw		& \qw		& \qw		& \ctrl{1}	& \qw\rstick{B}\\
-\lstick{0}  & \targ{}	& \ctrl{1}	& \qw		& \ctrl{1}	& \targ{}	& \qw\rstick{0}\\
-\lstick{C}  & \qw 		& \ctrl{1}	& \qw		& \ctrl{1}	& \qw 		& \qw\rstick{C}\\
-\lstick{0}  & \qw 		& \targ{}	& \ctrl{1}	& \targ{}	& \qw 		& \qw\rstick{0}\\
-\lstick{D}  & \qw		& \qw 		& \ctrl{1}	& \qw 		& \qw 		& \qw\rstick{D}\\
-\lstick{T} 	& \qw 		& \qw 		& \targ{} 	& \qw   	& \qw 		& \qw\rstick{T + ABCD} \\
-\end{quantikz}
-}
-
-
 
