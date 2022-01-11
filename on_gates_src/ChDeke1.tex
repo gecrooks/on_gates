@@ -15,7 +15,7 @@ b & a^*
 where $a$ and $b$ are complex with $|a|^2 + |b|^2 = 1$, and  $\alpha$ is real.
 Given such a generic unitary, we would like to represent this gate using standard parameterized gates.   
 
-The first step to deke\endnote{
+The first step to deke\footnote{
 {\sl deke} {\sl |dek|} verb --- To decompile, deconstruct, or decompose.
 \\ 1995  Neal Stephenson {\sl The Diamond Age} ``We gotta deke all this stuff now'' Easy come, easy go.
 \index{deke}}\index{deke} a gate is to extract the phase factor $\alpha$,
@@ -119,7 +119,7 @@ U = & e^{i\alpha'}\ Z^{t_2}\ Y^{t_1}\ Z^{t_0}
 \index{Pauli-power gates! decomposition}
 
 \subsection{V-Z decomposition}\index{V-Z decomposition}
-For some superconducting qubit architectures the natural 1-qubit gates are Z-rotations $R_z$ and $V$ \eqref{V}\endnote{Note that here \Gate{V} refers to a specific 1-qubit gate, the square-root of the \Gate{X} gate, whereas elsewhere $V$ is used to denote a general unitary or special unitary matrix. Such notational ambiguities are inevitable since there's only so many squiggles to go around~\cite{???}.}  the square root of $X$~\cite{???}. There isn't direct access to $R_y$ rotations or general $R_x$ rotations, but this is only a minor inconvenience since $R_z(\theta) = V^\dagger R_y(\theta) V$, \secref{???} and we can therefore decompose 1-qubit gates to a 5-gate sequence,
+For some superconducting qubit architectures the natural 1-qubit gates are Z-rotations $R_z$ and $V$ \eqref{V}\footnote{Note that here \Gate{V} refers to a specific 1-qubit gate, the square-root of the \Gate{X} gate, whereas elsewhere $V$ is used to denote a general unitary or special unitary matrix. Such notational ambiguities are inevitable since there's only so many squiggles to go around~\cite{???}.}  the square root of $X$~\cite{???}. There isn't direct access to $R_y$ rotations or general $R_x$ rotations, but this is only a minor inconvenience since $R_z(\theta) = V^\dagger R_y(\theta) V$, \secref{???} and we can therefore decompose 1-qubit gates to a 5-gate sequence,
 \[
 U =  e^{i\alpha}\ R_z(\theta_2)\ V^\dagger\ R_z(\theta_1)\ V\  R_z(\theta_0)  \ .
 \]

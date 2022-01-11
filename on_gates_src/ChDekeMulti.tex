@@ -244,7 +244,7 @@ A_0
 A_1
 \end{array}\right)
 \]
-where the A's and B's are unitary, and $C$ and $S$ are diagonal matrices with $C^2+S^2=I$. It follows that we can write $C=\text{diag}(\cos(\theta_0), \cos(\theta_1), \ldots)$, and $S=\text{diag}(\sin(\theta_0), \sin(\theta_1), \ldots)$, wherefore the name of this decomposition\endnote{This is a special case of the fully general cosine-sine decomposition, but sufficient for our purposes.}. 
+where the A's and B's are unitary, and $C$ and $S$ are diagonal matrices with $C^2+S^2=I$. It follows that we can write $C=\text{diag}(\cos(\theta_0), \cos(\theta_1), \ldots)$, and $S=\text{diag}(\sin(\theta_0), \sin(\theta_1), \ldots)$, wherefore the name of this decomposition\footnote{This is a special case of the fully general cosine-sine decomposition, but sufficient for our purposes.}. 
 
 The initial and final blocks are equivalent to conditional gates, with a single control qubit, and potentially many target qubits. The central block is a multiplexed-Ry gate with the first qubit as target. We can spot this pattern because the overall $\begin{psmallmatrix}C & -S\\ +S & C\end{psmallmatrix}$ block structure has the same relationship between parameters as the \Gate{R_Y} gate. (Although the $\theta$ parameters of the \Gate{R_Y} gates and those of the cosine-sine decomposition differ by a factor of 2, for the usual reasons~\cite{???})
 
