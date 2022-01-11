@@ -18,13 +18,16 @@ edit:  ## Open all tex documents
 	open *.tex
 
 
+bib: ## Copy citations from master bibliogrpahy to local bibliogrpahy
+	bibtool -s -d -x on_gates.aux ../../gec_bibliography/gec_bibliography.bib > on_gates_no_edit.bib
+
+
 clean:	## Clean
 	latexmk -C
 
 
 circuits:  ## Build latex circuits
 	cd circuits && ./latex_circuits.py
-
 
 
 .PHONY: help
