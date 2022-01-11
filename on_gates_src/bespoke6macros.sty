@@ -1,0 +1,87 @@
+
+\RequirePackage{amsthm,amsmath, amssymb}
+\RequirePackage{etoolbox}
+\RequirePackage[breaklinks]{hyperref}
+\RequirePackage{color}
+
+
+\newtoggle{draft}
+\DeclareOption{draft}{\toggletrue{draft}}
+\DeclareOption{final}{\togglefalse{draft}}
+
+\ExecuteOptions{draft} % Default
+\ProcessOptions\relax
+
+
+\newcommand{\secref}[1]{(\S\ref{#1})}
+
+\newcommand{\doi}[1]{\href{http://dx.doi.org/#1}{doi:#1}}   % Possibly update as in fftbib
+
+\newcommand{\newevenside}{
+	\ifthenelse{\isodd{\thepage}}{\newpage}{
+	\newpage
+        \phantom{placeholder} % doesn't appear on page
+	\thispagestyle{empty} % if want no header/footer
+	\newpage
+	}
+}
+
+\newcommand{\isodate}[3]{%[year][month][day]
+	\number#1-%
+	\ifcase#2\or
+	  01\or 02\or 03\or 04\or 05\or 06\or
+	  07\or 08\or 09\or 10\or 11\or 12\fi -%
+	\ifcase#3\or
+	  01\or 02\or 03\or 04\or 05\or 06\or 07\or 08\or 09\or 10\or
+	  11\or 12\or 13\or 14\or 15\or 16\or 17\or 18\or 19\or 20\or
+	  21\or 22\or 23\or 24\or 25\or 26\or 27\or 28\or 29\or 30\or
+	  31\fi}
+
+
+\newcommand{\isotoday}{\isodate{\year}{\month}{\day}}
+
+
+% Working annotations
+\newcommand{\note}[1]{[{\color{blue}#1}]}
+\newcommand{\todo}[1]{\note{To do: #1}}
+\newcommand{\checked}{\ensuremath{{{}^{\color{blue}\checkmark}}}}
+\newcommand{\error}{{\ensuremath{{}^{\color{red}\times}}}}
+\newcommand{\verify}{{\ensuremath{{}^{\color{red}?}}}}
+\newcommand{\hidenotes}{
+	\renewcommand{\note}[1]{}
+	\renewcommand{\todo}[1]{}
+	\renewcommand{\checked}{}
+	\renewcommand{\error}{}	
+	\renewcommand{\verify}{}
+}
+
+% Handy macro for empty title and other bibtex fields. 
+% Suppreses warnings and period (Because not empty and looks like punctuation)
+\def\emptyfield?{}
+
+\newcommand{\addcitationneeded}{
+\makeatletter
+\apptocmd{\thebibliography}{{\global\c@NAT@ctr -1\relax}}{}{}
+\AtBeginDocument{\nocite{???}}
+\makeatother
+}
+
+
+\makeatletter
+\usepackage{etoolbox}
+\newcommand{\citem}[1]{%
+\def\nextitem{\def\nextitem{, }}% Separator  
+\renewcommand*{\do}[1]{\nextitem\citeauthor{##1} (\citeyear{##1})\,{\cite{##1}}}% How to process each item
+\docsvlist{#1}% Process list
+}
+
+% Makes natbib not link names or years.
+%http://tex.stackexchange.com/questions/67423/how-to-force-hyperref-to-reference-only-cite-and-not-citeauthor-or-citeyear
+\pretocmd{\NAT@citexnum}{\@ifnum{\NAT@ctype>\z@}{\let\NAT@hyper@\relax}{}}{}{}
+
+
+
+
+
+
+\endinput

@@ -1,0 +1,51 @@
+
+
+
+\NeedsTeXFormat{LaTeX2e} 
+\ProvidesPackage{bespoke6math}
+
+\RequirePackage{amsthm,amsmath,amssymb}
+\RequirePackage{etoolbox}
+
+
+
+% Redefine logical operators to use words not cryptic symbols.
+\newcommand{\AND}{\mathbin{\text{and}}}
+\newcommand{\OR }{\mathbin{\text{or}}}
+\newcommand{\NOT}{{}\mathbin{\text{not}}{}}
+\newcommand{\In}{\ensuremath{\text{ in }}}
+\newcommand{\Forall}{\ensuremath{\text{ for all }}}
+
+
+
+% left and right with correct spacing. 
+% http://tex.stackexchange.com/questions/2607/spacing-around-left-and-right
+\newcommand{\Left}{\mathopen{}\mathclose\bgroup\left}
+\newcommand{\Right}{\aftergroup\egroup\right}
+
+
+% The problem with \tfrac{1}{2} is that it's larger that \frac in sub and superscripts
+% \mathchoice{d}{t}{s}{ss}
+\newcommand{\sfrac}[2]{\ensuremath{\mathchoice{\tfrac{#1}{#2}}{\tfrac{#1}{#2}}{\frac{#1}{#2}}{\frac{#1}{#2}}}}
+
+\newcommand{\half}{\sfrac{1}{2}}
+
+
+
+\newcommand{\Partial}[3]{\rule{0in}{11pt}\left(\!\frac{\partial #1}{\partial #2}\!\right)_{\!#3}}
+
+
+
+\newcommand{\ones}{{\mathbf 1}}
+\newcommand{\zeros}{{\mathbf 0}}
+
+
+
+% Redefine \[ and \] as align, so I don't have to type so much.
+\protected\def\[#1\]{\begin{align}#1\end{align}}
+\def\bsub{\begin{subequations}}
+\def\esub{\end{subequations}}
+
+
+
+\endinput
