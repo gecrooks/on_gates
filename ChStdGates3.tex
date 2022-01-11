@@ -8,13 +8,14 @@
 
 Regrettable there doesn't appear to be an easy way to characterize and visualizes the space of 3-qubit gates in the same way there is for 1-qubit (Bloch ball) and 2-qubit gates (Weyl chamber). Which is perhaps not surprising since a general 3-qubit gate has $(2^3)^2 = 64$ parameters. 
 
-However, there are only a few specific 3-qubit gates that show up in practice, most of which are directly related to the Toffoli (or controlled-controlled-not) gate.
+Fortunately there are only a few specific 3-qubit gates that show up in practice, most of which are directly related to the Toffoli (or controlled-controlled-not) gate.
 
 \paragraph{Toffoli gate (controlled-controlled-not, CCNot)}\cite{Toffoli1980a, Feynman1985a, Barenco1995b}
 \index{CCNot gate}
 \index{controlled-controlled-not gate|see{CCNot gate}}
 \index{Toffoli gate|see{CCNot gate}}
-A 3-qubit gate with two control and one target qubits.  Originally studied in the context of reversible classical logic, where 3-bit gates are necessary for universal computation. The target bit flips only if both control bits are one.  We often encounter this gate when converting classical logic circuits to quantum circuits.
+A 3-qubit gate with two control and one target qubits.  Originally studied in the context of reversible classical logic, where 3-bit gates are necessary for universal computation~\cite{Toffoli1980a,Aaronson2015}. %1504.05155
+ The target bit flips only if both control bits are one.  We often encounter this gate when converting classical logic circuits to quantum circuits.
 $$
 \text{CCNot} =
 \begin{bsmallmatrix}
@@ -45,6 +46,8 @@ $$
 \end{bsmallmatrix*}
 \notag
 \]
+
+
 
 %The CCNot gate is typically represented by the following circuit:
 %$$
@@ -173,12 +176,28 @@ $$
                 0& 0& 0& 0& 1& 0& 0& 0 
 \end{smallmatrix} \Right]
 \]
-The Peres gate is equivalent to a Toffoli followed by a CNot gate.
+The Peres gate is equivalent to a Toffoli followed by a CNot gate, and decomposes into 5 CNots (compared to 6 for Toffoli gates).
 $$
 \input{circuits/peres.tex}
 $$
 % Cite https://arxiv.org/pdf/quant-ph/0403053.pdf
 % https://arxiv.org/pdf/0803.2316.pdf
+\newcommand*{\circledbullet}{%
+    \mathbin{%
+        \ooalign{$\circledcirc$\cr\hidewidth$\bullet$\hidewidth}%
+    }%
+}
+The Peres gate is a reversible half-adder. (Recall that a half-adder sums two bits, whereas a full-adder sums three bits) If we feed a zero bit into the third position, then the output of the second bit is the sum (mod 2) of the first two bits, and the third bit is the carry. 
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+\lstick{A} & \ctrl{2} & \qw & \rstick{A}\\
+\lstick{B} & \push{\circledbullet}  & \qw  &\rstick{\text{sum}}\\
+\lstick{0}& \targ{}  & \qw & \rstick{\text{carry}}
+\end{quantikz}
+}
+$$
+The above diagram is seen occasionally, where the middle bit of the Peres gate is denoted by a fisheye.
+
 
 
 \paragraph{Deutsch gate}~\cite{Deutsch1989a, Barenco1995a, Shi2018a}\index{Deutsch gate}
@@ -313,7 +332,7 @@ The Margolus gate is equivalent to a Toffoli gate plus a CCZ gate,
 $$
 \input{circuits/margolus_to_ccnot}
 $$
- and can be implemented with only 3 CNot gates.
+ and can be implemented with only 3 \Gate{CNot} gates.
 $$
 \input{circuits/margolus_to_cnot}
 $$
