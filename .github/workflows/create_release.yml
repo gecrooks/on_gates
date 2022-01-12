@@ -1,3 +1,7 @@
+
+# To create a new release, simple tag the master branch with a version, e.g. 'v0.7.1'
+# PDF is built and uploaded as release resource
+
 on:
   push:
     # Sequence of patterns matched against refs/tags
@@ -7,6 +11,7 @@ on:
 name: Create Release
 
 env:
+  src_dir: 'on_gates_src'
   root_file: 'on_gates'
 jobs:
   build:
@@ -20,7 +25,7 @@ jobs:
       - name: Install latex
         run: sudo apt-get install -y texlive texlive-xetex texlive-fonts-extra latexmk
       - name: Compile LaTeX document
-        run: cd on_gates_src; make build        
+        run: cd ${{ env.src_dir }}; make build        
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -38,6 +43,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./on_gates_src/${{ env.root_file }}.pdf
+          asset_path: ./${{ env.src_dir }}/${{ env.root_file }}.pdf
           asset_name: ${{ env.root_file }}.pdf
           asset_content_type: application/pdf
