@@ -4,7 +4,7 @@ Notes on the circuit model of quantum computation
 
 [Gavin E. Crooks](https://threeplusone.com) © 2020-
 
-* PDF: (https://threeplusone.com/gate)
+* PDF: (https://threeplusone.com/gates)
 * Source: (https://github.com/gecrooks-write/on_gates)
 * Issues: (https://github.com/gecrooks-write/on_gates/issues)
 
