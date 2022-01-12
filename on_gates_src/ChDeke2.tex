@@ -1,0 +1,385 @@
+
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = on_gates.tex
+
+
+\clearpage
+\section{Decomposition of 2-qubit gates}
+
+A general 2-qubit gate corresponds to some 4 by 4 unitary matrix, with 16 free parameters. We can (as per usual) factor out an irrelevant phase (???), but that still leaves a rather unwieldy 15 parameters. Fortunately, the Kraus and Cirac demonstrated that any 2-qubit gate can be decomposed into a canonical gate, plus 4 local 1-qubit gates~\cite{???,???,???,???}. The local gates account for $4\times3=12$ parameters, which leaves just the 3 parameters of the canonical gate. The canonical gate can be further decomposed into \Gate{CNot} gates, or other sets of 2-qubit gates as desired.
+
+ 
+\subsection{Kronecker decomposition}
+\label{sec:kroneckerdeke}
+We'll first consider a simpler decomposition problem that we will use as a sub-algorithm of the full decomposition. Suppose we have two 1-qubit gates, $A$ and $B$, acting on separate qubits, but we are given only the full 2-qubit unitary operator $C$. Our task is to recover the two 1-qubit gates.
+
+Mathematically, $C$ is the Kronecker product of the two 1-qubit gates.
+\[
+C & = A\otimes B \\
+ & = \begin{bsmallmatrix}
+ A_{11} B_{11} & A_{11} B_{12} &A_{12} B_{11} &A_{12} B_{12} \\
+ A_{11} B_{21} & A_{11} B_{22} &A_{12} B_{21} &A_{12} B_{22} \\
+ A_{21} B_{11} & A_{21} B_{12} &A_{22} B_{11} &A_{22} B_{12} \\
+ A_{21} B_{21} & A_{21} B_{22} &A_{22} B_{21} &A_{22} B_{22}
+  \end{bsmallmatrix}
+  \notag
+\]
+\index{Kronecker decomposition}\index{Pitsianis-Van Loan algorithm}\index{Kronecker product}
+
+We will undo the Kronecker product using the Pitsianis-Van Loan algorithm\cite{VanLoan1993a, VanLoan2000a}. If the matrix $C$ isn't constructed from a single Kronecker product, the algorithm still guarantees that $A\otimes B$ is the closest Kronecker product to $C$ in the Frobenius norm.
+
+The trick is to first view $C$ as 4th order $2\times2\times2\times2$ tensor. The Kronecker product can then be written as the outer product of $A$ and $B$, followed by a transpose of the last index of $A$ and the first index of $B$.
+\[
+C_{mpnq} = A_{mn}\otimes B_{pq} = [A_{mn}\ B_{pq}]^{T_{n\leftrightarrow p}} 
+\]
+If we flatten the matrices, we have a normal outer product of vectors, which can be undone with a singular-value decomposition.
+
+In code, the algorithm can be expressed as follows.
+\begin{verbatim}
+import numpy as np
+def nearest_kronecker_product(C):
+    C = C.reshape(2, 2, 2, 2)
+    C = C.transpose(0, 2, 1, 3)  
+    C = C.reshape(4, 4)
+
+    u, sv, vh = np.linalg.svd(C)
+    
+    A = np.sqrt(sv[0]) * u[:, 0].reshape(2, 2)
+    B = np.sqrt(sv[0]) * vh[0, :].reshape(2, 2)
+
+    return A, B
+\end{verbatim}
+We first shape C to a 4th order tensor, so that in the next line we can undo the axes transposition, before reshaping to a matrix. The singular value decomposition takes this matrix apart, and we retain the rank-one approximation, retaining only the largest singular value and corresponding left and right singular vectors. We reshape the singular vectors to matrices to obtain our desired result.
+
+
+\subsection{Canonical decomposition}
+\label{sec:canonicaldeke}
+Any 2-qubit gate can expressed as a canonical gate \eqref{Can} plus 4 local 1-qubit gates~\cite{???}.
+\index{canonical decomposition}
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+&  \gate[2]{U}  &  \qw \\
+&                &\qw
+\end{quantikz}}
+\simeq
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate{K_1} & \gate[2]{\text{Can}(t_x, t_y, t_z)} &  \gate{K_3} &\qw \\
+& \gate{K_2} &                              &  \gate{K_4} &\qw
+\end{quantikz}}
+$$
+Decomposition to the canonical gate is also known as the magic-, Kraus-Cirac-~\cite{???}, or KAK-decomposition.
+% TODO: KAK deke is a more general construct.
+\index{Kraus-Cirac decomposition|see {canonical decomposition}}
+\index{KAK decomposition|see {canonical decomposition}}
+\index{magic decomposition|see {canonical decomposition}}
+
+The trick to decomposing a 2-qubit gate unitary to the canonical representation is a similarity transform to the {\sl magic basis}.
+\[
+V & = M\ U\ M^\dagger \\
+& \Gate{M}   = 
+\frac{1}{\sqrt{2}} \begin{bsmallmatrix*}[r]
+  1 & i & 0 & 0 \\
+  0 & 0 & i & 1 \\
+  0 & 0 & i & -1 \\
+  1 & -i & 0 & 0
+\end{bsmallmatrix*}
+\notag
+\]
+Here $M$ is the magic gate \eqref{magic}.\index{magic basis}\index{magic gate}
+%
+The magic basis has two remarkable properties. The first is that if $U$ is a special orthogonal matrix (Real, $U^T = U$, and $\det U=1$), then in the magic basis $U$ is the Kronecker product of two 1-qubit gates.
+\[
+V = M U M^\dagger = A \otimes B \quad \text{if } U\in SO(4)
+\]
+For a sussinct proof see~\cite{}.
+%[todo: Copy proof here]
+
+The second useful property is that $M$ diagonalizes the canonical gate. 
+\[
+&\Gate{Can}(t_x, t_y, t_z) = M\ D\ M^\dagger \\
+&D  = \operatorname{diag}(e^{i\half(+t_x-t_y+t_z)},e^{i\half(-t_x+t_y+t_z)},e^{i\half(+t_x+t_y-t_z)},e^{i\half(-t_x-t_y-t_z)})
+\notag
+\]
+
+With these two properties we can decompose any 2-qubit gate. We'll assume that the phase \eqref{???} has already been extracted and that $U$ is therefore special unitary. We write $U$ as a decomposition into the canonical gate, and Kronecker products of local gates before and after.
+\[
+U &= (K_3\otimes K_4)\ \Gate{Can}(t_x, t_y, t_z)\ (K_1\otimes K_2)
+\] 
+We then make the transform to the magic basis, to give us a diagonal matrix $D$ sandwiched between two special orthogonal matrices, $Q_1$ and $Q_2$.
+\[
+V &= M\ U\ M^\dagger \notag\\
+ & = M (K_3 \otimes K_4) M^\dagger\ M\ \Gate{Can}(t_x, t_y, t_z)\ M^\dagger\ M (K_1\otimes K_2)M^\dagger  \notag\\
+ &= Q_2\ D\ Q_1 \notag
+\]
+
+The next trick is to take a transpose of $V$. This inverts the orthogonal matrices, but leaves the complex diagonal matrix unchanged. The product $V^T V$ is therefore a similarity transform of the diagonal matrix $D$ squared. 
+\[
+V^T V = Q_1^T D Q_2^T\ Q_2 D Q_1 = Q_1^T D^2 Q_1
+\notag
+\]
+An eigen-decomposition of $V^T V$ yields the square eigenvalues of $D$, and $Q_1$ as the matrix of eigenvectors. We can then extract the canonical gate coordinates from the eigenvalues, and undo the magic basis transform to recover the local gates. These Kronecker products of local gates can be decomposed into separate 1-qubit gates using the Kronecker decomposition \secref{sec:kroneckerdeke} and then further into elementary gates using a 1-qubit decomposition \secref{sec:ZYZdeke}.
+
+
+\subsection{\Gate{CNot} decomposition}
+\index{CNot gate sandwich}
+\index{CNot decomposition}
+The elementary 2-qubit gate is most often taken to be the \Gate{CNot} gate. In general we can build any canonical gate from a circuit of 3 \Gate{CNot}s~\cite{Vidal2003a, Vatan2003a, Vatan2004a}.
+%$$
+%\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+%& \gate[2]{\text{CAN}(t_x,t_y,t_z)} & \qw \\
+%&  & \qw
+%\end{quantikz}}
+%\simeq
+%\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+%& \qw & \targ{} & \gate{Z^{t_z - \half}} & \ctrl{1} & \qw & \targ{} & \gate{S^\dagger} & \qw \\
+%& \gate{S} & \ctrl{-1} & \gate{Y^{t_x - \half}} & \targ{} & \gate{Y^{\half - t_y}} & \ctrl{-1} & \qw & \qw
+%\end{quantikz}}
+%$$
+$$
+\input{circuits/can.tex}
+\simeq
+\input{circuits/can_to_cnot.tex}
+$$
+
+Gates on the bottom surface of the Weyl chamber (special orthogonal local equivalency class~\secref{???}) require only 2 \Gate{CNot} gates~\cite{Vidal2003a,Vatan2004a, self}.
+$$
+\input{circuits/can_so.tex}
+\simeq
+\input{circuits/can_to_2cnot.tex}
+$$
+% Figured out the particular deke for myself with some trial and error
+
+Gates in the improper orthogonal equivalency class \secref{???} require 3 \Gate{CNot} gates, or 2-\Gate{CNot}s and 1 \Gate{Swap}~\cite{Vatan2004a}.
+$$
+\input{circuits/can_io.tex}
+\simeq
+\input{circuits/can_to_2cnot_swap.tex}
+$$
+
+Clearly gates locally equivalent to $\Gate{CNot}\loceq\Gate{Can}(\half, 0,0)$ require only one \Gate{CNot} gate, 
+$$
+\input{circuits/can_cnot.tex}
+\simeq
+\input{circuits/can_to_1cnot.tex}
+$$
+% Simplify?
+and those locally equivalent to the identity $\Gate{I_2}=\Gate{Can}(0, 0,0)$ require none. 
+
+\subsection{B-gate decomposition}
+\label{sec:bgatesandwich}
+\index{B-gate sandwich}
+\index{B-gate decomposition}
+The canonical gate can be decomposed in to a B-gate sandwich~\cite{Zhang2004b}.
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate[2]{\text{Can}(t_x, t_y, t_z)} & \qw \\
+&                              & \qw
+\end{quantikz}}
+\simeq
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate{K_3^\dagger}&  \gate[2]{B} & \qw & \gate{Y^{-t_x}}& \qw & \gate[2]{B} & \gate{K_1^\dagger} & \qw \\
+& \gate{K_4^\dagger}&               & \gate{Z^{s_z}}& \gate{Y^{s_y}}&     \gate{Z^{s_z}}&  & \gate{K_2^\dagger} &\qw
+\end{quantikz}}
+$$
+where
+\[
+s_y &= +\tfrac{1}{\pi} \arccos \left(1 - 4 \sin^2\half\pi t_y \cos^2\half\pi t_z\right)  \\
+s_z & = -\tfrac{1}{\pi}\arcsin \sqrt{\frac{\cos \pi t_y \cos \pi t_z}{1 - 2 \sin^2\half\pi t_y \cos^2\half\pi t_z}}
+\notag
+\]
+Notably two B-gates are sufficient to create any other 2-qubit gate (whereas we need 3 CNOT’s in general).
+
+
+To recover the local gates $\Gate{K_n}$ we perform another canonical decomposition on the B gate sandwich sans the terminal local gates~\cite{Cirq}%
+\footnote{Open problem: Zang et al.\cite{Zhang2004b} derived the analytic decomposition of the canonical gate to a B-gate sandwich only up to local gates. Derive an analytic formula for the necessary local gates to complete the canonical to B-gate sandwich decomposition. \index{B-gate sandwich}
+\index{problems}}.
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+&  \gate[2]{B} & \qw & \gate{Y^{-t_x}}& \qw & \gate[2]{B} &  \qw \\
+&               & \gate{Z^{s_z}}& \gate{Y^{s_y}}&     \gate{Z^{s_z}} & &\qw
+\end{quantikz}}
+\simeq
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
+& \gate{K_1} & \gate[2]{\text{Can}(t_x, t_y, t_z)} &  \gate{K_3} &\qw \\
+& \gate{K_2} &                              &  \gate{K_4} &\qw
+\end{quantikz}}
+$$
+
+The B-gate is not a native gate on any extant quantum computer, and thus the B-gate decomposition isn't used for gate synthesis directly. But the B-gate sandwich has been used as a compilation strategy for Google's Sycamore architecture~\cite{Cirq}. The native sycamore gate \eqref{Syc} is locally equivalent to $\Gate{Can}(\tfrac{1}{2}, \tfrac{1}{2}, \tfrac{1}{12})$. A sycamore-gate sandwich can generate a subset of gates in the special-orthogonal local equivalency class, including CNOT, the entire Ising class, and B (but notable not iSwap)~\cite{Arute2019a,Harrigan2021a}. A B-gate sandwich can then be used to synthesis any other gate using 4-sycamores.\index{sycamore-gate sandwich}
+
+
+
+
+% TODO: Check equation. Add to QF
+
+% See Blaauboer2008a0.pdf, defines B gate as parameterized gate, talks about implementation
+
+\subsection{ABC decomposition}
+\label{sec:ABCdeke}
+\index{ABC decomposition}
+\index{controlled unitary}
+
+A 2-qubit controlled-unitary gate has an arbitrary 1-qubit unitary $U$ that acts on the target qubit if the control qubit is in the one state. 
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \ctrl{1} & \qw \\
+& \gate{U} & \qw
+\end{quantikz}
+} =
+\begin{bsmallmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & U_{00} & U_{01}  \\
+  0 & 0 & U_{10} & U_{11}
+\end{bsmallmatrix}
+$$
+Controlled-unitaries are all in the Ising gate class (as we'll show), and can be implemented with at most 2 \Gate{CNot} gates.
+
+The trick is to express the 1-qubit unitary $U$ as an ABC decomposition~\cite{Barenco1995b},
+\[
+U = e^{i\alpha}\ A\ X\ B\ X\ C 
+\]
+where the gates $A$, $B$, and $C$ are chosen such that $ABC=I$. We can then express the controlled unitary as 
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \ctrl{1} & \qw \\
+& \gate{U} & \qw
+\end{quantikz}}
+=
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \qw      & \ctrl{1} & \qw      & \ctrl{1}& \qw      & \ctrl{1} & \qw  \\
+& \gate{C} & \targ{}  & \gate{B} & \targ{} & \gate{A} & \gate{Ph(\alpha)} & \qw
+\end{quantikz}
+}
+$$
+Note that this one situation that the phase of the gate actually matters. A controlled Z gate is not the same as a controlled-$\Gate{R_z}(\pi)$ because the 1-qubit unitary had different phases. Happily, a "controlled-global-phase" reduces to a 1 qubit phase shift gate \eqref{phaseshift}.\index{phase}\index{phase shift gate}
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \ctrl{1} & \qw \\
+& \gate{Ph(\alpha)} & \qw
+\end{quantikz}}
+=
+\begin{bsmallmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & e^{i\alpha} & 0  \\
+  0 & 0 & 0 & e^{i\alpha} 
+\end{bsmallmatrix}
+=
+\begin{bsmallmatrix}
+  1 & 0  \\
+  0 & e^{i\alpha} 
+\end{bsmallmatrix} \otimes
+\begin{bsmallmatrix}
+  1 & 0\\
+  0 & 1 
+\end{bsmallmatrix}
+=
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \gate{R_\alpha} & \qw \\
+& \qw & \qw
+\end{quantikz}}
+$$
+
+The result is a decomposition of a 2-qubit controlled unitary into 5 1-qubit unitaries and 2 CNOT gates. 
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \ctrl{1} & \qw \\
+& \gate{U} & \qw
+\end{quantikz}}
+=
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \qw      & \ctrl{1} & \qw      & \ctrl{1}& \gate{R_\alpha}       & \qw  \\
+& \gate{C} & \targ{}  & \gate{B} & \targ{} & \gate{A}  & \qw
+\end{quantikz}
+}
+$$
+If the control bit is set we apply the desired gate, and if not nothing happens since $ABC=I$.
+
+
+
+We can construct an ABC decomposition by a rearrangement of a Z-Y-Z decomposition \secref{sec:ZYZdeke}.
+\index{Z-Y decomposition}
+\[
+U & =	e^{i\alpha}\
+	R_z(\theta_2)\
+	R_y(\theta_1)\  
+	R_z(\theta_0)
+\\
+& =
+	e^{i\alpha} 
+	R_z(\theta_2) \ R_y(\half\theta_1)
+	\ \phantom{X} \ R_y(+\half\theta_1)\ \phantom{X}
+	\ \phantom{X}\ R_z(+\half\theta_0 +\half\theta_2)\ \phantom{X}\
+	R_z(\half\theta_0 -\half\theta_2)
+\notag \\
+& =
+	e^{i\alpha} 
+	R_z(\theta_2) \ R_y(\half\theta_1)
+	\ X \ R_y(-\half\theta_1)\ X 
+	\ X\ R_z(-\half\theta_0 -\half\theta_2)\ X\
+	R_z(\half\theta_0 -\half\theta_2)
+\notag	
+\\ 
+&= e^{i\alpha}\ A\ X\ B\ X\ C 
+\notag
+\]
+where 
+\[
+A &= R_z(\theta_2) \ R_y(\half\theta_1) \ ,\notag \\
+B &=  R_y(-\half\theta_1)\ R_z(-\half\theta_0 -\half\theta_2)\ ,\notag \\
+C &= R_z(\half\theta_0 -\half\theta_2) \ . \notag
+\]
+Note that $X\ R_z(\theta)\ X = R_z(-\theta)$ and $X\ R_y(\theta)\ X = R_y(-\theta)$. We can understand these relations by looking at the Bloch sphere. The $X$ gate is a half turn rotation about the $\widehat{x}$ axis, so the $\widehat{z}$ and $\widehat{y}$ axes are inverted, and the respective rotation gates induce an anti-clockwise rather than clockwise rotations relative to the original axes.  % Check right way around?
+
+Another approach is to deke $U$ into a general 1-qubit rotation gate. \index{controlled rotation gate}
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \ctrl{1} & \qw \\
+& \gate{U} & \qw
+\end{quantikz} }
+=
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \ctrl{1} & \gate{R_\alpha} &\qw \\
+& \gate{R_{\vec{n}}(\theta)} &\qw & \qw
+\end{quantikz}}
+$$ 
+
+The rotation gate $R_{\vec{n}}(\theta)$ can be analytically decomposed into a 5 gate sequence~\eqref{???}, which can be rearranged into an ABC decomposition.\index{ABC decomposition}
+\[
+R_{\vec{n}}(\theta) & = R_z(+\alpha) R_y(+\beta) R_z(\theta) R_y(-\beta) R_z(-\alpha) \\
+\notag
+%& =  R_z(+\alpha) R_y(+\beta) R_z(\tfrac{\theta}{4}) X  R_z(-\tfrac{\theta}{2}) X R_z(\tfrac{\theta}{4}) R_y(-\beta) R_z(-\alpha) 
+%\\ \notag
+& = A X B X C
+\]
+where
+\[
+\notag
+A &= R_z(+\alpha) R_y(+\beta) R_z(\tfrac{\theta}{4}) \ ,
+\\ \notag
+B &= R_z(-\tfrac{\theta}{2}) \ ,
+\\ \notag
+C &= R_z(\tfrac{\theta}{4}) R_y(-\beta) \ .
+\notag 
+\]
+Thus a controlled-rotation gate can be expressed as 
+$$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \ctrl{1} & \qw \\
+& \gate{R_{\vec{n}}(\theta)} & \qw
+\end{quantikz}}
+=
+\adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \qw        & \qw      & \qw      &  \ctrl{1} & \qw      & \ctrl{1}&   \qw      & \qw       & \qw & \qw  \\
+& \gate{R_z(-\alpha)} &\gate{R_y(-\beta)}& \gate{R_z(\tfrac{\theta}{4})} &  \targ{}  & \gate{ R_z(-\tfrac{\theta}{2}) } & \targ{} & \gate{R_z(\tfrac{\theta}{4})} &\gate{R_y(+\beta)} &\gate{R_z(+\alpha)}    & \qw
+\end{quantikz}
+}
+$$
+Note that the parameters $\alpha$ and $\beta$ do not depend on rotation angle $\theta$. If we compare to the \Gate{CNot} decompositions of the canonical gate \secref{}, we can see that a controlled-rotation gate $R_{\vec{n}}(\theta)$ is locally equivalent to $\Gate{Can}(\tfrac{\theta}{2\pi},0,0)$. Not only does this demonstrate that controlled-unitaries are in the Ising gate class, but we also see that the position of the gate along the front edge of the Weyl chamber is directly proportional to the controlled-unitary's angle of rotation in the Bloch sphere. \index{Ising gates}
+% brushing some details under rug here.
+
+
+
+
+

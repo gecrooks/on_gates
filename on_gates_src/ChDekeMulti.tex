@@ -1,0 +1,678 @@
+
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = on_gates.tex
+
+\newcommand*\halfcirc[1][0.5ex]{%
+  \begin{tikzpicture}
+  \draw[fill] (0,0)-- (90:#1) arc (90:-90:#1) -- cycle ;
+  \draw (0,0) circle (#1);
+  \end{tikzpicture}}
+
+\newcommand*\fullcirc[1][0.4ex]{%
+  \begin{tikzpicture}
+  \draw[fill] (0,0) circle (#1);
+  \end{tikzpicture}}
+
+\newcommand*\emptycirc[1][0.5ex]{%
+  \begin{tikzpicture}
+  \draw (0,0) circle (#1);
+  \end{tikzpicture}}
+
+
+\clearpage
+
+\section{Controlled unitary gates}
+
+
+
+\subsection{Anti-control gates}
+
+\subsection{Alternative axis control}
+
+
+%⊖ ⊕ ⊘ ⊗ ● ○
+
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+\lstick{\ket{-}} &  &\qw\ominus\vqw{1}& \qw \\
+\lstick{\ket{+}} &  &\qw\oplus\vqw{1}& \qw \\
+\lstick{\ket{-i}}&  &\qw\oslash\vqw{1}& \qw \\
+\lstick{\ket{+i}}&  &\qw\otimes\vqw{1}& \qw \\
+\lstick{\ket{0}}&  &\qw\emptycirc\vqw{1}& \qw \\
+\lstick{\ket{1}} &  &\qw\fullcirc\vqw{1}& \qw \\
+ & \qw\qwbundle{} &  \gate{U}& \qw & \qw\qwbundle{}
+\end{quantikz}
+}
+$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ & \gate{\sqrt{Y}^\dagger}  &\qw\fullcirc\vqw{1}&\gate{\sqrt{Y}} &\qw \\
+ & \gate{\sqrt{Y}} &\qw\fullcirc\vqw{1}&\gate{\sqrt{Y}^\dagger} &\qw \\
+& \gate{V^\dagger} &\qw\fullcirc\vqw{1}& \gate{V}&\qw \\
+& \gate{V} &\qw\fullcirc\vqw{1}& \gate{V^\dagger}&\qw \\
+& \gate{X} &\qw\fullcirc\vqw{1}& \gate{X} & \qw \\
+ & \qw &\qw\fullcirc\vqw{1}& \qw  & \qw\\
+ & \qw\qwbundle{} &  \gate{U}& \qw & \qw\qwbundle{}
+\end{quantikz}
+}
+\end{center}
+
+
+\subsection{Conditional gates}
+\index{conditional gates}
+
+\subsection{Multiplexed gates}
+\index{multiplexed gates}\index{Mux gate|see{multiplexed gate}}\index{uniformly controlled gate}
+A multiplexed~\cite{???,???,???} gate (also called is a uniformly controlled gate~\cite{???,???}) is a generalization of the conditional unitary gate with an arbitrary number of control qubits. For each different bitwise configuration of the control qubits, a different unitary operator is applied to the target qubits.
+
+
+If we place the control qubits first, then the matrix of a multiplexed gate has a block diagonal structure, here illustrated for 3 control qubits.
+\[
+\Gate{Mux}(\{U\}) = 
+\begin{bsmallmatrix}
+    U_{000} \\[1ex]
+    & U_{001} \\[1ex]
+    && U_{010} \\[1ex]
+    &&&& U_{011}  \\[1ex]
+    &&&&& U_{100} \\[1ex]
+    &&&&&& U_{101} \\[1ex]
+    &&&&&&& U_{110} \\[1ex]
+    &&&&&&&&& U_{111}     
+\end{bsmallmatrix}
+\]
+Each block $U$ is a unitary operator acting on the same number of qubits. Here each block is labelled with the corresponding control state (where we are using our standard tensor conventions \secref{tensors}), e.g. The operator $U_{011}$ acts on the target qubits when the controls are in the $\ket{011}$ state.
+
+
+
+In circuit diagrams the control qubits are typically represents as half-filled circles, or as boxes. 
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\qw\halfcirc\vqw{1}& \qw \\
+ &  &\qw\halfcirc\vqw{1}& \qw \\
+&  &\qw\halfcirc\vqw{1}& \qw \\
+ & \qw\qwbundle{} &  \gate{U}& \qw & \qw\qwbundle{}
+\end{quantikz}
+}
+or
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\qw\square\vqw{1}& \qw \\
+ &  &\qw\square\vqw{1}& \qw \\
+&  &\qw\square\vqw{1}& \qw \\
+ & \qw\qwbundle{} &  \gate{U}& \qw & \qw\qwbundle{}
+\end{quantikz}
+}
+\end{center}
+
+With $C$ controls, a multiplex gate corresponds to $2^C$ controlled-unitary gates, one for each possible control-bit configuration.
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\qw\halfcirc\vqw{1}& \qw \\
+ &  &\qw\halfcirc\vqw{1}& \qw \\
+&  &\qw\halfcirc\vqw{1}& \qw \\
+ & \qw\qwbundle{} &  \gate{U}& \qw & \qw\qwbundle{}
+\end{quantikz}
+}
+$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\qw\emptycirc\vqw{1}& \qw\emptycirc\vqw{1}&\qw\emptycirc\vqw{1}&\qw\emptycirc\vqw{1}&\qw\fullcirc\vqw{1}&\qw\fullcirc\vqw{1}&\qw\fullcirc\vqw{1}&\qw\fullcirc\vqw{1}& \qw \\
+ &  &\qw\emptycirc\vqw{1}& \qw\emptycirc\vqw{1}&\qw\fullcirc\vqw{1}&\qw\fullcirc\vqw{1}&\qw\emptycirc\vqw{1}&\qw\emptycirc\vqw{1}&\qw\fullcirc\vqw{1}&\qw\fullcirc\vqw{1}& \qw \\
+ &  &\qw\emptycirc\vqw{1}& \qw\fullcirc\vqw{1}&\qw\emptycirc\vqw{1}&\qw\fullcirc\vqw{1}&\qw\emptycirc\vqw{1}&\qw\fullcirc\vqw{1}&\qw\emptycirc\vqw{1}&\qw\fullcirc\vqw{1}& \qw \\
+ & \qw\qwbundle{} &  \gate{U_{000}}&\gate{U_{001}}&\gate{U_{010}}&\gate{U_{011}}&\gate{U_{100}}&\gate{U_{101}}&\gate{U_{110}}&\gate{U_{111}}& \qw & \qw\qwbundle{}
+\end{quantikz}
+}
+\end{center}
+This decomposition provides an intuitive picture of the function of a multiplexed gate, but we'll describe a more efficient decomposition below.
+
+
+
+
+
+
+
+\subsection{Demultiplexing a multiplexed-$R_z$ gate}
+We can systematically demultiplex a multiplexed-$R_z$ gate, splitting an $N$ qubit gate into two $N-1$ qubit multiplexed-$R_z$ gates, and two \Gate{CNot}s.
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &\qw\halfcirc\vqw{1}  & \qw\\
+ &\qw\qwbundle{}\halfcirc\vqw{1}  & \qw\qwbundle{} \\
+ &\gate{R_z}  & \qw  
+\end{quantikz}
+}
+$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &\qw  & \ctrl{2} & \qw & \ctrl{2} & \qw \\
+ &\qw\qwbundle{}\halfcirc\vqw{1}  & \qw & \qw\halfcirc\vqw{1}& \qw & \qw\qwbundle{} \\
+ &\gate{R_z}  & \targ{} & \gate{R_z}   & \targ{} & \qw
+\end{quantikz}
+}
+\end{center}
+[TODO: WHY THIS WORKS]
+[TODO: Explicit parameters]
+
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &\qw\halfcirc\vqw{1}  & \qw\\
+ &\qw\halfcirc\vqw{1}  & \qw\\
+ &\qw\qwbundle{}\halfcirc\vqw{1}  & \qw\qwbundle{}\\
+ &\gate{R_z}  & \qw
+\end{quantikz}
+}
+$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &\qw  & \ctrl{3} & \qw & \ctrl{3} & \qw \\
+ &\qw\halfcirc\vqw{1}  & \qw & \qw\halfcirc\vqw{1}& \qw & \qw\\
+&\qw\qwbundle{}\halfcirc\vqw{1}  & \qw & \qw\halfcirc\vqw{1}& \qw & \qw\qwbundle{}\\
+ &\gate{R_z}  & \targ{} & \gate{R_z}   & \targ{} & \qw
+\end{quantikz}
+}
+$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &\qw  & \qw& \qw &\qw & \ctrl{3} & \qw &\qw  &\qw  & \qw & \ctrl{3} & \qw \\
+ &\qw  & \ctrl{2} & \qw & \ctrl{2} & \qw & \ctrl{2} &\qw  & \ctrl{2} & \qw & \qw & \qw\\
+&\qw\qwbundle{}\halfcirc\vqw{1}  & \qw & \qw\halfcirc\vqw{1}& \qw &\qw &\qw &\qw\halfcirc\vqw{1}  & \qw & \qw\halfcirc\vqw{1}& \qw & \qw\qwbundle{}\\
+ &\gate{R_z}  & \targ{} & \gate{R_z}  & \targ{} & \targ{} & \targ{} &\gate{R_z}  & \targ{} & \gate{R_z}   & \targ{} & \qw
+\end{quantikz}
+}
+\end{center}
+The trick here is that we have reversed the order of the last decomposition, so that we can place two \Gate{CNot} gates in juxtaposition, separated only by another \Gate{CNot} with a different control qubit. Since  \Gate{CNot} gates with different controls commute \secref{???} we can cancel these juxtaposed \Gate{CNot}s.
+\begin{center}
+\hspace{11em}$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &\qw  & \qw& \qw  & \ctrl{3} & \qw   &\qw  & \qw & \ctrl{3} & \qw \\
+ &\qw  & \ctrl{2} & \qw  & \qw &\qw &\ctrl{2}  & \qw & \qw & \qw  \\
+&\qw\qwbundle{}\halfcirc\vqw{1}  & \qw & \qw\halfcirc\vqw{1}& \qw &\qw\halfcirc\vqw{1}  & \qw & \qw\halfcirc\vqw{1}& \qw & \qw\qwbundle{}  \\
+ &\gate{R_z}  & \targ{} & \gate{R_z} & \targ{} &\gate{R_z}  & \targ{} & \gate{R_z}   & \targ{} & \qw
+\end{quantikz}
+}
+\end{center}
+This trick extend all the way to the final decomposition of 2-qubit conditional-\Gate{R_z} gates, which would normally require 2 \Gate{CNot}s apiece, but instead require only 2 per pair. The net upshot is that the decomposition of an $N$ qubit multiplexed-\Gate{R_z} gate required $2^{N-1}$ \Gate{CNot} gates and $2^{N-1}$ \Gate{R_z} gates.
+
+
+
+
+
+% TODO: explain ordering
+
+% TODO: move to chapter on reversible logic
+%\subsection{Boolean gates}
+
+
+
+\clearpage
+\section{Decomposition of multi-qubit gates}
+
+Let us now consider the problem of decomposing an arbitrary multi-qubit gate, without necessarily any special structure, into a circuit of 1 and 2 qubit gates.  
+Such a generic $N$-qubit quantum gate is represented by a $2^N$ by $2^N$ unitary matrix, with $2^{2N}=4^N$ free parameters (one of which is the phase).  The (classical) computational resources needed to specify such a gate rapidly becomes prohibitive with qubit count (e.g.~a 10 qubit gate has over a million parameters), but decomposition of gates with a dozen qubits or so is quite feasible.
+ 
+
+
+
+
+\subsection{Quantum Shannon decomposition}
+\newcommand{\bigzero}{\mbox{\normalfont\Large 0}}
+
+The key to quantum Shannon decomposition is the sine-cosine decomposition, a standard relation from linear algebra~\cite{???}. Any unitary matrix can be written in a 2x2 block structure, and then decomposed into the following form, 
+\[
+\left(\begin{array}{@{}c|c@{}}
+  U_{00}
+  & U_{01} \\
+\hline
+  U_{10} &
+  U_{11}   
+\end{array}\right)
+=
+\left(\begin{array}{@{}c|c@{}}
+B_0
+  & 0 \\
+\hline
+  0 &
+B_1
+\end{array}\right)
+\left(\begin{array}{@{}c|c@{}}
+C
+  & -S \\
+\hline
+  +S &
+C
+\end{array}\right)
+\left(\begin{array}{@{}c|c@{}}
+A_0
+  & 0 \\
+\hline
+  0 &
+A_1
+\end{array}\right)
+\]
+where the A's and B's are unitary, and $C$ and $S$ are diagonal matrices with $C^2+S^2=I$. It follows that we can write $C=\text{diag}(\cos(\theta_0), \cos(\theta_1), \ldots)$, and $S=\text{diag}(\sin(\theta_0), \sin(\theta_1), \ldots)$, wherefore the name of this decomposition\footnote{This is a special case of the fully general cosine-sine decomposition, but sufficient for our purposes.}. 
+
+The initial and final blocks are equivalent to conditional gates, with a single control qubit, and potentially many target qubits. The central block is a multiplexed-Ry gate with the first qubit as target. We can spot this pattern because the overall $\begin{psmallmatrix}C & -S\\ +S & C\end{psmallmatrix}$ block structure has the same relationship between parameters as the \Gate{R_Y} gate. (Although the $\theta$ parameters of the \Gate{R_Y} gates and those of the cosine-sine decomposition differ by a factor of 2, for the usual reasons~\cite{???})
+
+
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\gate[wires=4]{U} & \qw\\
+ &  & & \qw \\
+ &  & & \qw \\
+ &  & & \qw 
+\end{quantikz}
+}
+$ = $
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+%
+ &\qw\halfcirc\vqw{1}  &\gate{R_y}& \qw\halfcirc\vqw{1} & \qw \\
+& \gate[wires=3]{A} & \qw\halfcirc\vqw{-1}  &\gate[wires=3]{B} & \qw\\
+&   & \qw\halfcirc\vqw{-1}  &  & \qw \\
+&   & \qw\halfcirc\vqw{-1} &  & \qw 
+\end{quantikz}
+}
+\end{center}
+
+
+
+\[
+\left(\begin{array}{@{}c|c@{}}
+  A_{0}
+  & 0 \\
+\hline
+  0 &
+  A_{1}   
+\end{array}\right)
+=
+\left(\begin{array}{@{}c|c@{}}
+W
+  & 0 \\
+\hline
+  0 &
+W
+\end{array}\right)
+\left(\begin{array}{@{}c|c@{}}
+D
+  & 0 \\
+\hline
+  0 &
+D^{\dagger}
+\end{array}\right)
+\left(\begin{array}{@{}c|c@{}}
+V
+  & 0 \\
+\hline
+  0 &
+V
+\end{array}\right)
+\]
+
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+%
+ &\qw\halfcirc\vqw{1}  & \qw \\
+& \gate[wires=3]{A}  & \qw\\
+&    & \qw \\
+&    & \qw 
+\end{quantikz}
+}
+$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+%
+&\qw &\gate{R_z}  & \qw & \qw \\
+%
+& \gate[wires=3]{V} &\qw\halfcirc\vqw{-1}  &\gate[wires=3]{W} & \qw\\
+%
+&  &\qw\halfcirc\vqw{-1}  &  & \qw\\
+%
+&  &\qw\halfcirc\vqw{-1}  &  & \qw
+%
+\end{quantikz}
+}
+
+\end{center}
+
+
+
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\gate[wires=4]{U} & \qw\\
+ &  & & \qw \\
+ &  & & \qw \\
+ &  & & \qw 
+\end{quantikz}
+}
+$ = $
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+%
+&\qw &\gate{R_z}  & \qw &\gate{R_y}& \qw  &\gate{R_z} & \qw & \qw \\
+%
+& \gate[wires=3]{U} &\qw\halfcirc\vqw{-1}  &\gate[wires=3]{U} &\qw\halfcirc\vqw{-1}  &\gate[wires=3]{U} &\qw\halfcirc\vqw{-1}  &\gate[wires=3]{U} & \qw\\
+%
+&  &\qw\halfcirc\vqw{-1}  & &\qw\halfcirc\vqw{-1}  & &\qw\halfcirc\vqw{-1}  & & \qw\\
+%
+&  &\qw\halfcirc\vqw{-1}  & &\qw\halfcirc\vqw{-1}  & &\qw\halfcirc\vqw{-1}  & & \qw
+%
+\end{quantikz}
+}
+\end{center}
+
+
+
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\gate[wires=4]{U} & \qw\\
+ &  & & \qw \\
+ &  & & \qw \\
+ &  & & \qw 
+\end{quantikz}
+}
+$ = $
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+%
+&\qw &\gate{R_z}  & \gate{H} &\gate{R_z}& \gate{H}  &\gate{R_z} & \qw & \qw \\
+%
+& \gate[wires=3]{U} &\qw\halfcirc\vqw{-1}  &\gate[wires=3]{U} &\qw\halfcirc\vqw{-1}  &\gate[wires=3]{U} &\qw\halfcirc\vqw{-1}  &\gate[wires=3]{U} & \qw\\
+%
+&  &\qw\halfcirc\vqw{-1}  & &\qw\halfcirc\vqw{-1}  & &\qw\halfcirc\vqw{-1}  & & \qw\\
+%
+&  &\qw\halfcirc\vqw{-1}  & &\qw\halfcirc\vqw{-1}  & &\qw\halfcirc\vqw{-1}  & & \qw
+%
+\end{quantikz}
+}
+\end{center}
+
+
+\subsection{Decomposition of diagonal gates}
+
+A diagonal gate is any gate whose matrix representation is diagonal in the computation basis. Examples we have already encountered include the identity, Z, CZ, and CCZ gates. We'll notate a generic diagonal gate with a delta `$\Delta$'.
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\gate[wires=4]{\Delta} & \qw\\
+ &  & & \qw \\
+ &  & & \qw \\
+ &  & & \qw 
+\end{quantikz}
+}
+\end{center}
+A diagonal gate can be thought of as a multiplexed gate. In particular, if we take the last qubit as the target, then a diagonal gate on N qubits is a multiplex gate with N-1 control qubits, and $2^{N-1}$ conditional unitaries, each of which is an arbitrary diagonal 1-qubit gate. 
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\gate[wires=4]{\Delta} & \qw\\
+ &  & & \qw \\
+ &  & & \qw \\
+ &  & & \qw 
+\end{quantikz}
+}
+$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\qw\halfcirc\vqw{1}& \qw \\
+ &  &\qw\halfcirc\vqw{1}& \qw \\
+&  &\qw\halfcirc\vqw{1}& \qw \\
+ &  &  \gate{U}& \qw &
+\end{quantikz}
+}
+\end{center}
+
+
+%\[
+%\begin{bsmallmatrix}
+%    u_{00} \\[1ex]
+%    & u_{11} \\[1ex]
+%    && u_{22} \\[1ex]
+%    &&&& u_{33} \\[1ex] 
+%    &&&&& \ddots    
+%\end{bsmallmatrix}
+%\]
+%
+
+%\begin{center}
+%\begin{quantikz}
+%& \gate{\Delta} \qwbundle[
+%alternate]{}& \qwbundle[alternate]{}
+%\end{quantikz}
+%\end{center}
+
+We can deke a diagonal 1-qubit gate into a $R_z$ gate and a global phase. (this is one of those situations where we can't ignore the phase.)
+\[
+U = \begin{bsmallmatrix}
+    u_{00} & 0 \\
+    0 & u_{11} \\
+	\end{bsmallmatrix}  
+= \begin{bsmallmatrix}
+    e^{-i h_{00}} & 0 \\
+    0 & e^{-i h_{11}} \\
+	\end{bsmallmatrix}
+& = R_z(\theta) \Gate{Ph}(\alpha)
+\\ \notag
+& h = i \ln u 
+\\ \notag
+& \theta = \half(h_{11} + h_{00})
+\\ \notag
+& \alpha = -(h_{11} - h_{00}) 
+\]
+A diagonal gate is therefore equivalent to a multiplexed-$R_z$ gate, and a ``multiplexed-phase''. Each sub-block of the ``multiplexed-phase'' has the same two values, so the ``multiplexed-phase'' breaks apart into a diagonal gate on the N-1 control qubits, and an identity on the target qubit. (This is the same effect as when a 2-qubit ``controlled-global-phase'' gate reduces to a 1-qubit phase shift gate. \secref{???}) \cite{???}
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+&  &\qw\qwbundle{}\halfcirc\vqw{1}& \qw\qwbundle{} \\
+ &  &  \gate{Ph}& \qw &
+\end{quantikz}
+}
+$=$
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \qw\qwbundle{} & \gate{\Delta} & \qw& \qw \qwbundle{} \\
+& \qw &\qw & \qw& \qw 
+\end{quantikz}
+}
+\end{center}
+
+
+
+
+The net upshot is that a diagonal gate reduces to a multiplexed-\Gate{R_z} gate, and another diagonal gate on one fewer qubits. We can then recurse the diagonal gate decomposition, and deke a diagonal gate into a series of multiplexed-\Gate{R_z} gates\cite{Shende2006a}.
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &  &\gate[wires=4]{\Delta} & \qw\\
+ &  & & \qw \\
+ &  & & \qw \\
+ &  & & \qw 
+\end{quantikz}
+}
+$ = $
+%
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &\qw\halfcirc\vqw{1}  &\gate[wires=3]{\Delta} & \qw\\
+ &\qw\halfcirc\vqw{1}  & & \qw \\
+ &\qw\halfcirc\vqw{1}  & & \qw \\
+ &\gate{R_z}  & \qw & \qw 
+\end{quantikz}
+}
+$=$
+%
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ &\qw\halfcirc\vqw{1}   &\qw\halfcirc\vqw{1} &\qw\halfcirc\vqw{1} &\gate{R_z}   & \qw\\
+ &\qw\halfcirc\vqw{1}   &\qw\halfcirc\vqw{1} &\gate{R_z}   & \qw & \qw \\
+ &\qw\halfcirc\vqw{1}   &\gate{R_z}   &\qw &\qw & \qw \\
+ &\gate{R_z}            &\qw &\qw &\qw & \qw
+\end{quantikz}
+}
+\end{center}
+
+Since each $N$ qubit multiplexed gate requires $2^{N-1}$ \Gate{CNot} gates, a general $N$ qubit diagonal gate requires 
+$2^{N-1}+2^{N-2}+\cdots+2=2^N-2$ \Gate{CNot} gates.
+
+
+
+
+\subsection{Decomposition of controlled-unitary gates}
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+& \qwbundle{}\qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{2} & \qwbundle{}\qw \\
+& \qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{2} & \qw \\
+& \ctrl{1} & \targ{} & \ctrl{1} & \targ{} & \qw & \qw \\
+& \gate{U^{+\sfrac{1}{2}}} & \qw & \gate{U^{-\sfrac{1}{2}}} & \qw & \gate{U^{+\sfrac{1}{2}}} & \qw
+\end{quantikz}
+}
+\end{center}
+
+
+
+\subsection{Two-level  decomposition}
+
+
+%\subsection{Two-level unitary gates}
+
+A 2-level unitary is a unitary operation that acts non-trivially on only 2-states. Any controlled 1-qubit unitary gate is 2-level, e.g. for a single qubit gate $U=\begin{bsmallmatrix}
+    a & c \\ 
+    b & d        
+\end{bsmallmatrix}$  and 2 control qubits
+\[
+CCU = 
+\begin{bsmallmatrix}
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+    0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+    0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 
+    0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 
+    0 & 0 & 0 & 0 & 0 & 0 & a & c \\ 
+    0 & 0 & 0 & 0 & 0 & 0 & b & d        
+\end{bsmallmatrix}
+\]
+But the active states need not be the last two. Any permutation of a two-level unitary gate is also a two-level unitary, such as 
+\[
+%\begin{bsmallmatrix}
+%    a & b & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+%    c & d & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+%    0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 
+%    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 
+%    0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 
+%    0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 
+%    0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ 
+%    0 & 0 & 0 & 0 & 0 & 0 & 0 & 1        
+%\end{bsmallmatrix}
+%\text{or}
+\begin{bsmallmatrix}
+    a & 0 & 0 & 0 & 0 & 0 & 0 & c \\ 
+    0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+    0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 
+    0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 
+    0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ 
+    b & 0 & 0 & 0 & 0 & 0 & 0 & d        
+\end{bsmallmatrix} \ .
+\]
+Similarly any multi-controlled 2x2 unitary, or permutation of the same, is a 2-level unitary. 
+
+
+% Cite Reck1994
+%\[
+%\begin{bsmallmatrix}
+%    a & 0 & 0 & 0 & 0 & 0 & 0 & c \\ 
+%    0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+%    0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 
+%    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 
+%    0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 
+%    0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 
+%    0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ 
+%    b & 0 & 0 & 0 & 0 & 0 & 0 & d        
+%\end{bsmallmatrix} \ .
+%\]
+
+\begin{center}
+\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
+ & \qw\oplus\vqw{1} & \qw\emptycirc\vqw{1} & \qw\fullcirc\vqw{1} & \qw\emptycirc\vqw{1} &\qw\oplus\vqw{1}  & \qw \\
+ &\qw\emptycirc\vqw{-1}  & \qw\oplus\vqw{1} & \qw\fullcirc\vqw{1} &\qw\oplus\vqw{1}  & \qw\emptycirc\vqw{-1} & \qw \\
+ &\qw\emptycirc\vqw{-1} & \qw\fullcirc\vqw{-1} & \gate{U} & \qw\fullcirc\vqw{-1} & \qw\emptycirc\vqw{-1} & \qw
+\end{quantikz}
+}
+\end{center}
+
+
+
+%Two-level unitaries are important because we can systematically decompose an arbitrary unitary into a sequence of 2-level unitaries, and 2-level unitaries themselves can be decomposed into controlled-unitary gates. 
+
+A $d$-dimensional unitary operator can be decomposed into a product of, at most, $\half d(d-1)$ 2-level unitaries~\cite{Reck1994a,???,???}.
+
+We'll use a 2-qubit gate $A$ as illustration, with dimension $d=2^2=4$. 
+\[
+A = \begin{bsmallmatrix}
+    a_{00} & a_{01} & a_{02} & a_{03} \\ 
+    a_{10} & a_{11} & a_{12} & a_{13} \\
+    a_{20} & a_{21} & a_{22} & a_{23} \\    
+    a_{30} & a_{31} & a_{32} & a_{33}    
+    \end{bsmallmatrix}
+\]
+The trick is that we can set any off-diagonal entry to zero by multiplying by a carefully constructed 2-level unitary. Lets start with the $(1,0)$ entry.
+\[
+B = U_{10} A = \begin{bsmallmatrix}
+    1 & b_{01} & b_{02} & b_{03} \\ 
+    0 & b_{11} & b_{12} & b_{13} \\
+    b_{20} & b_{21} & b_{22} & b_{23} \\    
+    b_{30} & b_{31} & b_{32} & b_{33}    
+    \end{bsmallmatrix}
+    \  \quad
+ 	U_{10} = \begin{bsmallmatrix}
+    \tfrac{a^*_{00}}{w} & \tfrac{a^*_{10}}{w} & 0 & 0 \\ 
+    \tfrac{a_{10}}{w} & \tfrac{-a_{00}}{w} & 0 & 0 \\
+    0 & 0 & 1 & 0 \\    
+    0 & 0 & 0 & 1    
+    \end{bsmallmatrix}
+\  \quad w = \sqrt{|a_{00}| + |a_{10}|}
+\notag
+\]
+Following through the matrix multiplication, we see that $b_{10} = (a_{10}a_{00} - a_{00}a_{10})/w = 0$, and $b_{00} = 
+ (a^*_{00}a_{00} - a^*_{10}a_{10})/w = w/w= 1$
+
+We can now set $(2,0)$ to zero using the same procedure, 
+\[
+C = U_{20} B = \begin{bsmallmatrix}
+    1 & c_{01} & c_{02} & c_{03} \\ 
+    0 & c_{11} & c_{12} & c_{13} \\
+    0 & c_{21} & c_{22} & c_{23} \\    
+    c_{30} & c_{31} & c_{32} & c_{33}    
+    \end{bsmallmatrix}
+    \  \quad
+ 	U_{20} = \begin{bsmallmatrix}
+    \tfrac{b^*_{00}}{w} & 0 & \tfrac{b^*_{20}}{w} & 0\\ 
+    0 & 1 & 0 & 0 \\     
+    \tfrac{b_{20}}{w} & 0 & \tfrac{-b_{00}}{w} & 0 \\   
+    0 & 0 & 0 & 1    
+    \end{bsmallmatrix}
+\  \quad w = \sqrt{|b_{00}| + |b_{20}|}
+\notag
+\]
+and then set $(3,0)$ to zero. 
+\[
+D = U_{30} C = \begin{bsmallmatrix}
+    1 & 0 & 0 & 0 \\ 
+    0 & d_{11} & d_{12} & d_{13} \\
+    0 & d_{21} & d_{22} & d_{23} \\    
+    0 & d_{31} & d_{32} & d_{33}    
+    \end{bsmallmatrix}
+    \  \quad
+ 	U_{30} = \begin{bsmallmatrix}
+    \tfrac{c^*_{00}}{w} & 0 & 0 & \tfrac{c^*_{20}}{w}\\ 
+    0 & 1 & 0 & 0 \\      
+    0 & 0 & 1 & 0 \\   
+    \tfrac{c_{20}}{w} & 0 & 0 & \tfrac{-c_{00}}{w}
+    \end{bsmallmatrix}
+\  \quad w = \sqrt{|c_{00}| + |c_{20}|}
+\notag
+\]
+Once we have set all the off diagonal elements of the left column to zero, then the off-diagonal elements of the top row must also be zero.  \todo{because?}
+
+Once we repeat this procedure $\half d(d-1)$ times, setting all the lower off-diagonal entries to zero,  we are left with the identity matrix.
+\[
+I = U_{32} U_{31} U_{21} U_{30} U_{20} U_{10} A
+\]
+Inverting this circuit, we obtain the original unitary as a product of 2-level unitaries. 
+\[
+A = U^{\dagger}_{10} U^{\dagger}_{20} U^{\dagger}_{30} U^{\dagger}_{21} U^{\dagger}_{31} U^{\dagger}_{32}
+\]
+
+%\subsection{Decomposition of two-level unitary gates}
+
