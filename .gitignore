@@ -281,4 +281,5 @@ gec_bibliography.bib
 GSC_Literature
 version.txt
 .DS_Store
+*.pdf
 

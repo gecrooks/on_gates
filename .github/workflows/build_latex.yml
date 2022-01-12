@@ -1,4 +1,6 @@
 name: Build LaTeX document
+env:
+  src_dir: 'on_gates_src'
 on: [push]
 jobs:
   build_latex:
@@ -11,4 +13,4 @@ jobs:
       - name: Compile LaTeX document
         run: |
           git fetch --unshallow --tags
-          cd on_gates_src; make build
+          cd {{ env.src_dir }}; make build
