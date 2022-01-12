@@ -19,7 +19,7 @@ edit:  ## Open all tex documents
 
 
 bib: ## Copy citations from master bibliogrpahy to local bibliogrpahy
-	bibtool -s -d -x on_gates.aux ../../gec_bibliography/gec_bibliography.bib > on_gates_no_edit.bib
+	bibtool --preserve.key.case=on --preserve.keys=on -s -d -x on_gates.aux gec_bibliography.bib > on_gates_no_edit.bib
 
 
 clean:	## Clean

@@ -59,7 +59,7 @@ write_latex(fname, circ)
 
 fname = 'cnot_switch'
 circ = qf.Circuit([qf.H(0), qf.H(1), qf.CNot(0, 1), qf.H(0), qf.H(1)])
-# assert equaltiy
+# TODO: assert equality
 write_latex(fname, circ)
 
 fname = 'swap'
