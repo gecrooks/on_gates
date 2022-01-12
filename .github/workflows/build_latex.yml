@@ -13,4 +13,4 @@ jobs:
       - name: Compile LaTeX document
         run: |
           git fetch --unshallow --tags
-          cd {{ env.src_dir }}; make build
+          cd ${{ env.src_dir }}; make build
