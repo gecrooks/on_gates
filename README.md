@@ -15,7 +15,7 @@ Notes on the circuit model of quantum computation
 
 ## Version History
 
-### v0.7.1 (2022-02-14)
+### v0.8.0 (2022-02-14)
 
 Kudos: Julie Germain (bug fix)
 
