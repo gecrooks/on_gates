@@ -16,7 +16,7 @@ gavincrooks@gmail.com
 ## Version History
 
 
-### v0.8.0 (2023-03-01
+### v0.9.0 (2023-03-01
 
 Kudos: Evan McKinney (bug fix)
 
