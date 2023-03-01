@@ -6,8 +6,8 @@ Notes on the circuit model of quantum computation
 gavincrooks@gmail.com
 
 * PDF: (https://threeplusone.com/gates)
-* Source: (https://github.com/gecrooks-write/on_gates)
-* Issues: (https://github.com/gecrooks-write/on_gates/issues)
+* Source: (https://github.com/gecrooks/on_gates)
+* Issues: (https://github.com/gecrooks//on_gates/issues)
 
 
 
