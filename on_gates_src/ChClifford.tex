@@ -1,12 +1,34 @@
 % !TEX encoding = UTF-8 Unicode 
 % !TEX root = on_gates.tex
 
+
 \clearpage
 
 
 \section{Clifford Gates}
 \index{Clifford gates}
 The Clifford gates are an important subgroup of quantum gates. Familiar examples include the Pauli gates (I, X, Y, Z), phase (S), Hadamard (H), controlled-Z (CZ), controlled-not (CNOT), and swap.  Common non-Clifford gates include T, B, and Toffolli (CCNOT). 
+
+\subsection{Pauli and Clifford groups}
+The {\sl Pauli group} of 1 qubit operators  consists of the 4 Pauli operators  multiplied by factors of $\pm 1$ or $\pm i$. This extra phase ensures that these 16 elements form a group under matrix multiplication. The Pauli group $P_n$ of $n$ qubit operators contains $4^{n+1}$ elements is formed from the 4 phase factors and tensor products of 1-qubit Pauli matrices, 
+\[
+P_n = \{\pm 1, \pm i\} \times \{I, X, Y, Z\}^{\otimes n}
+\]
+
+\index{Pauli group}
+\index{Pauli algebra}
+\index{Pauli operators}
+Recall the 4 1-qubit Pauli operators: $I=[\begin{smallmatrix} 0& 0 \\ 0 & 1 \end{smallmatrix}]$,
+$X=[\begin{smallmatrix}0 & 1 \\ 1 & 0 \end{smallmatrix}]$, $Y=[\begin{smallmatrix}0 & -i \\ i & 0 \end{smallmatrix}]$, $Z=[\begin{smallmatrix}1 & 0 \\ 0 & -1 \end{smallmatrix}]$.
+\[
+X^2 = Y^2 = Z^2 = I  \\
+XY = -YX = iZ \notag\\
+ZX = -XZ = iY \notag\\
+YZ = -ZY = iX \notag
+\]
+Every pair of Pauli matrices either commutes or anti-commutes. 
+
+
 
 The {\sl Clifford group}  $C_n$ of gates acting on $n$ qubits consists of those gates that {\sl normalize} the corresponding Pauli group $P_n$. In the context of groups, {\sl normalize} means that if $p$ is an element of the Pauli group, and $V$ is a Clifford gate, then $p' = V p V^\dagger$ is also an element of the Pauli group.
 \[
@@ -15,7 +37,7 @@ The {\sl Clifford group}  $C_n$ of gates acting on $n$ qubits consists of those 
 % TODO PHASE, quotient group.
 % TODO: Definition of Pauli group
 \index{Clifford group}
-\index{Pauli group}
+
 
 The Clifford gates are defined this way because of important applications in quantum  error correcting, which we will come to presently.
 An alternative approach is to define the Clifford group as all gates that can be constructed from S, H, and CNOT. This is the same group, up to phase. 
