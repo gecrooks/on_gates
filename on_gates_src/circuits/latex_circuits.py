@@ -92,8 +92,12 @@ write_latex(fname, circ)
 # write_latex(fname, circ)
 
 fname = 'qft_circ'
-circ = qf.Circuit([qf.Swap(0, 1), qf.H(1), qf.CZ(0, 1), qf.H(0)])
+circ = qf.Circuit([qf.Swap(0, 1), qf.H(1), qf.CZ(0, 1)**0.5, qf.H(0)])
 write_latex(fname, circ)
+qft = qf.QFTGate([0, 1])
+assert qf.gates_close(qft, circ.asgate())
+
+
 
 fname = 'cz'
 circ = qf.Circuit([qf.CZ(0, 1)])
