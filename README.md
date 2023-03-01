@@ -3,6 +3,7 @@
 Notes on the circuit model of quantum computation
 
 [Gavin E. Crooks](https://threeplusone.com) © 2020-
+gavincrooks@gmail.com
 
 * PDF: (https://threeplusone.com/gates)
 * Source: (https://github.com/gecrooks-write/on_gates)
@@ -12,8 +13,12 @@ Notes on the circuit model of quantum computation
 
 
 
-
 ## Version History
+
+
+### v0.8.0 (2023-03-01
+
+Kudos: Evan McKinney (bug fix)
 
 ### v0.8.0 (2022-02-14)
 
