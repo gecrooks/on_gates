@@ -192,9 +192,9 @@ $$
 \simeq
 \input{circuits/cnot_to_cz.tex}
 $$
-The intuition is that the CNot gate applies an $X$ gate to the $\oplus$ target qubit, and $HXH=Z$.
+The intuition is that the \Gate{CNot} gate applies an \Gate{X} gate to the $\oplus$ target qubit, and $HXH=Z$.
 
-The CZ gate is frequently used as the elementary 2-qubit gate in circuit decompositions instead of the CNot gate. The CNot gate has the advantage that it directly corresponds to a classical reversible gate.  On the other hand the CZ gate is intrinsically quantum (and therefore may be harder to reason about), but it has the advantages of being invariant to swapping qubits, and of being diagonal in the computational basis, which makes commutation relations easier to understand. 
+The \Gate{CZ} gate is frequently used as the elementary 2-qubit gate in circuit decompositions instead of the \Gate{CNot} gate. The \Gate{CNot} gate has the advantage that it directly corresponds to a classical reversible gate.  On the other hand the \Gate{CZ} gate is intrinsically quantum (and therefore may be harder to reason about), but it has the advantages of being invariant to swapping qubits, and of being diagonal in the computational basis, which makes commutation relations easier to understand.
 
 
 \paragraph{Controlled-Hadamard gate} (CH)~\cite{Amy2006a,Green2013a}
@@ -209,7 +209,7 @@ The CZ gate is frequently used as the elementary 2-qubit gate in circuit decompo
                 0 & 0 & \tfrac{1}{\sqrt{2}} & -\tfrac{1}{\sqrt{2}}
             \end{bsmallmatrix}                
 \]
-Occasionally turns up in applications, such as the decomposition of the W gate~\eqref{W}.
+Occasionally turns up in applications, such as the decomposition of the \Gate{W} gate~\eqref{W}.
 $$
 \input{circuits/ch.tex}
 \simeq
@@ -234,8 +234,8 @@ $$
 \]
 Proposed as a natural gate for laser driven trapped ions. Locally equivalent to \Gate{CNot}. 
 The Mølmer-Sørensen gate, or more exactly its complex conjugate $MS^\dagger =\Gate{Can}(\half, 0, 0)$
-is the natural canonical representation of the CNot/CZ/MS gate family.
-(Note that Mølmer-Sørensen is also sometimes taken to be equivalent to the XX gate)
+is the natural canonical representation of the \Gate{CNot}/\Gate{CZ}/\Gate{MS} gate family.
+(Note that Mølmer-Sørensen is also sometimes taken to be equivalent to the \Gate{XX} gate.)
 
 
 \paragraph{Magic gate (M)}~\cite{???,???,???, Vatan2004a}\index{magic gate}\index{M gate |see {magic gate}}\index{magic basis}
@@ -318,7 +318,7 @@ $$
 \simeq
 \input{circuits/iswap_to_dcnot.tex}
 $$
-Note that unlike \Gate{iSwap}, action of \Gate{DCNot} is not invariant to the interchange of qubits. 
+Note that unlike \Gate{iSwap}, the action of \Gate{DCNot} is not invariant to the interchange of qubits.
 
 %\Qcircuit @C=1.5em @R=1.5em {
 %& \lstick{0} & \ctrl{1} & \targ & \qw & \push{ } & \gate{H} & \gate{S^\dag} & \multigate{1}{{ \text{iSwap}}} & \qw & \qw \\
