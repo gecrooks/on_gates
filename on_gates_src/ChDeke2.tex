@@ -141,7 +141,7 @@ $$
 \input{circuits/can_to_cnot.tex}
 $$
 
-Gates on the bottom surface of the Weyl chamber (special orthogonal local equivalency class~\secref{???}) require only 2 \Gate{CNot} gates~\cite{Vidal2003a,Vatan2004a, self}.
+Gates on the bottom surface of the Weyl chamber (special orthogonal local equivalency class~\secref{???}) require only 2 \Gate{CNot} gates~\cite{Vidal2003a,Vatan2004a, \self}.
 $$
 \input{circuits/can_so.tex}
 \simeq
@@ -190,7 +190,7 @@ s_z & = -\tfrac{1}{\pi}\arcsin \sqrt{\frac{\cos \pi t_y \cos \pi t_z}{1 - 2 \sin
 Notably two B-gates are sufficient to create any other 2-qubit gate (whereas we need 3 CNOT’s in general).
 
 
-To recover the local gates $\Gate{K_n}$ we perform another canonical decomposition on the B gate sandwich sans the terminal local gates~\cite{Cirq}%
+To recover the local gates $\Gate{K_n}$ we perform another canonical decomposition on the B gate sandwich sans the terminal local gates~\cite{Cirq2022a}%
 \footnote{Open problem: Zang et al.\cite{Zhang2004b} derived the analytic decomposition of the canonical gate to a B-gate sandwich only up to local gates. Derive an analytic formula for the necessary local gates to complete the canonical to B-gate sandwich decomposition. \index{B-gate sandwich}
 \index{problems}}.
 $$
@@ -205,7 +205,7 @@ $$
 \end{quantikz}}
 $$
 
-The B-gate is not a native gate on any extant quantum computer, and thus the B-gate decomposition isn't used for gate synthesis directly. But the B-gate sandwich has been used as a compilation strategy for Google's Sycamore architecture~\cite{Cirq}. The native sycamore gate \eqref{Syc} is locally equivalent to $\Gate{Can}(\tfrac{1}{2}, \tfrac{1}{2}, \tfrac{1}{12})$. A sycamore-gate sandwich can generate a subset of gates in the special-orthogonal local equivalency class, including CNOT, the entire Ising class, and B (but notable not iSwap)~\cite{Arute2019a,Harrigan2021a}. A B-gate sandwich can then be used to synthesis any other gate using 4-sycamores.\index{sycamore-gate sandwich}
+The B-gate is not a native gate on any extant quantum computer, and thus the B-gate decomposition isn't used for gate synthesis directly. But the B-gate sandwich has been used as a compilation strategy for Google's Sycamore architecture~\cite{Cirq2022a}. The native sycamore gate \eqref{Syc} is locally equivalent to $\Gate{Can}(\tfrac{1}{2}, \tfrac{1}{2}, \tfrac{1}{12})$. A sycamore-gate sandwich can generate a subset of gates in the special-orthogonal local equivalency class, including CNOT, the entire Ising class, and B (but notable not iSwap)~\cite{Arute2019a,Harrigan2021a}. A B-gate sandwich can then be used to synthesis any other gate using 4-sycamores.\index{sycamore-gate sandwich}
 
 
 
