@@ -270,7 +270,7 @@ $$
 
 \subsection{iSwap locally equivalent gates}
 \paragraph{\Gate{iSwap} (imaginary swap) gate}\index{iSwap gate}\cite{Schuch2003a}
-\index{imaginary swap gate| see{iSwap gate}}\hypertarget{}{iSwap}
+\index{imaginary swap gate| see{iSwap gate}}\hypertarget{iSwap}{}
 
 \[
 \Gate{iSwap} &= 
@@ -293,7 +293,7 @@ $$
 
 
 
-\paragraph{\Gate{fSwap} (fermionic swap) gate}\index{fSwap gate}\index{fermionic swap gate|see {\Gate{fSwap} gate}}~\cite{???}\hypertarget{}{fSwap}
+\paragraph{\Gate{fSwap} (fermionic swap) gate}\index{fSwap gate}\index{fermionic swap gate|see {\Gate{fSwap} gate}}~\cite{???}\hypertarget{fSwap}{}
 \[
 \Gate{fSwap} &= 
 \Left(\begin{smallmatrix}
@@ -543,7 +543,7 @@ Notable the \Gate{XX}, \Gate{YY} and \Gate{ZZ} gates all commute with one anothe
 & \loceq \Gate{Can}(-\tfrac{\theta}{2\pi}, 0, t) \notag
 \]
 
-Controlled phase shift gate \eqref{PhaseShift}
+Controlled phase shift gate \eqref{phaseshift}
 
 \[
 H_{\text{CPhase}} = - \tfrac{\theta}{4} (I + Z_0\otimes Z_1 - Z_0 - Z_1)
@@ -714,7 +714,7 @@ $$
 $$
 Note that the inverse $\Gate{CV}^\dagger$ is a distinct square-root of \Gate{CNot}. However \Gate{CV} and $\Gate{CV}^\dagger$ are locally equivalent, which is a consequence of the symmetry about $t_x=\half$ on the bottom face of the Weyl chamber. % reference 
 
-The CV gate can be built from two-CNot gates.
+The CV gate can be built from two CNot gates.
 $$
 \input{circuits/cv.tex}
 \simeq
@@ -729,6 +729,7 @@ $$
 
 % =======================================================
 \subsection{XY gates}
+\label{sec:XY}
 
 Gates in the XY class form two edges of the Weyl chamber with
  coordinates $\Gate{Can}(t, t, 0)$ (for $t\leq\half$) and $\Gate{Can}(t, 1-t, 0)$ (for $t>\half$).
@@ -736,7 +737,7 @@ This includes the identity and $\Gate{iSwap}$ gates.
 
 
 \paragraph{\Gate{XY}-gate}~\cite{???,Abrams2020a}
-Also occasionally referred to as the $\Gate{piSwap}$ (or parametric iSwap) gate~\cite{pyquil}.
+Also occasionally referred to as the $\Gate{piSwap}$ (or parametric iSwap) gate~\cite{Rigetti2016a}.
 \index{XY gate}\index{piSwap gate|see {XY gate}}\index{parametric iSwap gate|see {XY gate}}
 \[
 \Gate{XY}(t) &= e^{-i \sfrac{\pi}{2} t (X\otimes X +Y\otimes Y)}
@@ -862,7 +863,7 @@ Includes the identity and \Gate{Swap} gates.
 
 \paragraph{Swap-alpha gate}\cite{Fan2005a,Blaauboer2008a} Powers of the Swap gate
 \index{Swap-alpha gate}\index{Swap gate}
-\hypertarget{SwapPow}{Target}
+\hypertarget{SwapPow}{}
 \[
  \Gate{Swap}^\alpha  & = 
  e^{+\frac{\pi}{2}\alpha}
@@ -1313,7 +1314,7 @@ $$
 
 
 % begin W
-\paragraph{\Gate{W}-gate}~\cite{???}\index{W gate}
+\paragraph{\Gate{W}-gate}~\cite{???}\index{W gate}\label{W}
 A 2-qubit orthogonal and Hermitian gate (and therefore also symmetric) $\Gate{W}^\dagger=\Gate{W}$,
 that applies a Hadamard gate to a duel-rail encoded qubit.
 \[
