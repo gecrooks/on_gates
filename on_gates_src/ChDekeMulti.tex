@@ -203,7 +203,7 @@ This trick extends all the way to the final decomposition of 2-qubit conditional
 \section{Decomposition of multi-qubit gates}
 
 Let us now consider the problem of decomposing an arbitrary multi-qubit gate, without necessarily any special structure, into a circuit of 1 and 2 qubit gates.  
-Such a generic $N$-qubit quantum gate is represented by a $2^N$ by $2^N$ unitary matrix, with $2^{2N}=4^N$ free parameters (one of which is the phase).  The (classical) computational resources needed to specify such a gate rapidly becomes prohibitive with qubit count (e.g.~a 10 qubit gate has over a million parameters), but decomposition of gates with a dozen qubits or so is quite feasible.
+Such a generic $N$-qubit quantum gate is represented by a $2^N$ by $2^N$ unitary matrix, with $2^{2N}=4^N$ free parameters (one of which is the phase).  The (classical) computational resources needed to specify such a gate rapidly becomes prohibitive with qubit count (e.g.~a 20 qubit gate has over a trillion parameters), but decomposition of gates upto a dozen qubits or so is quite feasible.
  
 
 
@@ -394,7 +394,7 @@ A diagonal gate is any gate whose matrix representation is diagonal in the compu
 \end{quantikz}
 }
 \end{center}
-A diagonal gate can be thought of as a multiplexed gate. In particular, if we take the last qubit as the target, then a diagonal gate on N qubits is a multiplex gate with N-1 control qubits, and $2^{N-1}$ conditional unitaries, each of which is an arbitrary diagonal 1-qubit gate. 
+A diagonal gate can be thought of as a multiplexed gate. In particular, if we take the last qubit as the target, then a diagonal gate on N qubits is a multiplex gate with N-1 control qubits, and $2^{N-1}$ conditional unitaries (???), each of which is an arbitrary diagonal 1-qubit gate.
 
 \begin{center}
 \adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]

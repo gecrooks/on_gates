@@ -78,6 +78,35 @@ fname = 'iswap_to_dcnot'
 circ = qf.Circuit([qf.H(0), qf.S_H(0), qf.S_H(1), qf.ISwap(1, 0), qf.H(1)])
 write_latex(fname, circ)
 
+gate = qf.ISwap(1, 0)
+
+fname = 'iswap'
+circ = qf.Circuit(gate)
+write_latex(fname, circ)
+
+
+fname = 'iswap_to_swapcz'
+circ = qf.Circuit(qf.translate_iswap_to_swap_cz(gate))
+write_latex(fname, circ)
+
+
+
+
+fname = 'swap_to_dcnot'
+circ = qf.Circuit([qf.Swap(1, 0), qf.CNot(0,1)])
+write_latex(fname, circ)
+
+
+fname = 'invdcnot'
+circ = qf.Circuit([qf.CNot(1, 0), qf.CNot(0, 1)])
+write_latex(fname, circ)
+
+fname = 'swap_to_invdcnot'
+circ = qf.Circuit([qf.CNot(0,1), qf.Swap(0, 1)])
+write_latex(fname, circ)
+
+
+
 # FIXME
 # fname = 'magic'
 # circ = qf.Circuit([qf.Unitary(name='M', qubits=[0, 1], tensor=qf.I(0, 1).tensor)])
