@@ -1,0 +1,126 @@
+\documentclass[border=5pt,tikz,multi]{standalone}
+\usepackage{adjustbox}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+
+
+
+ \begin{tikzpicture}[scale=1]
+ 
+ \newcommand{\xyzcube}[3]{
+ \draw [thick, line join=round] (1,-1,1) -- (1,1,1) -- (1,1,-1) -- (1,-1,-1) -- cycle (1,-1,1) -- (-1,-1,1) -- (-1,1,1) -- (1,1,1) -- cycle (1,1,1) -- (-1,1,1) -- (-1,1,-1) -- (1,1,-1) -- cycle;
+  \path  (1,0,1) -- (-1,0,1)  node [midway]  {\huge $#1$};
+  \path  (1,0,1) -- (1,0,-1)  node [midway]  {\huge $#2$};  
+  \path  (-1,1,1) -- (1,1,-1) node [midway ] {\huge $#3$};
+}
+
+\begin{scope}[xshift= 0cm, yshift=  0cm]   
+  \begin{scope}[xshift=0cm, yshift=3cm]  \xyzcube{+}{R}{0}\end{scope}
+  \begin{scope}[xshift=-3cm, yshift=0cm] \xyzcube{L}{+}{0}\end{scope}
+  \begin{scope}[xshift=0cm, yshift=-3cm] \xyzcube{-}{L}{0}\end{scope}
+  \begin{scope}[xshift=3cm, yshift=0cm]  \xyzcube{R}{-}{0}\end{scope}
+
+  \draw[very thick,red, -{>[scale=1.5]}] (3.0, 1.5) arc (0:90:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-1.5,3.0) arc (90:180:1.5cm) node[midway, fill=white] { \huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-3.0, -1.5) arc (180:270:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (1.5, -3.0) arc (270:360:1.5cm) node[midway, fill=white] {\huge S};  
+\end{scope}
+
+\begin{scope}[xshift= 12cm, yshift=  0cm]   
+  \begin{scope}[xshift=0cm, yshift=3cm]  \xyzcube{+}{1}{R}\end{scope}
+  \begin{scope}[xshift=-3cm, yshift=0cm] \xyzcube{0}{+}{R}\end{scope}
+  \begin{scope}[xshift=0cm, yshift=-3cm] \xyzcube{-}{0}{R}\end{scope}
+  \begin{scope}[xshift=3cm, yshift=0cm]  \xyzcube{1}{-}{R}\end{scope}
+
+  \draw[very thick,red, -{>[scale=1.5]}] (3.0, 1.5) arc (0:90:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-1.5,3.0) arc (90:180:1.5cm) node[midway, fill=white] { \huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-3.0, -1.5) arc (180:270:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (1.5, -3.0) arc (270:360:1.5cm) node[midway, fill=white] {\huge S};  
+\end{scope}
+
+\begin{scope}[xshift= 0cm, yshift=  -12cm]   
+  \begin{scope}[xshift=0cm, yshift=3cm]  \xyzcube{0}{R}{-}\end{scope}
+  \begin{scope}[xshift=-3cm, yshift=0cm] \xyzcube{L}{0}{-}\end{scope}
+  \begin{scope}[xshift=0cm, yshift=-3cm] \xyzcube{1}{L}{-}\end{scope}
+  \begin{scope}[xshift=3cm, yshift=0cm]  \xyzcube{R}{1}{-}\end{scope}
+
+  \draw[very thick,red, -{>[scale=1.5]}] (3.0, 1.5) arc (0:90:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-1.5,3.0) arc (90:180:1.5cm) node[midway, fill=white] { \huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-3.0, -1.5) arc (180:270:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (1.5, -3.0) arc (270:360:1.5cm) node[midway, fill=white] {\huge S};  
+\end{scope}
+
+\begin{scope}[xshift= -12cm, yshift=  0cm]   
+  \begin{scope}[xshift=0cm, yshift=3cm]  \xyzcube{+}{0}{L}\end{scope}
+  \begin{scope}[xshift=-3cm, yshift=0cm] \xyzcube{1}{+}{L}\end{scope}
+  \begin{scope}[xshift=0cm, yshift=-3cm] \xyzcube{-}{1}{L}\end{scope}
+  \begin{scope}[xshift=3cm, yshift=0cm]  \xyzcube{0}{-}{L}\end{scope}
+
+  \draw[very thick,red, -{>[scale=1.5]}] (3.0, 1.5) arc (0:90:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-1.5,3.0) arc (90:180:1.5cm) node[midway, fill=white] { \huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-3.0, -1.5) arc (180:270:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (1.5, -3.0) arc (270:360:1.5cm) node[midway, fill=white] {\huge S};  
+\end{scope}
+
+\begin{scope}[xshift= 0cm, yshift=  12cm]   
+  \begin{scope}[xshift=0cm, yshift=3cm]  \xyzcube{1}{R}{+}\end{scope}
+  \begin{scope}[xshift=-3cm, yshift=0cm] \xyzcube{L}{1}{+}\end{scope}
+  \begin{scope}[xshift=0cm, yshift=-3cm] \xyzcube{0}{L}{+}\end{scope}
+  \begin{scope}[xshift=3cm, yshift=0cm]  \xyzcube{R}{0}{+}\end{scope}
+
+  \draw[very thick,red, -{>[scale=1.5]}] (3.0, 1.5) arc (0:90:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-1.5,3.0) arc (90:180:1.5cm) node[midway, fill=white] { \huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-3.0, -1.5) arc (180:270:1.5cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (1.5, -3.0) arc (270:360:1.5cm) node[midway, fill=white] {\huge S};  
+\end{scope}
+
+
+
+\begin{scope}[xshift= 0cm, yshift=  0cm]   
+  \begin{scope}[xshift=0cm, yshift=21cm]  \xyzcube{+}{L}{1}\end{scope}
+  \begin{scope}[xshift=-21cm, yshift=0cm] \xyzcube{L}{-}{1}\end{scope}
+  \begin{scope}[xshift=0cm, yshift=-21cm] \xyzcube{-}{R}{1}\end{scope}
+  \begin{scope}[xshift=21cm, yshift=0cm]  \xyzcube{R}{+}{1}\end{scope}
+
+  \draw[very thick,red, -{>[scale=1.5]}] (21, -2) arc (0:-90:19cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-21,2) arc  (-180:-270:19cm) node[midway, fill=white] { \huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (2, 21) arc (-270:-360:19cm) node[midway, fill=white] {\huge S};
+  \draw[very thick,red, -{>[scale=1.5]}] (-2, -21) arc (-90:-180:19cm) node[midway, fill=white] {\huge S};
+
+\end{scope}
+
+
+
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (5, 0) -- (7, 0) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (-5, 0) -- (-7, 0) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (0, 5) -- (0, 7) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (0, -5) -- (0, -7) node[midway, fill=white] {\huge H};
+
+
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (17, 0) -- (19, 0) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (-17, 0) -- (-19, 0) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (0, 17) -- (0, 19) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (0, -17) -- (0, -19) node[midway, fill=white] {\huge H};
+
+
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (5, 12) arc (90:0:7cm) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (-12, 5) arc (-180:-270:7cm) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (5, -12) arc (270:360:7cm) node[midway, fill=white] {\huge H};
+\draw[very thick,blue, {<[scale=1.5]}-{>[scale=1.5]}] (-5, -12) arc (-90:-180:7cm) node[midway, fill=white] {\huge H};
+
+
+
+
+  
+  \end{tikzpicture}
+
+
+
+
+
+
+
+
+\end{document}

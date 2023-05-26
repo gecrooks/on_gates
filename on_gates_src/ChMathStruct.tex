@@ -4,15 +4,16 @@
 
 \clearpage
 
-\section{Mathematical Structures}
+\section{Mathematical structures of quantum mechanics}
+
 
 \subsection{Groups}
- A \define{group} consists of two things:
+ A \define{group} consists of two things
  \begin{enumerate}
 \item A set of objects, $G$, whose elements we will label $x$, $y$, $z$, etc.
 \item A composition rule (called the {\sl product}) that maps pairs of objects in $G$ to another element of $G$, $xy=z$
 \end{enumerate}
-subject to the following conditions:
+which are subject to the following conditions:
 \begin{enumerate}
 \item The product is associative: $x(yz)= (xy)z= xyz$
 \item $G$ contains an identity element $e$, so that $ex=xe=x$ for all elements $x$ in $G$.
@@ -20,16 +21,18 @@ subject to the following conditions:
 \end{enumerate}
 
 {\sl Example:} The positive and negative integers $..., -2, -1, 0, 1, 2, ...$ form a group under addition $+$, called the {\sl additive group of integers}. Here the identity element is zero $0+x=x$, and negation is inversion, $x+(-x) = 0$. When a group composition rule is commutative, $x+y = y+x$ we call the group {\sl abelian}.
-The non-negative integers do not form a group under addition, since there are no inverses. The positive-integers under addition have neither inverses nor an identity element
+The non-negative integers do not form a group under addition, since there are no inverses. The positive-integers under addition have neither inverses nor an identity element.
 
 
 {\sl Example:} The real numbers also form a group under multiplication, with $1$ as the identity element, and reciprocals as inverse elements, $x^{-1} = \tfrac{1}{x}$.
 
 {\sl Example:} Let $G$ be the collection of all permutations of $n$ objects, and the group product the composition of permutations. Then we have a {\sl permutation group} called $S_n$ with $n!$ elements.
  
-The {\sl order} of a group is the number of elements in $G$, written $|G|$. A {\sl finite group} is a group with a finite number of elements. We'll encounter various examples presently, such as the octahedral, Pauli, Clifford and Weyl groups. An {\sl infinite group} has an infinite number of elements. The most important examples in quantum mechanics are the unitary groups of all unitary matrices of a given size. 
+The {\sl order} of a group is the number of elements in $G$, written $|G|$. A {\sl finite group} is a group with a finite number of elements. We'll encounter various examples presently, such as the octahedral, Pauli, Clifford and Weyl groups. An {\sl infinite group} has an infinite number of elements. The most important examples in quantum mechanics are the unitary groups of all unitary matrices of a given size.
 
 % TODO: direct product, subgroups, quotient group
+
+
 
 \subsection{Vector spaces}
 A {\sl vector space} consists of three things:
@@ -46,12 +49,12 @@ subject to the following conditions:
   \item Scalar multiplication is associative, $a (cv) = (ac) v$. 
  \item The number $1$ is the identity for scaler multiplication, $1v=v$.
  \end{enumerate}
- For obscure historical reasons, in the context of vector spaces numbers are called scalars.
-These numbers can be either real, in which case we have a \define{real vector space}, or complex, which gives a \define{complex vector space}. Other number like structures can be used instead, but such constructions don't seem to turn up much in practice. 
+ For obscure historical reasons, in the context of vector spaces numbers are called \define{scalars}.
+These numbers can be either real, in which case we have a \define{real vector space}, or complex, which gives a \define{complex vector space}. Scalars can also be some other number like structures, but such constructions don't seem to turn up much in practice.
 
-{\sl Example:} Lists of numbers, $v=(v_1, v_2, ..., v_n)$ form a vector space with vector summation as element wise addition $u+v = (u_1+v_1, u_2 +v_2, ..., u_n+ v_n)$, and scalar multiplication distributed over elements, $c(v_1, v_2, ..., v_n) =(cv_1, cv_2, ..., cv_n)$. This is the most common computational representation of vectors, but we should not confuse such concrete realizations with the Platonic ideal of the mathematical structure. 
+{\sl Example:} Lists of numbers, $v=(v_1, v_2, ..., v_n)$ form a vector space with vector summation as element wise addition $u+v = (u_1+v_1, u_2 +v_2, ..., u_n+ v_n)$, and scalar multiplication distributed over elements, $c(v_1, v_2, ..., v_n) =(cv_1, cv_2, ..., cv_n)$. This is the most common computational representation of vectors, but we should not confuse such concrete realizations with the Platonic ideal of the mathematical structure.
 
-The {\sl dimension} of a vector space is the minimum number of {\sl basis vectors} from which the entire set of vectors can be constructed using vector summation and scalar multiplication. For lists of $n$ arbitrary numbers, the dimension of the vector space is $n$, but we could be could be restricted to some \define{subspace} which has a lower dimension. 
+The {\sl dimension} of a vector space is the minimum number of {\sl basis vectors} from which the entire set of vectors can be constructed using vector summation and scalar multiplication. For lists of $n$ arbitrary numbers, the dimension of the vector space is $n$, but we could be could be restricted to some \define{subspace} which has a lower dimension.
 
 
 
@@ -87,16 +90,16 @@ v_1 \\ v_2 \\ v_3\\
 = \sum_i u^*_i v_i
 \]
 
-{\sl Dirac notation}: Quantum mechanics has developed its own notation for objects in Hilbert space~\cite{Dirac???}. 
+{\sl Dirac notation}: Quantum mechanics has developed its own notation for objects in Hilbert space~\cite{Dirac1939a}. 
  \begin{itemize}
  \item The state of a quantum system is represented by a vector in a Hilbert space, which is written $\ket{\phi}$ and called a \define{ket}.
   \item The dual vector $\ket{\phi}^\dagger$  is written $\bra{\phi}$ and called a \define{bra}.
-  \item The inner product between $\ket{\psi}^\dagger$ and $\bra{\phi}$ is written $\braket{\phi}{\psi}$ and called a \define{braket}. 
+  \item The inner product between $\ket{\psi}$ and $\ket{\phi}$ is written $\braket{\phi}{\psi}$ and called a \define{braket}.
  \end{itemize}
 The representation of a state in quantum mechanics is unaffected by scalar multiplication, so that $v$ and $cv$ both represent the same physical state. Technically, quantum mechanics  lives in a \define{projective Hilbert space}. We generally assume that state vectors are normalized, so that $\braket{\psi}{\psi}=1$. But we can still multiply by a complex \define{phase} $c$ with $|c| = c^*c = 1$ and have a  normalized vector representing the same physical state.  
 
 A 2-dimensional Hilbert space is a {\sl qubit}~\cite{???}, a quantum bit\footnote{{\sl
-Which of you by taking thought can add one qubit [...] ?} Matthew 6:27} (And the word ``bit'' is in turn a contraction of binary-digit~\cite{???}). This is the fundamental irreducible unit of quantum information storage.
+Which of you by taking thought can add one qubit [...] ?} Matthew 6:27} (And the word ``bit'' is in turn a contraction of binary-digit~\cite{Shannon1948a}). This is the fundamental irreducible unit of quantum information storage.
 % zero and one
 
 
@@ -128,7 +131,7 @@ b & a^*
 \]
 with complex numbers $a$ and $b$ satisfying $|a|^2 + |b|^2 = 1$.
 
-The unitary group is ubiquitous in quantum mechanics since pure quantum dynamics is represented by unitary operators. Thus 1-qubit gates are elements of $U(2)$, 2-qubits gates are elements of $U(4)$, and N-qubit gates are elements of $U(2^N)$. Note that in quantum mechanics the value of the determinate does not matter (in general), since it gets absorbed into the irrelevant phase factor in the ket. The unitary matrices $U$ and $cU$ (where $c$ is a unit complex number $|c|=1$) represent the same physical gate. This can be confusing, because two equivalent matrix representation of a gate can look different. The standard representation of gates are often not in the special unitary group, since we use whatever physically equivalent representation is most easily understood by humans. 
+The unitary group is ubiquitous in quantum mechanics since pure quantum dynamics is represented by unitary operators. Thus 1-qubit gates are elements of $U(2)$, 2-qubits gates are elements of $U(4)$, and N-qubit gates are elements of $U(2^N)$. Note that in quantum mechanics the value of the determinate does not matter (in general), since it gets absorbed into the irrelevant phase factor in the ket. The unitary matrices $U$ and $cU$ (where $c$ is a unit complex number $|c|=1$) represent the same physical gate. This can be confusing, because two equivalent matrix representation of a gate can look different. The standard representation of gates are often not in the special unitary group, since we use whatever physically equivalent representation is most easily understood by humans.
 
 (An exception to the irrelevancy of the unitary phase occurs when we discuss controlled unitary operations, where one qubit controls the unitary applied to some other qubits.)
 
@@ -136,9 +139,10 @@ The unitary group is ubiquitous in quantum mechanics since pure quantum dynamics
 \newcommand{\T}{\mathsf{T}}
 
 \subsection{Orthogonal groups}
-The \define{orthogonal group} of degree $n$, denoted $O(n)$, is a Lie group consisting of the set of all $n\times n$ orthogonal matrices, along with the matrix multiplication as the group composition rule. Orthogonal matrices have real entries, and the inverse is the transpose $QQ^\T=I$. The subset of orthogonal matrices with unit determinant form the \define{special orthogonal groups} $SO(n)$. These represent rotations about a fixed point in $n$ dimensional Euclidean space. The remaining \define{improper orthogonal matrices} have determinate of $-1$, and do not form a group on their own. 
+The \define{orthogonal group} of degree $n$, denoted $O(n)$, is a Lie group consisting of the set of all $n\times n$ orthogonal matrices, along with the matrix multiplication as the group composition rule. Orthogonal matrices have real entries, and the inverse is the transpose $QQ^\T=I$. The subset of orthogonal matrices with unit determinant form the \define{special orthogonal groups} $SO(n)$. These represent rotations about a fixed point in $n$ dimensional Euclidean space. The remaining \define{improper orthogonal matrices} have determinate equal to $-1$, and do not form a group on their own.
 
-Orthogonal groups crop up in several places in quantum mechanics. The orthogonal group $SO(n)$ is a subgroup of $SU(n)$, and some interesting classes of quantum gates can be represented as special or improper orthogonal matrices. The other place where orthogonal groups occur is due to accidental correspondences between the orthogonal and unitary groups. In particular $SO(3)$ is the ``double cover`` of $SU(2)$, and $SO(4)$ is the double cover of $SU(2)\times SU(2)$. Double cover means that we can map two elements of the source group to each element of the covering group, while otherwise preserving the group composition rule.  The first relation allows us to represents unitary operations on a single qubit as rotations in a 3-dimensional Euclidean space. The second crops up in the decomposition of 2-qubit gates. 
+Orthogonal groups crop up in several places in quantum mechanics. The orthogonal group $SO(n)$ is a subgroup of $SU(n)$, and some interesting classes of quantum gates can be represented as special or improper orthogonal matrices. The other place where orthogonal groups occur is due to accidental correspondences between the orthogonal and unitary groups. In particular $SO(3)$ is the ``double cover`` of $SU(2)$, and $SO(4)$ is the double cover of $SU(2)\times SU(2)$. Double cover means that we can map two elements of the source group to each element of the covering group, while otherwise preserving the group composition rule.  The first relation allows us to represents unitary operations on a single qubit as rotations in a 3-dimensional Euclidean space. The second relation crops up in the decomposition of 2-qubit gates.
+\label{accidental}
 
 % Forward references
 

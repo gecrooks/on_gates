@@ -18,7 +18,7 @@
 %   list-heading = {},
 % }
 
-
+\newcommand{\Star}{} % used in some bib annotations
 
 % \renewcommand{\endnote}{\footnote}
 
@@ -77,7 +77,7 @@
 \renewcommand{\doi}[1]{\textsc{doi}: \href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
 
 
-\newcommand{\self}{_on_gates}			% Recursive citations.
+\newcommand{\self}{_gates}			% Recursive citations.
 \addcitationneeded
 
 
@@ -110,7 +110,7 @@
 
 \begin{document}
 \nocite{\self}
-\nocite{Dirac1939a,Bloch1946a,Toffoli1980a,Fredkin1982a,Feynman1985a,Peres1985a,Deutsch1989a,VanLoan1993a,Yao1993a,Reck1994a,Margolus1994a,Barenco1995a,DiVincenzo1995a,Barenco1995b,PreskillLectureNotes,DiVincenzo1998a,Molmer1999a,Nielsen2000a,VanLoan2000a,Dorai2000a,Collins2001a,Song2003a,Zhang2003a,Maslov2003a,Vatan2004a,Zhang2004a,Rezakhani2004a,Blaauboer2008a,Drury2008a,Glendinning2010a,Sakurai2010a,Gidney2012a,Aaronson2013a,Amy2013a,Green2013a,Watts2013a,Rieffel2014a,Axler2015a,Susskind2015a,Rigetti2016a,Smith2016a,Linke2017a,Wilde2017a,Ferrie2018a,Watrous2018a,Shi2018a,Barkoutsos2018a,Matuschak2019a,Abrams2020a,Gard2020a,Peterson2020a,Rasmussen2020a,Gidney2021a,Harrigan2021a}
+\nocite{Dirac1939a,Bloch1946a,Shannon1948a,Toffoli1980a,Fredkin1982a,Feynman1985a,Peres1985a,Deutsch1989a,VanLoan1993a,Yao1993a,Reck1994a,Margolus1994a,Barenco1995a,DiVincenzo1995a,Barenco1995b,PreskillLectureNotes,DiVincenzo1998a,Molmer1999a,Nielsen2000a,VanLoan2000a,Dorai2000a,Collins2001a,Song2003a,Zhang2003a,Maslov2003a,Vatan2004a,Zhang2004a,Rezakhani2004a,Blaauboer2008a,Drury2008a,Glendinning2010a,Sakurai2010a,Gidney2012a,Aaronson2013a,Amy2013a,Green2013a,Watts2013a,Rieffel2014a,Axler2015a,Susskind2015a,Rigetti2016a,Smith2016a,Linke2017a,Wilde2017a,Ferrie2018a,Watrous2018a,Shi2018a,Barkoutsos2018a,Matuschak2019a,Abrams2020a,Gard2020a,Peterson2020a,Rasmussen2020a,Gidney2021a,Harrigan2021a,Cirq2022a}
 
 \title{\thetitle}
 \author{\href{http://threeplusone.com/}{Gavin E.\ Crooks}\\ gavincrooks$@$gmail.com}
@@ -145,7 +145,7 @@ Tech. Note 014 \theversion ~~ {\sc beta} \\~\\
 % [TODO: Rename so that ends up near top of file lists?]
 
 \include{ChIntro}
-%\include{ChMathStruct}
+\include{ChMathStruct}
 
 %\section{Quantum mechanics}
 
@@ -373,27 +373,27 @@ Tech. Note 014 \theversion ~~ {\sc beta} \\~\\
 
 
 %%%%%%%%%%%% Supplemental %%%%%%%%%%%%
-
-\clearpage
-\part{Supplemental}
-
-\nocite{Deutsch1985a}
-
-\section{Introduction}
-A computer is a physical device that can systematically process information. The original computers were people particularly adept at adding and multiplying numbers. But people are not particularly good at manipulating abstract information;  we take years to train, often make mistakes, and then die at inconvenient moments taking our stores of information with us.  But long ago mankind realized we could offload the computational load onto the physical environment. We developed abstract symbols for verbal and numerical information, paper and ink as external information stores, and mechanical devices to manipulate those symbols. 
-
-Writing and the abacus, the first mechanical computational device, were invented in Mesopotamia over 5000 years ago. Two millennia ago the Greeks were building elaborate analogy computers to calculate the passage of the sun, moon, and planets through the heavens. But not until the industrial revolution di the idea of a general purpose computer begin to take shape. Charles Babbage had the vision of a steam powered engine for systematic calculations of complex functions; and then even more fore-sited he conceived of an ``analytic engine'', the first inklings of a general purpose programmable computer. 
-A program is just an algorithm, a systematic step-by-step procedure for carrying out a complex computation. And a program is itself information, and therefore the instructions for operating a computer can be stored and manipulated by the computer itself. A programmable computer can be fed instructions that allow it to carry out any computation. Babbage was well ahead of this time. Neither his difference nor analytic engines could be built with the technology of then available time. It took the development of electronic switches (electro-mechanical relays, vacuums valves, and ultimately silicon transistors) to realize his vision of a general purpose computational engine a century latter.  
-
-Turing universal computer. Church-Turing 
-
-From the Second World War onwards we have witnessed a computational revolution that matches in scope and import of the preceding agricultural and industrial revolutions.  Just as the amount of food one man can grow has dramatically increased, or the power one man can exert, so to has the amount of information that one man can access and process has grown immensely. terrabyes per second.
-
-Abstract away most of the physical details. However, almost forgotten in the computer revolution was the central truth that a computer is a physical device. Information, however apparently abstract, is ultimately stored in physical objects. And a computer is a machine that has to obey the laws of physics. However, implicit in the early development of computer theory was the idea that reality obeys the commonsense laws of logic. In our current parlance, the implicit physical laws of underlying conventional computer science are classical.      
- 
-
-
-However abstract the computation or information appears, at the bottom the information is stored in a material systems and manipulated with the laws of physics. 
+%
+%\clearpage
+%\part{Supplemental}
+%
+%\nocite{Deutsch1985a}
+%
+%\section{Introduction}
+%A computer is a physical device that can systematically process information. The original computers were people particularly adept at adding and multiplying numbers. But people are not particularly good at manipulating abstract information;  we take years to train, often make mistakes, and then die at inconvenient moments taking our stores of information with us.  But long ago mankind realized we could offload the computational load onto the physical environment. We developed abstract symbols for verbal and numerical information, paper and ink as external information stores, and mechanical devices to manipulate those symbols. 
+%
+%Writing and the abacus, the first mechanical computational device, were invented in Mesopotamia over 5000 years ago. Two millennia ago the Greeks were building elaborate analogy computers to calculate the passage of the sun, moon, and planets through the heavens. But not until the industrial revolution di the idea of a general purpose computer begin to take shape. Charles Babbage had the vision of a steam powered engine for systematic calculations of complex functions; and then even more fore-sited he conceived of an ``analytic engine'', the first inklings of a general purpose programmable computer. 
+%A program is just an algorithm, a systematic step-by-step procedure for carrying out a complex computation. And a program is itself information, and therefore the instructions for operating a computer can be stored and manipulated by the computer itself. A programmable computer can be fed instructions that allow it to carry out any computation. Babbage was well ahead of this time. Neither his difference nor analytic engines could be built with the technology of then available time. It took the development of electronic switches (electro-mechanical relays, vacuums valves, and ultimately silicon transistors) to realize his vision of a general purpose computational engine a century latter.  
+%
+%Turing universal computer. Church-Turing 
+%
+%From the Second World War onwards we have witnessed a computational revolution that matches in scope and import of the preceding agricultural and industrial revolutions.  Just as the amount of food one man can grow has dramatically increased, or the power one man can exert, so to has the amount of information that one man can access and process has grown immensely. terrabyes per second.
+%
+%Abstract away most of the physical details. However, almost forgotten in the computer revolution was the central truth that a computer is a physical device. Information, however apparently abstract, is ultimately stored in physical objects. And a computer is a machine that has to obey the laws of physics. However, implicit in the early development of computer theory was the idea that reality obeys the commonsense laws of logic. In our current parlance, the implicit physical laws of underlying conventional computer science are classical.      
+% 
+%
+%
+%However abstract the computation or information appears, at the bottom the information is stored in a material systems and manipulated with the laws of physics. 
 
 
 
