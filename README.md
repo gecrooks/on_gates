@@ -15,6 +15,11 @@ gavincrooks@gmail.com
 
 ## Version History
 
+
+### v0.11.0 (???)
+
+Kudos: Frederik Filz von Reiterdank (Bug fix)
+
 ### v0.10.0 (2023-05-26)
 Added Inverse Double Controlled NOT gate; Added Cayley graph of 1-qubit Clifford gates. Miscellaneous improvements.
 
