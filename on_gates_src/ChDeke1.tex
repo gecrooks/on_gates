@@ -67,11 +67,11 @@ If multiply out the circuit, then we get the following universal 1-qubit gate.
 \[
 U = 
 e^{i\alpha} \begin{bmatrix}
-+e^{+i(+\half\theta_2 + \half\theta_0)} \cos(\half\theta_1) 
-& -e^{-i(-\half\theta_2 + \half\theta_0)} \sin(\half\theta_1) 
++e^{-i\half\theta_2  -i\half\theta_0} \cos(\half\theta_1)
+& -e^{-i\half\theta_2 + i\half\theta_0} \sin(\half\theta_1)
 \\
-+e^{+i(+\half\theta_2 - \half\theta_0)} \sin(\half\theta_1) 
-& +e^{-i(+\half\theta_2 +\half\theta_0)} \cos(\half\theta_1)
++e^{+i\half\theta_2 - i\half\theta_0} \sin(\half\theta_1)
+& +e^{+i\half\theta_2 +i\half\theta_0} \cos(\half\theta_1)
 \end{bmatrix}
 \]
 The first step in the decomposition is to extract the phase using Eq.~\eqref{phase_extraction}, leaving a special unitary matrix $V = e^{-i\alpha} U$.
