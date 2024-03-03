@@ -198,9 +198,10 @@ The one ambiguous edge case that needs to be accounted for is that the identity 
 \subsection{Decomposition of Bloch rotation}
 A rotation about an arbitrary axis in the Bloch sphere can be analytically decomposed into a sequence of five $R_z$ and $R_y$ gates~\cite{Glendinning2010a}.
 \[
+\label{bloch_deke}
 R_{\vec{n}}(\theta) & = R_z(+\alpha) R_y(+\beta) R_z(\theta) R_y(-\beta) R_z(-\alpha) \\
 & \alpha = \operatorname{arctan2}(n_y, n_x) \notag \\
-& \beta = \operatorname{arccos}(n_z) \notag 
+& \beta = \operatorname{arccos}(n_z) \notag
 \]
 %[TODO: Explanation]
 %[TODO: Turn into circuit]

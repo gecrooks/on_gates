@@ -958,7 +958,7 @@ roots, which are inverses of each other.
 \subsection{Parametric swap gates}
 \label{sec:PSwap}
 The class of parametric Swap (PSwap) gates forms the back edge of the Weyl chamber, $\Gate{Can}(\sfrac{1}{2}, \sfrac{1}{2}, t_z)$, connecting the \Gate{Swap} and \Gate{iSwap} gates.
-These gates can be decomposed into a \Gate{Swap} and \Gate{ZZ} gate, a combination that occurs naturally when considering Swap networks for routing QAOA style problems~\secref{???}.
+These gates can be decomposed into a \Gate{Swap} and \Gate{ZZ} gate, a combination that occurs naturally when considering Swap networks for routing QAOA style problems~\cite{???}.
 $$
 \adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
 & \gate[2]{\Gate{Can}(\sfrac{1}{2}, \sfrac{1}{2}, t_z)} & \qw \\
@@ -1102,6 +1102,7 @@ $$
 
 
 \subsection{Orthogonal gates}
+\label{orthogonal_gates}
 \todo{FIXME: This classification can't be quite right}
 
 An orthogonal gate, in this context, is a gate that can be represented by an orthogonal matrix (up to local 1-qubit rotations.)

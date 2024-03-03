@@ -123,7 +123,7 @@ An eigen-decomposition of $V^T V$ yields the square eigenvalues of $D$, and $Q_1
 \subsection{\Gate{CNot} decomposition}
 \index{CNot gate sandwich}
 \index{CNot decomposition}
-The elementary 2-qubit gate is most often taken to be the \Gate{CNot} gate. In general we can build any canonical gate from a circuit of 3 \Gate{CNot}s~\cite{Vidal2003a, Vatan2003a, Vatan2004a}.
+The elementary 2-qubit gate is most often taken to be the \Gate{CNot} gate. In general we can build any canonical gate from a circuit of 3 \Gate{CNot}s~\cite{Vidal2004a, Vatan2004a}.
 %$$
 %\adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
 %& \gate[2]{\text{CAN}(t_x,t_y,t_z)} & \qw \\
@@ -141,7 +141,7 @@ $$
 \input{circuits/can_to_cnot.tex}
 $$
 
-Gates on the bottom surface of the Weyl chamber (special orthogonal local equivalency class~\secref{???}) require only 2 \Gate{CNot} gates~\cite{Vidal2003a,Vatan2004a, \self}.
+Gates on the bottom surface of the Weyl chamber (special orthogonal local equivalency class~\secref{orthogonal_gates}) require only 2 \Gate{CNot} gates~\cite{Vidal2004a,Vatan2004a}.
 $$
 \input{circuits/can_so.tex}
 \simeq
@@ -149,7 +149,7 @@ $$
 $$
 % Figured out the particular deke for myself with some trial and error
 
-Gates in the improper orthogonal equivalency class \secref{???} require 3 \Gate{CNot} gates, or 2-\Gate{CNot}s and 1 \Gate{Swap}~\cite{Vatan2004a}.
+Gates in the improper orthogonal equivalency class \secref{orthogonal_gates} require 3 \Gate{CNot} gates, or 2-\Gate{CNot}s and 1 \Gate{Swap}~\cite{Vatan2004a}.
 $$
 \input{circuits/can_io.tex}
 \simeq
@@ -345,7 +345,7 @@ $$
 \end{quantikz}}
 $$ 
 
-The rotation gate $R_{\vec{n}}(\theta)$ can be analytically decomposed into a 5 gate sequence~\eqref{???}, which can be rearranged into an ABC decomposition.\index{ABC decomposition}
+The rotation gate $R_{\vec{n}}(\theta)$ can be analytically decomposed into a 5 gate sequence~\eqref{bloch_deke}, which can be rearranged into an ABC decomposition.\index{ABC decomposition}
 \[
 R_{\vec{n}}(\theta) & = R_z(+\alpha) R_y(+\beta) R_z(\theta) R_y(-\beta) R_z(-\alpha) \\
 \notag
