@@ -1,6 +1,6 @@
-# Gates, States, and Circuits
+# Quantum Gates
 
-Notes on the circuit model of quantum computation
+Notes on quantum logic gates and the circuit model of quantum computation
 
 [Gavin E. Crooks](https://threeplusone.com) © 2020-
 gavincrooks@gmail.com
