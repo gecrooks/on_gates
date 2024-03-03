@@ -59,6 +59,7 @@ $=$
 
 
 \subsection{Conditional gates}
+\label{conditional_gates}
 \index{conditional gates}
 
 \subsection{Multiplexed gates}
@@ -394,7 +395,7 @@ A diagonal gate is any gate whose matrix representation is diagonal in the compu
 \end{quantikz}
 }
 \end{center}
-A diagonal gate can be thought of as a multiplexed gate. In particular, if we take the last qubit as the target, then a diagonal gate on N qubits is a multiplex gate with N-1 control qubits, and $2^{N-1}$ conditional unitaries (???), each of which is an arbitrary diagonal 1-qubit gate.
+A diagonal gate can be thought of as a multiplexed gate. In particular, if we take the last qubit as the target, then a diagonal gate on N qubits is a multiplex gate with N-1 control qubits, and $2^{N-1}$ conditional unitaries \secref{conditional_gates}, each of which is an arbitrary diagonal 1-qubit gate.
 
 \begin{center}
 \adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
@@ -451,7 +452,7 @@ U = \begin{bsmallmatrix}
 \\ \notag
 & \alpha = -(h_{11} - h_{00}) 
 \]
-A diagonal gate is therefore equivalent to a multiplexed-$R_z$ gate, and a ``multiplexed-phase''. Each sub-block of the ``multiplexed-phase'' has the same two values, so the ``multiplexed-phase'' breaks apart into a diagonal gate on the N-1 control qubits, and an identity on the target qubit. (This is the same effect as when a 2-qubit ``controlled-global-phase'' gate reduces to a 1-qubit phase shift gate. \secref{???}) \cite{???}
+A diagonal gate is therefore equivalent to a multiplexed-$R_z$ gate, and a ``multiplexed-phase''. Each sub-block of the ``multiplexed-phase'' has the same two values, so the ``multiplexed-phase'' breaks apart into a diagonal gate on the N-1 control qubits, and an identity on the target qubit. (This is the same effect as when a 2-qubit ``controlled-global-phase'' gate reduces to a 1-qubit phase shift gate. \secref{sec:ABCdeke}) \cite{???}
 
 \begin{center}
 \adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
