@@ -15,10 +15,14 @@ gavincrooks@gmail.com
 
 ## Version History
 
+### v0.12.0 (???)
+
+Kudos: jlunder (bug fixes); Vyom Patel (patelvyom) (bug fixes).
+
 
 ### v0.11.0 (2024-03-02)
 
-Kudos: Frederik Filz von Reiterdank (Bug fixes);  Kudos:风扇 溜 <Feng5haN@outlook.com> (bug fixes)
+Kudos: Frederik Filz von Reiterdank (bug fixes);  Kudos:风扇 溜 <Feng5haN@outlook.com> (bug fixes)
 
 
 ### v0.10.0 (2023-05-26)
