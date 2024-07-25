@@ -17,7 +17,7 @@ gavincrooks@gmail.com
 
 ### v0.12.0 (???)
 
-Kudos: jlunder (bug fixes); Vyom Patel (patelvyom) (bug fixes); podxboq@gmail.com (bug fixes).
+Kudos: jlunder (bug fixes); Vyom Patel (patelvyom) (bug fixes); podxboq@gmail.com (bug fixes);  Nicolás Quesada (nquesada) (bug fixes).
 
 
 ### v0.11.0 (2024-03-02)
