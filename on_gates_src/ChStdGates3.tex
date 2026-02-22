@@ -6,7 +6,7 @@
 
 \section{Standard 3-qubit gates}
 
-Regrettable there doesn't appear to be an easy way to characterize and visualizes the space of 3-qubit gates in the same way there is for 1-qubit (Bloch ball) and 2-qubit gates (Weyl chamber). Which is perhaps not surprising since a general 3-qubit gate has $(2^3)^2 = 64$ parameters. 
+Regrettably there doesn't appear to be an easy way to characterize and visualize the space of 3-qubit gates in the same way there is for 1-qubit (Bloch ball) and 2-qubit gates (Weyl chamber). Which is perhaps not surprising since a general 3-qubit gate has $(2^3)^2 = 64$ parameters. 
 
 Fortunately there are only a few specific 3-qubit gates that show up in practice, most of which are directly related to the Toffoli (or controlled-controlled-not) gate.
 
@@ -201,7 +201,6 @@ The above diagram is seen occasionally, where the middle bit of the Peres gate i
 
 
 \paragraph{Deutsch gate}~\cite{Deutsch1989a, Barenco1995a, Shi2018a}\index{Deutsch gate}
-\index{Deutsch gate}
  Mostly of historical interest, since this was the first quantum gate to be shown to be computationally universal~\cite{Deutsch1989a}. 
 \[
 \label{Deutsch}
@@ -279,7 +278,7 @@ $$
 %
 
 \paragraph{CiSwap gate}\index{CiSwap gate} A controlled iSwap gate. 
-\index{CiSwap gate|see{controlled iSwap gate}}\index{controlled iSwap gate}
+\index{controlled iSwap gate|see{CiSwap gate}}
 \[
         \Gate{CiSwap} &= \begin{bsmallmatrix}
                 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -294,13 +293,13 @@ $$
 \\  \notag 
 H_\Gate{CiSwap} &= \tfrac{\pi}{8}( Z_0 X_1 X_2 + Z_0 Y_1 Y_2 - X_1 X_2 - Y_1 Y_2)
 \]
-Can be decomposed into a 2 CNots and a doubly controlled-iX gate \eqref{CCiX}~\cite{\self}.
+Can be decomposed into 2 CNots and a doubly controlled-iX gate \eqref{CCiX}~\cite{\self}.
 $$
 \adjustbox{scale=0.75}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
 & \qw & \ctrl{2} & \qw \\
 & \qw & \gate[2]{\text{iSwap}} & \qw \\
-& \qw &  & \qw 
-& \end{quantikz}}
+& \qw &  & \qw
+\end{quantikz}}
 \simeq
 \input{circuits/ciswap_to_ccix}
 $$
@@ -312,7 +311,7 @@ Rasmussen and Zinner (2020)~\cite{Rasmussen2020a} discuss possible implementatio
  
 \paragraph{Margolus gate}~\cite{Margolus1994a,Barenco1995b,DiVincenzo1998a,Song2003a,Maslov2016a,Linke2017a}
 \index{Margolus gate}\index{simplified Toffoli gate|see{Margolus gate}}\index{relative phase Toffoli gate}
-A``simplified'' Toffoli gate, that differs from the Toffoli only by a relative phase, in that the \ket{101} state picks up a $-1$ phase. In certain circuits Toffoli gates can be replaced with such relative phase Toffoli gates, leading to lower overall gate counts~\cite{Maslov2016a}.
+A ``simplified'' Toffoli gate, that differs from the Toffoli only by a relative phase, in that the \ket{101} state picks up a $-1$ phase. In certain circuits Toffoli gates can be replaced with such relative phase Toffoli gates, leading to lower overall gate counts~\cite{Maslov2016a}.
  \[
         \Gate{Margolus} &= \begin{bsmallmatrix}
                 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\

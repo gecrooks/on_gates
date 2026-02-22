@@ -34,7 +34,7 @@ I = \begin{bmatrix}1 & 0 \\ 0 & 1 \end{bmatrix}
 \begin{center}
 \input{circuits/I.tex}
 \end{center}
-The trivial no-operation gate on 1-qubit, represented by the identity matrix. Acting on any arbitrary state, the gate leave the state unchanged.%
+The trivial no-operation gate on 1-qubit, represented by the identity matrix. Acting on any arbitrary state, the gate leaves the state unchanged.%
 %
 %\begin{center}
 %\adjustbox{scale=0.75}{
@@ -349,10 +349,10 @@ A useful identity to keep in mind is that given an operator~$A$ that squares to 
 This is a generalization of the usual Euler's formula $e^{ix} =\cos x + i \sin x$. We expand the exponential as a power series, and gather the even powers into the cosine term, and the odd powers into the sin term.
 \[
 \exp(i\theta A) & = I + i \theta A - \tfrac{\theta^2}{2!} I - i \tfrac{\theta^3}{3!} A 
-- \tfrac{\theta^4}{4!} I - i \tfrac{\theta^5}{5!} A +
++ \tfrac{\theta^4}{4!} I + i \tfrac{\theta^5}{5!} A +
 + \cdots \notag \\
-& = \left(1- \tfrac{\theta^2}{2!} +\tfrac{\theta^4}{4!} - \cdots\right) I +  
-    \left(\theta -\tfrac{\theta^3}{3!} +\tfrac{\theta^5}{5!}- \cdots\right)A
+& = \left(1- \tfrac{\theta^2}{2!} +\tfrac{\theta^4}{4!} - \cdots\right) I +
+    i\left(\theta -\tfrac{\theta^3}{3!} +\tfrac{\theta^5}{5!}- \cdots\right)A
     \notag
     \\ \notag
  & = \cos(\theta)\ I + i \sin(\theta)\ A
@@ -453,9 +453,9 @@ R_z(\theta') \ket{\psi} &=
 \notag
 \\
 \notag 
-& = e^{-i\half\theta'} \Bigl( cos(\half\theta)\ket{0} + e^{i(\theta'+\phi)} \sin(\half\theta)\ket{1}\Bigr)
-\\ 
-& \simeq cos(\half\theta)\ket{0} + e^{i(\theta'+\phi)} \sin(\half\theta)\ket{1}
+& = e^{-i\half\theta'} \Bigl( \cos(\half\theta)\ket{0} + e^{i(\theta'+\phi)} \sin(\half\theta)\ket{1}\Bigr)
+\\
+& \simeq \cos(\half\theta)\ket{0} + e^{i(\theta'+\phi)} \sin(\half\theta)\ket{1}
 \]
 In the last line we drop an irrelevant phase. We can see that the $R_z$ gate has left the elevation angle unchanged, but added $\theta'$ to the azimuth angle, which corresponds to a rotation about the \axis{z}-axis. 
 
@@ -542,7 +542,7 @@ This representation provides a convenient visualization of 1-qubit gates: The 1-
 % TODO: Merging rotations
 
 
-You might reasonably be wondering why there is a factor of half in the definitions of the rotation gates. A 1-qubit gate is represented by an element of the group $SU(2)$ (the group of $2\times2$ unitary matrices with unit determinate). Each element is a rotation in a 2-dimensional complex vector space. But we are visualizing the effect of these gates as rotations in 3-dimensional Euclidean space, which are elements of the special orthogonal group $SO(3)$. We can do this because there is an accidental correspondence between these two groups that allows us to visualize 1-qubit gates as rotations in 3-space. We can map two elements of $SU(2)$ (differing by only a -1 phase) to each element of $SO(3)$ while keeping the group structure. In the jargon, $SU(2)$ is a double cover of $SO(3)$. Because of this doubling up, a rotation of $\theta$ radians in the Bloch sphere corresponds to a rotation of only $\half \theta$ in the complex vector space. We have to go twice around the Bloch sphere, $\theta =4\pi$, to get back to the same gate with the same phase.
+You might reasonably be wondering why there is a factor of half in the definitions of the rotation gates. A 1-qubit gate is represented by an element of the group $SU(2)$ (the group of $2\times2$ unitary matrices with unit determinant). Each element is a rotation in a 2-dimensional complex vector space. But we are visualizing the effect of these gates as rotations in 3-dimensional Euclidean space, which are elements of the special orthogonal group $SO(3)$. We can do this because there is an accidental correspondence between these two groups that allows us to visualize 1-qubit gates as rotations in 3-space. We can map two elements of $SU(2)$ (differing by only a -1 phase) to each element of $SO(3)$ while keeping the group structure. In the jargon, $SU(2)$ is a double cover of $SO(3)$. Because of this doubling up, a rotation of $\theta$ radians in the Bloch sphere corresponds to a rotation of only $\half \theta$ in the complex vector space. We have to go twice around the Bloch sphere, $\theta =4\pi$, to get back to the same gate with the same phase.
 
 
 \todo{Check double cover nomenclature}
@@ -738,7 +738,7 @@ Z^t & =  e^{-i \tfrac{\pi}{2} t (Z-I)}
 
 
 \paragraph{Phase shift gate}\cite{???}\index{phase shift gate} 
-The name arrises because this gate shifts the phase of the $\ket{1}$ state relative to the $\ket{0}$ state.
+The name arises because this gate shifts the phase of the $\ket{1}$ state relative to the $\ket{0}$ state.
 \[
 \label{phaseshift}
    P(\theta)  &=
@@ -775,7 +775,7 @@ Discrete fractional powers of the \Gate{Z} gate have their own notation. They mo
  \notag P_2 &= S \\
  \notag P_3 &= T 
 \]
-Thus $P_1$ is a half turn in the Bloch sphere, $P_2$ a quarter turn, $P_3$ an eighth turn, and so on. Most often notated as $R_k$, or sometimes as $Z_k$, here, as with the phase shift gate, I've adopted $P_k$ is a vain hope of reducing ambiguity.
+Thus $P_1$ is a half turn in the Bloch sphere, $P_2$ a quarter turn, $P_3$ an eighth turn, and so on. Most often notated as $R_k$, or sometimes as $Z_k$, here, as with the phase shift gate, I've adopted $P_k$ in a vain hope of reducing ambiguity.
 
 
 
@@ -1074,7 +1074,7 @@ S & = Z^{\half} \\
 \input{circuits/S.tex}
 \end{center}
 
-Historically called the phase gate (and denoted by $P$), since it shifts the phase of the one state relative to the zero state. This is a bit confusing because we have to make the distinction between the phase gate and applying a global phase. Often referred to as simple the S (``ess'') gate in contemporary discourse. 
+Historically called the phase gate (and denoted by $P$), since it shifts the phase of the one state relative to the zero state. This is a bit confusing because we have to make the distinction between the phase gate and applying a global phase. Often referred to as simply the S (``ess'') gate in contemporary discourse. 
 
 
 \begin{center}
@@ -1309,7 +1309,7 @@ H\ket{-} & = \ket{1} \notag
 \notag
 \]
 
-The Hadamard gate is named for the \define{Hadamard transform} (Or \define{Walsh-Hadamard transform}), which in the context of quantum computing is the simultaneous application of Hadamard gates to multiple-qubits. We will return this transform presently \secref{???}. The Hadamard gate is also the 1-qubit quantum Fourier transform \secref{???}\index{Hadamard transform}\index{Walsh-Hadamard transform|see {Hadamard transform}} \index{quantum Fourier transform! 1-qubit}
+The Hadamard gate is named for the \define{Hadamard transform} (Or \define{Walsh-Hadamard transform}), which in the context of quantum computing is the simultaneous application of Hadamard gates to multiple-qubits. We will return to this transform presently \secref{???}. The Hadamard gate is also the 1-qubit quantum Fourier transform \secref{???}\index{Hadamard transform}\index{Walsh-Hadamard transform|see {Hadamard transform}} \index{quantum Fourier transform! 1-qubit}
 % TODO: Is this correct? Of is general Walsh-Hadamard QFT?
 
 It is also worth noting a couple of useful decompositions (up to phase).
@@ -1514,7 +1514,7 @@ Here, $V$ is the square-root of the $X$ gate, and $S$ is the square-root of Z, e
 
 \paragraph{Hadamard-like gates}
 \index{Hadamard-like gates}
-If we peruse the sphere of 1-qubit gates, Fig.~\ref{fig:GateCoords}, we can see that there are 6 different Hadamard-like gates that lie between the main \axis{x}, \axis{y}, and \axis{z} axes. (Recall that gates on opposite sides of the sphere's surface are the same up to phase.) Each of these gates can be obtained from straightforward transform so the Hadamard gate. For instance, $H_{YZ} = S H S^\dagger$ is the Hadamard-like gate between the $Z$ and $Y$ gates, which interchanges the \axis{y} and \axis{z} axies, and flips the \axis{x}-axis.
+If we peruse the sphere of 1-qubit gates, Fig.~\ref{fig:GateCoords}, we can see that there are 6 different Hadamard-like gates that lie between the main \axis{x}, \axis{y}, and \axis{z} axes. (Recall that gates on opposite sides of the sphere's surface are the same up to phase.) Each of these gates can be obtained from straightforward transform so the Hadamard gate. For instance, $H_{YZ} = S H S^\dagger$ is the Hadamard-like gate between the $Z$ and $Y$ gates, which interchanges the \axis{y} and \axis{z} axes, and flips the \axis{x}-axis.
 
 
 \begin{center}
@@ -1790,13 +1790,13 @@ There are 8 distinct axis cycling gates, which are all also Clifford gates and l
 
 
 \subsection{T gates}
-All the of preceding discrete 1-qubit gates (Pauli gates, quarter turns, Hadamard and Hadamard-like gates, and axis cycling gates) are examples of a special class of gates called Clifford gates. Although important, the Clifford gates have the notable restricting that they aren't universal -- you can't build an arbitrary qubit rotation from Clifford gates alone. The is because the Clifford gates always map the \axis{x}, \axis{y} and \axis{z} axes back onto themselves. In order to be computational universal, it is necessary to have at least one non-Clifford gate in our gate set, and the most common choice for that non-Clifford gate is the $T$ gate, one eighth of a rotation anti-clockwise about the $z$ axis. A gate set consisting of all Cliffords (including multi-qubit Cliffords) and the T gate is often written as ``Clifford+T''.
+All of the preceding discrete 1-qubit gates (Pauli gates, quarter turns, Hadamard and Hadamard-like gates, and axis cycling gates) are examples of a special class of gates called Clifford gates. Although important, the Clifford gates have the notable restriction that they aren't universal -- you can't build an arbitrary qubit rotation from Clifford gates alone. This is because the Clifford gates always map the \axis{x}, \axis{y} and \axis{z} axes back onto themselves. In order to be computational universal, it is necessary to have at least one non-Clifford gate in our gate set, and the most common choice for that non-Clifford gate is the $T$ gate, one eighth of a rotation anti-clockwise about the $z$ axis. A gate set consisting of all Cliffords (including multi-qubit Cliffords) and the T gate is often written as ``Clifford+T''.
 \index{Clifford+T}\index{Clifford gates}
 
 \todo{Wordsmith}
 
 
-\paragraph{T gate} ("tee", $\pi/8$) ~\cite{???,???} Forth root of the $Z$ gate, $T^4=Z$.
+\paragraph{T gate} ("tee", $\pi/8$) ~\cite{???,???} Fourth root of the $Z$ gate, $T^4=Z$.
 \index{T gate}
 \index{$\pi/8$ gate | see {T gate}}
 
@@ -1811,12 +1811,12 @@ T & = Z^{\frac{1}{4}} \\
 
 The T gate has sometimes been called the $\pi/8$ gate since we can extract a phase and write the T gate as
 \[
-T = e^{i\tfrac{\pi}{8}\pi} \begin{bmatrix} e^{-i\tfrac{\pi}{8}} & 0 \\ 0 & e^{+i\tfrac{\pi}{8}} 
+T = e^{i\tfrac{\pi}{8}} \begin{bmatrix} e^{-i\tfrac{\pi}{8}} & 0 \\ 0 & e^{+i\tfrac{\pi}{8}} 
 \end{bmatrix}
 \notag
 \]
 
-An eight turn anti-clockwise about the $\widehat{z}$ axis.
+An eighth turn anti-clockwise about the $\widehat{z}$ axis.
 \begin{center}
 \adjustbox{scale=0.75}{
  \begin{tikzpicture}[scale=1.5]
@@ -1840,7 +1840,7 @@ An eight turn anti-clockwise about the $\widehat{z}$ axis.
 
  
     
-   \draw[->] (1.5,0) -- node[above] {$T^\dagger$} ++(1.0, 0) ;
+   \draw[->] (1.5,0) -- node[above] {$T$} ++(1.0, 0) ;
  \end{tikzpicture}
  \begin{tikzpicture}[scale=1.5]
    \begin{scope}[canvas is zy plane at x=0]
@@ -1879,7 +1879,7 @@ T^\dagger & = Z^{-\frac{1}{4}}
 1 & 0 \\ 0 & e^{-i\tfrac{\pi}{4}} 
 \end{bmatrix}
 \\ \notag
-& \simeq R_z(\tfrac{pi}{4})
+& \simeq R_z(-\tfrac{\pi}{4})
 \]
 \begin{center}
 \input{circuits/T_H.tex}

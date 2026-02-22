@@ -64,7 +64,7 @@ $=$
 
 \subsection{Multiplexed gates}
 \index{multiplexed gates}\index{Mux gate|see{multiplexed gate}}\index{uniformly controlled gate}
-A multiplexed~\cite{???,???,???} gate (also called is a uniformly controlled gate~\cite{???,???}) is a generalization of the conditional unitary gate with an arbitrary number of control qubits. For each different bitwise configuration of the control qubits, a different unitary operator is applied to the target qubits.
+A multiplexed~\cite{???,???,???} gate (also called a uniformly controlled gate~\cite{???,???}) is a generalization of the conditional unitary gate with an arbitrary number of control qubits. For each different bitwise configuration of the control qubits, a different unitary operator is applied to the target qubits.
 
 
 If we place the control qubits first, then the matrix of a multiplexed gate has a block diagonal structure, here illustrated for 3 control qubits.
@@ -74,18 +74,18 @@ If we place the control qubits first, then the matrix of a multiplexed gate has 
     U_{000} \\[1ex]
     & U_{001} \\[1ex]
     && U_{010} \\[1ex]
-    &&&& U_{011}  \\[1ex]
-    &&&&& U_{100} \\[1ex]
-    &&&&&& U_{101} \\[1ex]
-    &&&&&&& U_{110} \\[1ex]
-    &&&&&&&&& U_{111}     
+    &&& U_{011}  \\[1ex]
+    &&&& U_{100} \\[1ex]
+    &&&&& U_{101} \\[1ex]
+    &&&&&& U_{110} \\[1ex]
+    &&&&&&& U_{111}     
 \end{bsmallmatrix}
 \]
-Each block $U$ is a unitary operator acting on the same number of qubits. Here each block is labelled with the corresponding control state (where we are using our standard tensor conventions \secref{tensors}), e.g. The operator $U_{011}$ acts on the target qubits when the controls are in the $\ket{011}$ state.
+Each block $U$ is a unitary operator acting on the same number of qubits. Here each block is labelled with the corresponding control state (where we are using our standard tensor conventions \secref{tensors}), e.g. the operator $U_{011}$ acts on the target qubits when the controls are in the $\ket{011}$ state.
 
 
 
-In circuit diagrams the control qubits are typically represents as half-filled circles, or as boxes. 
+In circuit diagrams the control qubits are typically represented as half-filled circles, or as boxes. 
 \begin{center}
 \adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
  &  &\qw\halfcirc\vqw{1}& \qw \\
@@ -187,7 +187,7 @@ The trick here is that we have reversed the order of the last decomposition, so 
 \end{quantikz}
 }
 \end{center}
-This trick extends all the way to the final decomposition of 2-qubit conditional-\Gate{R_z} gates, which would normally require 2 \Gate{CNot}s apiece, but instead require only 2 per pair. The net upshot is that the decomposition of an $N$ qubit multiplexed-\Gate{R_z} gate required $2^{N-1}$ \Gate{CNot} gates and $2^{N-1}$ \Gate{R_z} gates.
+This trick extends all the way to the final decomposition of 2-qubit conditional-\Gate{R_z} gates, which would normally require 2 \Gate{CNot}s apiece, but instead require only 2 per pair. The net upshot is that the decomposition of an $N$ qubit multiplexed-\Gate{R_z} gate requires $2^{N-1}$ \Gate{CNot} gates and $2^{N-1}$ \Gate{R_z} gates.
 
 
 
@@ -204,7 +204,7 @@ This trick extends all the way to the final decomposition of 2-qubit conditional
 \section{Decomposition of multi-qubit gates}
 
 Let us now consider the problem of decomposing an arbitrary multi-qubit gate, without necessarily any special structure, into a circuit of 1 and 2 qubit gates.  
-Such a generic $N$-qubit quantum gate is represented by a $2^N$ by $2^N$ unitary matrix, with $2^{2N}=4^N$ free parameters (one of which is the phase).  The (classical) computational resources needed to specify such a gate rapidly becomes prohibitive with qubit count (e.g.~a 20 qubit gate has over a trillion parameters), but decomposition of gates upto a dozen qubits or so is quite feasible.
+Such a generic $N$-qubit quantum gate is represented by a $2^N$ by $2^N$ unitary matrix, with $2^{2N}=4^N$ free parameters (one of which is the phase).  The (classical) computational resources needed to specify such a gate rapidly becomes prohibitive with qubit count (e.g.~a 20 qubit gate has over a trillion parameters), but decomposition of gates up to a dozen qubits or so is quite feasible.
  
 
 
@@ -448,9 +448,9 @@ U = \begin{bsmallmatrix}
 \\ \notag
 & h = i \ln u 
 \\ \notag
-& \theta = \half(h_{11} + h_{00})
+& \theta = -(h_{11} - h_{00})
 \\ \notag
-& \alpha = -(h_{11} - h_{00}) 
+& \alpha = -\half(h_{11} + h_{00}) 
 \]
 A diagonal gate is therefore equivalent to a multiplexed-$R_z$ gate, and a ``multiplexed-phase''. Each sub-block of the ``multiplexed-phase'' has the same two values, so the ``multiplexed-phase'' breaks apart into a diagonal gate on the N-1 control qubits, and an identity on the target qubit. (This is the same effect as when a 2-qubit ``controlled-global-phase'' gate reduces to a 1-qubit phase shift gate. \secref{sec:ABCdeke}) \cite{???}
 
@@ -607,13 +607,13 @@ A = \begin{bsmallmatrix}
     a_{30} & a_{31} & a_{32} & a_{33}    
     \end{bsmallmatrix}
 \]
-The trick is that we can set any off-diagonal entry to zero by multiplying by a carefully constructed 2-level unitary. Lets start with the $(1,0)$ entry.
+The trick is that we can set any off-diagonal entry to zero by multiplying by a carefully constructed 2-level unitary. Let's start with the $(1,0)$ entry.
 \[
 B = U_{10} A = \begin{bsmallmatrix}
-    1 & b_{01} & b_{02} & b_{03} \\ 
+    b_{00} & b_{01} & b_{02} & b_{03} \\
     0 & b_{11} & b_{12} & b_{13} \\
-    b_{20} & b_{21} & b_{22} & b_{23} \\    
-    b_{30} & b_{31} & b_{32} & b_{33}    
+    b_{20} & b_{21} & b_{22} & b_{23} \\
+    b_{30} & b_{31} & b_{32} & b_{33}
     \end{bsmallmatrix}
     \  \quad
  	U_{10} = \begin{bsmallmatrix}
@@ -622,19 +622,19 @@ B = U_{10} A = \begin{bsmallmatrix}
     0 & 0 & 1 & 0 \\    
     0 & 0 & 0 & 1    
     \end{bsmallmatrix}
-\  \quad w = \sqrt{|a_{00}| + |a_{10}|}
+\  \quad w = \sqrt{|a_{00}|^2 + |a_{10}|^2}
 \notag
 \]
-Following through the matrix multiplication, we see that $b_{10} = (a_{10}a_{00} - a_{00}a_{10})/w = 0$, and $b_{00} = 
- (a^*_{00}a_{00} - a^*_{10}a_{10})/w = w/w= 1$
+Following through the matrix multiplication, we see that $b_{10} = (a_{10}a_{00} - a_{00}a_{10})/w = 0$, and $b_{00} =
+ (a^*_{00}a_{00} + a^*_{10}a_{10})/w = w^2/w = w$
 
 We can now set $(2,0)$ to zero using the same procedure, 
 \[
 C = U_{20} B = \begin{bsmallmatrix}
-    1 & c_{01} & c_{02} & c_{03} \\ 
+    c_{00} & c_{01} & c_{02} & c_{03} \\
     0 & c_{11} & c_{12} & c_{13} \\
-    0 & c_{21} & c_{22} & c_{23} \\    
-    c_{30} & c_{31} & c_{32} & c_{33}    
+    0 & c_{21} & c_{22} & c_{23} \\
+    c_{30} & c_{31} & c_{32} & c_{33}
     \end{bsmallmatrix}
     \  \quad
  	U_{20} = \begin{bsmallmatrix}
@@ -643,7 +643,7 @@ C = U_{20} B = \begin{bsmallmatrix}
     \tfrac{b_{20}}{w} & 0 & \tfrac{-b_{00}}{w} & 0 \\   
     0 & 0 & 0 & 1    
     \end{bsmallmatrix}
-\  \quad w = \sqrt{|b_{00}| + |b_{20}|}
+\  \quad w = \sqrt{|b_{00}|^2 + |b_{20}|^2}
 \notag
 \]
 and then set $(3,0)$ to zero. 
@@ -656,12 +656,12 @@ D = U_{30} C = \begin{bsmallmatrix}
     \end{bsmallmatrix}
     \  \quad
  	U_{30} = \begin{bsmallmatrix}
-    \tfrac{c^*_{00}}{w} & 0 & 0 & \tfrac{c^*_{20}}{w}\\ 
-    0 & 1 & 0 & 0 \\      
-    0 & 0 & 1 & 0 \\   
-    \tfrac{c_{20}}{w} & 0 & 0 & \tfrac{-c_{00}}{w}
+    \tfrac{c^*_{00}}{w} & 0 & 0 & \tfrac{c^*_{30}}{w}\\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    \tfrac{c_{30}}{w} & 0 & 0 & \tfrac{-c_{00}}{w}
     \end{bsmallmatrix}
-\  \quad w = \sqrt{|c_{00}| + |c_{20}|}
+\  \quad w = \sqrt{|c_{00}|^2 + |c_{30}|^2}
 \notag
 \]
 Once we have set all the off diagonal elements of the left column to zero, then the off-diagonal elements of the top row must also be zero.  \todo{because?}

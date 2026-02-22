@@ -6,7 +6,7 @@
 \clearpage
 \section{Decomposition of 2-qubit gates}
 
-A general 2-qubit gate corresponds to some 4 by 4 unitary matrix, with 16 free parameters. We can (as per usual) factor out an irrelevant phase (???), but that still leaves a rather unwieldy 15 parameters. Fortunately, the Kraus and Cirac demonstrated that any 2-qubit gate can be decomposed into a canonical gate, plus 4 local 1-qubit gates~\cite{???,???,???,???}. The local gates account for $4\times3=12$ parameters, which leaves just the 3 parameters of the canonical gate. The canonical gate can be further decomposed into \Gate{CNot} gates, or other sets of 2-qubit gates as desired.
+A general 2-qubit gate corresponds to some 4 by 4 unitary matrix, with 16 free parameters. We can (as per usual) factor out an irrelevant phase (???), but that still leaves a rather unwieldy 15 parameters. Fortunately, Kraus and Cirac demonstrated that any 2-qubit gate can be decomposed into a canonical gate, plus 4 local 1-qubit gates~\cite{???,???,???,???}. The local gates account for $4\times3=12$ parameters, which leaves just the 3 parameters of the canonical gate. The canonical gate can be further decomposed into \Gate{CNot} gates, or other sets of 2-qubit gates as desired.
 
  
 \subsection{Kronecker decomposition}
@@ -87,11 +87,11 @@ V & = M\ U\ M^\dagger \\
 \]
 Here $M$ is the magic gate \eqref{magic}.\index{magic basis}\index{magic gate}
 %
-The magic basis has two remarkable properties. The first is that if $U$ is a special orthogonal matrix (Real, $U^T = U$, and $\det U=1$), then in the magic basis $U$ is the Kronecker product of two 1-qubit gates.
+The magic basis has two remarkable properties. The first is that if $U$ is a special orthogonal matrix (Real, $U^T U = I$, and $\det U=1$), then in the magic basis $U$ is the Kronecker product of two 1-qubit gates.
 \[
 V = M U M^\dagger = A \otimes B \quad \text{if } U\in SO(4)
 \]
-For a sussinct proof see~\cite{}.
+For a succinct proof see~\cite{???}.
 %[todo: Copy proof here]
 
 The second useful property is that $M$ diagonalizes the canonical gate. 
@@ -101,7 +101,7 @@ The second useful property is that $M$ diagonalizes the canonical gate.
 \notag
 \]
 
-With these two properties we can decompose any 2-qubit gate. We'll assume that the phase \eqref{???} has already been extracted and that $U$ is therefore special unitary. We write $U$ as a decomposition into the canonical gate, and Kronecker products of local gates before and after.
+With these two properties we can decompose any 2-qubit gate. We'll assume that the phase \eqref{phase_extraction} has already been extracted and that $U$ is therefore special unitary. We write $U$ as a decomposition into the canonical gate, and Kronecker products of local gates before and after.
 \[
 U &= (K_3\otimes K_4)\ \Gate{Can}(t_x, t_y, t_z)\ (K_1\otimes K_2)
 \] 
@@ -121,6 +121,7 @@ An eigen-decomposition of $V^T V$ yields the square eigenvalues of $D$, and $Q_1
 
 
 \subsection{\Gate{CNot} decomposition}
+\label{sec:cnotdeke}
 \index{CNot gate sandwich}
 \index{CNot decomposition}
 The elementary 2-qubit gate is most often taken to be the \Gate{CNot} gate. In general we can build any canonical gate from a circuit of 3 \Gate{CNot}s~\cite{Vidal2004a, Vatan2004a}.
@@ -191,7 +192,7 @@ Notably two B-gates are sufficient to create any other 2-qubit gate (whereas we 
 
 
 To recover the local gates $\Gate{K_n}$ we perform another canonical decomposition on the B gate sandwich sans the terminal local gates~\cite{Cirq2022a}%
-\footnote{Open problem: Zang et al.\cite{Zhang2004b} derived the analytic decomposition of the canonical gate to a B-gate sandwich only up to local gates. Derive an analytic formula for the necessary local gates to complete the canonical to B-gate sandwich decomposition. \index{B-gate sandwich}
+\footnote{Open problem: Zhang et al.\cite{Zhang2004b} derived the analytic decomposition of the canonical gate to a B-gate sandwich only up to local gates. Derive an analytic formula for the necessary local gates to complete the canonical to B-gate sandwich decomposition. \index{B-gate sandwich}
 \index{problems}}.
 $$
 \adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
@@ -205,7 +206,7 @@ $$
 \end{quantikz}}
 $$
 
-The B-gate is not a native gate on any extant quantum computer, and thus the B-gate decomposition isn't used for gate synthesis directly. But the B-gate sandwich has been used as a compilation strategy for Google's Sycamore architecture~\cite{Cirq2022a}. The native sycamore gate \eqref{Syc} is locally equivalent to $\Gate{Can}(\tfrac{1}{2}, \tfrac{1}{2}, \tfrac{1}{12})$. A sycamore-gate sandwich can generate a subset of gates in the special-orthogonal local equivalency class, including CNOT, the entire Ising class, and B (but notable not iSwap)~\cite{Arute2019a,Harrigan2021a}. A B-gate sandwich can then be used to synthesis any other gate using 4-sycamores.\index{sycamore-gate sandwich}
+The B-gate is not a native gate on any extant quantum computer, and thus the B-gate decomposition isn't used for gate synthesis directly. But the B-gate sandwich has been used as a compilation strategy for Google's Sycamore architecture~\cite{Cirq2022a}. The native sycamore gate \eqref{Syc} is locally equivalent to $\Gate{Can}(\tfrac{1}{2}, \tfrac{1}{2}, \tfrac{1}{12})$. A sycamore-gate sandwich can generate a subset of gates in the special-orthogonal local equivalency class, including CNOT, the entire Ising class, and B (but notable not iSwap)~\cite{Arute2019a,Harrigan2021a}. A B-gate sandwich can then be used to synthesize any other gate using 4-sycamores.\index{sycamore-gate sandwich}
 
 
 
@@ -252,7 +253,7 @@ $$
 \end{quantikz}
 }
 $$
-Note that this one situation that the phase of the gate actually matters. A controlled Z gate is not the same as a controlled-$\Gate{R_z}(\pi)$ because the 1-qubit unitary had different phases. Happily, a "controlled-global-phase" reduces to a 1 qubit phase shift gate \eqref{phaseshift}.\index{phase}\index{phase shift gate}
+Note that this is one situation where the phase of the gate actually matters. A controlled Z gate is not the same as a controlled-$\Gate{R_z}(\pi)$ because the 1-qubit unitary had different phases. Happily, a "controlled-global-phase" reduces to a 1 qubit phase shift gate \eqref{phaseshift}.\index{phase}\index{phase shift gate}
 $$
 \adjustbox{scale=0.8}{\begin{quantikz}[thin lines, column sep=0.75em,row sep={2.5em,between origins}]
 & \ctrl{1} & \qw \\
@@ -360,7 +361,7 @@ A &= R_z(+\alpha) R_y(+\beta) R_z(\tfrac{\theta}{4}) \ ,
 \\ \notag
 B &= R_z(-\tfrac{\theta}{2}) \ ,
 \\ \notag
-C &= R_z(\tfrac{\theta}{4}) R_y(-\beta) \ .
+C &= R_z(\tfrac{\theta}{4}) R_y(-\beta) R_z(-\alpha) \ .
 \notag 
 \]
 Thus a controlled-rotation gate can be expressed as 
@@ -376,7 +377,7 @@ $$
 \end{quantikz}
 }
 $$
-Note that the parameters $\alpha$ and $\beta$ do not depend on rotation angle $\theta$. If we compare to the \Gate{CNot} decompositions of the canonical gate \secref{}, we can see that a controlled-rotation gate $R_{\vec{n}}(\theta)$ is locally equivalent to $\Gate{Can}(\tfrac{\theta}{2\pi},0,0)$. Not only does this demonstrate that controlled-unitaries are in the Ising gate class, but we also see that the position of the gate along the front edge of the Weyl chamber is directly proportional to the controlled-unitary's angle of rotation in the Bloch sphere. \index{Ising gates}
+Note that the parameters $\alpha$ and $\beta$ do not depend on rotation angle $\theta$. If we compare to the \Gate{CNot} decompositions of the canonical gate \secref{sec:cnotdeke}, we can see that a controlled-rotation gate $R_{\vec{n}}(\theta)$ is locally equivalent to $\Gate{Can}(\tfrac{\theta}{2\pi},0,0)$. Not only does this demonstrate that controlled-unitaries are in the Ising gate class, but we also see that the position of the gate along the front edge of the Weyl chamber is directly proportional to the controlled-unitary's angle of rotation in the Bloch sphere. \index{Ising gates}
 % brushing some details under rug here.
 
 

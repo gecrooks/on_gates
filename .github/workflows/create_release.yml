@@ -23,7 +23,7 @@ jobs:
       - name: Checkout tags
         run: git fetch --unshallow --tags
       - name: Install latex
-        run: sudo apt-get install -y texlive texlive-xetex texlive-fonts-extra latexmk
+        run: sudo apt-get update && sudo apt-get install -y texlive texlive-xetex texlive-fonts-extra latexmk
       - name: Compile LaTeX document
         run: cd ${{ env.src_dir }}; make build        
       - name: Create Release
