@@ -15,14 +15,14 @@ gavincrooks@gmail.com
 
 ## Version History
 
-### v0.12.0 (???)
+### v0.12.0 (2026-02-21)
 
-Kudos: jlunder (bug fixes); Vyom Patel (patelvyom) (bug fixes); podxboq@gmail.com (bug fixes);  Nicolás Quesada (nquesada) (bug fixes).
+Extensive review of all chapters fixing 100+ spelling, grammar, and math errors. Notable math fixes include: power series signs, CPhase canonical coordinates, Swap-alpha exponents, Hadamard conjugation matrices, XYX/XZX Clifford results, Clifford group product formula, multiplexed gate decomposition formulas, T gate phase, and two-level decomposition normalization. Fixed cross-references and citations.
 
 
-### v0.11.0 (2024-03-02)
+### v0.11.0 (2024-07-25)
 
-Kudos: Frederik Filz von Reiterdank (bug fixes);  Kudos:风扇 溜 <Feng5haN@outlook.com> (bug fixes)
+Kudos: jlunder (bug fixes); Vyom Patel (patelvyom) (bug fixes); podxboq@gmail.com (bug fixes); Nicolás Quesada (nquesada) (bug fixes); Frederik Filz von Reiterdank (bug fixes); 风扇 溜 <Feng5haN@outlook.com> (bug fixes)
 
 
 ### v0.10.0 (2023-05-26)
