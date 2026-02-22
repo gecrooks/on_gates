@@ -8,11 +8,11 @@
 \section{Clifford gates}
 \label{sec:Clifford}
 \index{Clifford gates}
-The Clifford gates are an important subgroup of quantum gates. Familiar examples include the Pauli gates (I, X, Y, Z), phase (S), Hadamard (H), controlled-Z (CZ), controlled-not (CNOT), and swap.  Common non-Clifford gates include T, B, and Toffolli (CCNOT). 
+The Clifford gates are an important subgroup of quantum gates. Familiar examples include the Pauli gates (I, X, Y, Z), phase (S), Hadamard (H), controlled-Z (CZ), controlled-not (CNOT), and swap.  Common non-Clifford gates include T, B, and Toffoli (CCNOT). 
 
 \subsection{Pauli and Clifford groups}
 
-The {\sl Pauli group} of 1 qubit operators  consists of the 4 Pauli operators  multiplied by factors of $\pm 1$ or $\pm i$. This extra phase ensures that these 16 elements form a group under matrix multiplication. The Pauli group $P_n$ of $n$ qubit operators contains $4^{n+1}$ elements is formed from the 4 phase factors and tensor products of 1-qubit Pauli matrices, 
+The {\sl Pauli group} of 1 qubit operators  consists of the 4 Pauli operators  multiplied by factors of $\pm 1$ or $\pm i$. This extra phase ensures that these 16 elements form a group under matrix multiplication. The Pauli group $P_n$ of $n$ qubit operators contains $4^{n+1}$ elements and is formed from the 4 phase factors and tensor products of 1-qubit Pauli matrices, 
 \[
 P_n = \{\pm 1, \pm i\} \times \{I, X, Y, Z\}^{\otimes n}
 \]
@@ -20,7 +20,7 @@ P_n = \{\pm 1, \pm i\} \times \{I, X, Y, Z\}^{\otimes n}
 \index{Pauli group}
 \index{Pauli algebra}
 \index{Pauli operators}
-Recall the 4 1-qubit Pauli operators: $I=[\begin{smallmatrix} 0& 0 \\ 0 & 1 \end{smallmatrix}]$,
+Recall the 4 1-qubit Pauli operators: $I=[\begin{smallmatrix} 1& 0 \\ 0 & 1 \end{smallmatrix}]$,
 $X=[\begin{smallmatrix}0 & 1 \\ 1 & 0 \end{smallmatrix}]$, $Y=[\begin{smallmatrix}0 & -i \\ i & 0 \end{smallmatrix}]$, $Z=[\begin{smallmatrix}1 & 0 \\ 0 & -1 \end{smallmatrix}]$.
 \[
 X^2 = Y^2 = Z^2 = I  \\
@@ -61,39 +61,39 @@ XYX^\dagger &=
 	\begin{bsmallmatrix}0 & 1 \\ 1 & 0 \end{bsmallmatrix}
 	\begin{bsmallmatrix}0 & -i \\ i & 0 \end{bsmallmatrix}
 	\begin{bsmallmatrix}0 & 1 \\ 1 & 0 \end{bsmallmatrix}
-	= \begin{bsmallmatrix}1 & 0 \\ 0 & -1 \end{bsmallmatrix}
-    = -Z
-\notag \\ 
+	= \begin{bsmallmatrix}0 & i \\ -i & 0 \end{bsmallmatrix}
+    = -Y
+\notag \\
 XZX^\dagger
 & =	\begin{bsmallmatrix}0 & 1 \\ 1 & 0 \end{bsmallmatrix}
 	\begin{bsmallmatrix}1 & 0 \\ 0 & -1 \end{bsmallmatrix}
-	\begin{bsmallmatrix}0 & 1 \\ 1 & 0 \end{bsmallmatrix} 
-	= \begin{bsmallmatrix}0 & -i \\ i & 0 \end{bsmallmatrix}
-    = -Y
+	\begin{bsmallmatrix}0 & 1 \\ 1 & 0 \end{bsmallmatrix}
+	= \begin{bsmallmatrix}-1 & 0 \\ 0 & 1 \end{bsmallmatrix}
+    = -Z
 \notag
 \]
 For every Pauli element we recover another Pauli element when conjugated with the X gate, and therefore we can confirm that X gate is a Clifford gate.  
 
-Similarly we can consider the action of the Hadamard gate on the Pauli basses.
+Similarly we can consider the action of the Hadamard gate on the Pauli bases.
 \[
 HXH^\dagger &= \tfrac{1}{2}
-	\begin{bsmallmatrix}1 & -1 \\ 1 & 1 \end{bsmallmatrix}
+	\begin{bsmallmatrix}1 & 1 \\ 1 & -1 \end{bsmallmatrix}
 	\begin{bsmallmatrix}0 & 1 \\ 1 & 0 \end{bsmallmatrix}
-	\begin{bsmallmatrix}1 & 1 \\ -1 & 1 \end{bsmallmatrix}
+	\begin{bsmallmatrix}1 & 1 \\ 1 & -1 \end{bsmallmatrix}
 	= 	\begin{bsmallmatrix}1 & 0 \\ 0 & -1 \end{bsmallmatrix}
     = +Z
 \notag \\
 HYH^\dagger &= \tfrac{1}{2}
-	[\begin{smallmatrix}1 & -1 \\ 1 & 1 \end{smallmatrix}]
+	[\begin{smallmatrix}1 & 1 \\ 1 & -1 \end{smallmatrix}]
 	[\begin{smallmatrix}0 & -i \\ i & 0 \end{smallmatrix}]
-	[\begin{smallmatrix}1 & 1 \\ -1 & 1 \end{smallmatrix}]
-	= 	[\begin{smallmatrix}0 & -i \\ i & 0 \end{smallmatrix}]
-    = +Y
+	[\begin{smallmatrix}1 & 1 \\ 1 & -1 \end{smallmatrix}]
+	= 	[\begin{smallmatrix}0 & i \\ -i & 0 \end{smallmatrix}]
+    = -Y
 \notag \\ 
 HZH^\dagger & =\tfrac{1}{2}
-		\begin{bsmallmatrix*}[r]1 & -1 \\ 1 & 1 \end{bsmallmatrix*}
+		\begin{bsmallmatrix*}[r]1 & 1 \\ 1 & -1 \end{bsmallmatrix*}
 		\begin{bsmallmatrix*}[r] 1 & 0 \\ 0 & -1 \end{bsmallmatrix*}
-		\begin{bsmallmatrix*}[r] 1 & 1 \\ -1 & 1 \end{bsmallmatrix*}
+		\begin{bsmallmatrix*}[r] 1 & 1 \\ 1 & -1 \end{bsmallmatrix*}
 	= 	\begin{bsmallmatrix*}[r] 0 & 1 \\ 1 & 0 \end{bsmallmatrix*}
     = +X
 \notag
@@ -124,10 +124,10 @@ TZT^\dagger & =
 \] 
 
 
-We need only consider the action of the Clifford element on each of the $4n$ single qubit Pauli gates,  because the Pauli group elements are tensor products acting independently on separate qubits. Up to phase, a Clifford gate is completely determined by the transformation of these Pauli elements [TODO: Why?]. Moreover, the action of the identity is trivial, and the action on $Y$ can be determined by that on $X$ and $Y$, since $VYV^\dagger= -i VXZV^\dagger = -i\ VXV^\dagger\ VZV^\dagger$. For single qubit Cliffords, $X$ can map to 6 possibilities, $\{\pm X, \pm Y, \pm Z\}$,  leaving 4 possibilities for the action on $Z$. This gives a total of $6\times4=24$ distinct 1-qubit Clifford groups.
+We need only consider the action of the Clifford element on each of the $4n$ single qubit Pauli gates,  because the Pauli group elements are tensor products acting independently on separate qubits. Up to phase, a Clifford gate is completely determined by the transformation of these Pauli elements [TODO: Why?]. Moreover, the action of the identity is trivial, and the action on $Y$ can be determined by that on $X$ and $Z$, since $VYV^\dagger= i\, VXZV^\dagger = i\ VXV^\dagger\ VZV^\dagger$. For single qubit Cliffords, $X$ can map to 6 possibilities, $\{\pm X, \pm Y, \pm Z\}$,  leaving 4 possibilities for the action on $Z$. This gives a total of $6\times4=24$ distinct 1-qubit Clifford gates.
 
 The 24 1-qubit Clifford gates are isomorphic to the group of rotations of an octahedron.  The coordinates $R_n(\theta)$ of these are listed in table~\ref{tab:Clifford1q}, along with the Pauli mappings.
- If we think of the Pauli gates $X$, $Y$, $Z$ as the 3 cartesian axes $x, y, z$, then the elements of the Clifford group correspond to rotations that map axes to axes. We have 3 elements that rotate 180$^{\circ}$ about vertices (X, Y, Z); 6 elements (the square roots of $X$, $Y$, and $Z$) that rotate 90$^{\circ}$ or 270$^{\circ}$ degrees around vertices; 6 Hadamard like gates that rotate 180$^{\circ}$ about edges;  8 gates elements that  rotate 120$^{\circ}$ or 240$^{\circ}$ degrees around faces; and the identity. This is a subgroup of the full octahedral group (which includes inversions), and also equal(??) to $S_4$, the group of permutations of 4 objects.
+ If we think of the Pauli gates $X$, $Y$, $Z$ as the 3 cartesian axes $x, y, z$, then the elements of the Clifford group correspond to rotations that map axes to axes. We have 3 elements that rotate 180$^{\circ}$ about vertices (X, Y, Z); 6 elements (the square roots of $X$, $Y$, and $Z$) that rotate 90$^{\circ}$ or 270$^{\circ}$ degrees around vertices; 6 Hadamard like gates that rotate 180$^{\circ}$ about edges;  8 gate elements that  rotate 120$^{\circ}$ or 240$^{\circ}$ degrees around faces; and the identity. This is a subgroup of the full octahedral group (which includes inversions), and also equal(??) to $S_4$, the group of permutations of 4 objects.
  \index{Hadamard-like gates} \index{octahedral group}\index{permutation group}
 
 \begin{center}
@@ -219,7 +219,7 @@ $C^\dagger$						& $-\sfrac{2}{3}\pi$	& $\sfrac{1}{\sqrt{3}}$ & $\sfrac{1}{\sqrt
 \index{Clifford gates! 2 qubits}
 % TODO Multi-qubit gates, only need to consider action on 1 pauli at a time.
 
-Lets now consider the action of the 2-qubit CNOT gate on the X and Z single-qubit Pauli elements. Recall that CNOT is its own inverse. We can commute an $X$ gate past the CNOT target, and a $Z$ past the CNOT control, which leads to 2 trivial cases. But the other 2 cases are more interesting. An $X$ gate acting on the control qubit becomes a pair of $X$ gates, and a $Z$ on the target qubit becomes a pair of $Z$ gates.
+Let's now consider the action of the 2-qubit CNOT gate on the X and Z single-qubit Pauli elements. Recall that CNOT is its own inverse. We can commute an $X$ gate past the CNOT target, and a $Z$ past the CNOT control, which leads to 2 trivial cases. But the other 2 cases are more interesting. An $X$ gate acting on the control qubit becomes a pair of $X$ gates, and a $Z$ on the target qubit becomes a pair of $Z$ gates.
 
 
 % code: clifford_cnot.py 
@@ -284,7 +284,7 @@ Up to local equivalence there are only 4 classes of 2-qubit Clifford gates: the 
 \begin{table*}[tp]
 \caption{Number of Clifford gates $|C_n|$ for $n$ qubits \cite{???}}
 \label{Fig:CliffordNumbers}
-$$|C_n| = 2^{n^2+2n} \prod_{j=1,n} 4^j-1$$
+$$|C_n| = 2^{n^2+2n} \prod_{j=1}^{n} (4^j-1)$$
 \begin{center}
 \begin{tabular}{rrrr}
 n &  $|C_n|$ & $\log_2 |C_n|$ & 2n(2n+1) \\
@@ -305,14 +305,14 @@ n &  $|C_n|$ & $\log_2 |C_n|$ & 2n(2n+1) \\
 \subsection{Clifford tableau}
 \index{Clifford tableau}
 
-A Clifford gate can be uniquely specified by the gate's actions on the Pauli matrices (this follows from the definition of the Clifford gates as the group that normalizes the Pauli group). And for an $n$ qubit gate we only need to consider the action on each of the The $X$ and $Z$ Paulis on each of the $n$ qubits. This is because we can deduce the action on $Y$ from that on $X$ and $Z$, and the Pauli group factorizes as a direct product of single qubit Pauli. Some examples of such {\sl Clifford tableaus} for two-qubit gates are shown fig.~\ref{Fig:CliffordTableaus}. 
+A Clifford gate can be uniquely specified by the gate's actions on the Pauli matrices (this follows from the definition of the Clifford gates as the group that normalizes the Pauli group). And for an $n$ qubit gate we only need to consider the action on each of the $X$ and $Z$ Paulis on each of the $n$ qubits. This is because we can deduce the action on $Y$ from that on $X$ and $Z$, and the Pauli group factorizes as a direct product of single qubit Pauli. Some examples of such {\sl Clifford tableaus} for two-qubit gates are shown in fig.~\ref{Fig:CliffordTableaus}. 
 
 The Clifford tableau representation is redundant, because there are additional restraints: The resultant Pauli product can't be the identity, and the $X$ and $Z$ actions must anti-commute (???). But the redundancy isn't large. For an $n$ qubit gate we need to specify the action on $2n$ Paulis, each of which requires 2 bits for the 4 possibilities (I, X, Y, Z) on each qubit, plus a sign bit. So the number of bits needed to specify a Clifford is at most $2n(2n+1)\approx 4n^2$. 
 The exact number of Clifford gates for given $n$ is
 \[
-|C_n| = 2^{n^2+2n} \prod_{j=1,n} 4^j-1
+|C_n| = 2^{n^2+2n} \prod_{j=1}^{n} (4^j-1)
 \]
-The minimum number of bits required to uniquely specific a Clifford is asymptotically $2n^2$, so the Clifford tableau redundancy is no more than a factor of 2. See table~\ref{Fig:CliffordNumbers} for the first few numerical values.
+The minimum number of bits required to uniquely specify a Clifford is asymptotically $2n^2$, so the Clifford tableau redundancy is no more than a factor of 2. See table~\ref{Fig:CliffordNumbers} for the first few numerical values.
 
 %
 %\subsection{Generation of Clifford gates}

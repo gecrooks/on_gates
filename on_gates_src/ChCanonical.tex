@@ -25,7 +25,7 @@ Z\otimes Z & = \begin{bsmallmatrix}+1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&+1 \end{b
 \notag
 \]
 
-Other parameterizations of the canonical gate are common in the literature. Often the sign is flipped, or the $\frac{\pi}{2}$ factor is absorbed into the parameters, or both. The parameterization used here the nice feature that it corresponds to powers of direct products of Pauli operators (up to phase) (see~\eqref{ZZ},\eqref{XX},\eqref{YY}).
+Other parameterizations of the canonical gate are common in the literature. Often the sign is flipped, or the $\frac{\pi}{2}$ factor is absorbed into the parameters, or both. The parameterization used here has the nice feature that it corresponds to powers of direct products of Pauli operators (up to phase) (see~\eqref{ZZ},\eqref{XX},\eqref{YY}).
 $$
 \adjustbox{scale=0.9}{\begin{quantikz}[thin lines, column sep=0.75em, row sep={2.5em,between origins}]
  & \gate[2]{\Gate{Can}(t_x, t_y, t_z)} & \qw \\
@@ -58,8 +58,8 @@ $$
 & \gate{K_2} &                             & \gate{K_4} & \qw
 \end{quantikz}}
 $$
-We will discuss the numerical decomposition of 2-qubit gates to canonical gates in section~\secref{sec:canonicaldeke}. For know it is sufficient to now that the non-local properties of every 2-qubit gate can be characterized by the 3-parameters of the corresponding canonical gate.
-We'll use '$\loceq'$ to indicate that two gates are locally equivalent, in that they can be mapped to one another by local 1-qubit rotations.
+We will discuss the numerical decomposition of 2-qubit gates to canonical gates in \secref{sec:canonicaldeke}. For now it is sufficient to know that the non-local properties of every 2-qubit gate can be characterized by the 3-parameters of the corresponding canonical gate.
+We'll use `$\loceq$' to indicate that two gates are locally equivalent, in that they can be mapped to one another by local 1-qubit rotations.
 
 The parameters of the canonical gate are periodic with period 4, or period 2 if we neglect a $-1$ global phase factor. Thus we can constrain each parameter to the range $[-1,1)$. Since $X\otimes X$,  $Y\otimes Y$, and $Z \otimes Z$ all commute, the parameter space has the topology of a 3-torus.
 %
@@ -71,7 +71,7 @@ The parameters of the canonical gate are periodic with period 4, or period 2 if 
 \draw (0,0,0) -- (2,0,0) -- (1,1,0)  -- cycle
       (0,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
       (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle
-      (2,0,0) -- (1,1,1) -- (1,1,0)  -- cycle;
+      (0,0,0) -- (2,0,0) -- (1,1,1)  -- cycle;
 %\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
 %\draw (1,0,0) -- (1,1,0) -- (1,1,1) -- cycle;
 \draw [dashed] (0,0,0) -- (2,0,0) -- (2,2,0)  -- (0,2,0) -- cycle
@@ -108,7 +108,7 @@ $$
 \input{circuits/can_swap_res.tex} \ .
 $$
 
-Because of these relations the canonical coordinates of any given 2-qubit gate are not unique since we have considerable freedom in the prepended and appended local gates. To remove these symmetries we can constraint the canonical parameters to a ``Weyl chamber''~\cite{???,???}. \index{Weyl chamber}
+Because of these relations the canonical coordinates of any given 2-qubit gate are not unique since we have considerable freedom in the prepended and appended local gates. To remove these symmetries we can constrain the canonical parameters to a ``Weyl chamber''~\cite{???,???}. \index{Weyl chamber}
 \begin{equation}
 (\tfrac{1}{2} \ge  t_x \ge t_y \ge t_z \ge 0) \cup (\tfrac{1}{2} \ge (1-t_x) \ge t_y \ge t_z > 0 )
 \label{WeylChamber}
@@ -132,7 +132,7 @@ $$
 = 
 \input{circuits/can_sum_res.tex}
 $$
-Taking the Hermitian conjugate of the canonical gate simple inverts the parameters $\Gate{Can}(t_x, t_y, t_z)^\dagger  = \Gate{Can}(-t_x, -t_y, -t_z)$, and more generally powers of the canonical gate multiply the parameters, $\Gate{Can}(t_x, t_y, t_z)^c = \Gate{Can}(c t_x, c t_y, c t_z)$.
+Taking the Hermitian conjugate of the canonical gate simply inverts the parameters $\Gate{Can}(t_x, t_y, t_z)^\dagger  = \Gate{Can}(-t_x, -t_y, -t_z)$, and more generally powers of the canonical gate multiply the parameters, $\Gate{Can}(t_x, t_y, t_z)^c = \Gate{Can}(c t_x, c t_y, c t_z)$.
 
 \input{FigWeylChamber}
 
@@ -166,14 +166,14 @@ $\Gate{Sycamore}$				&\half	& \half		&  $\tfrac{1}{12}$	\\
 \\
 % Edges
 Ising / $\Gate{CPhase}$	& $t$ & 0 & 0 \\
-$\Gate{XY}$	& $t$ & $t$ & 0 & & $t$ & 1-$t$ & 0  \\
-Exchange	/ $\Gate{Swap}^\alpha$	& $t$ & $t$ & $t$ & & $t$ & 1-$t$ & 1-$t$ \\
+$\Gate{XY}$	& $t$ & $t$ & 0 & & $t$ & $1-t$ & 0  \\
+Exchange	/ $\Gate{Swap}^\alpha$	& $t$ & $t$ & $t$ & & $t$ & $1-t$ & $1-t$ \\
 $\Gate{PSwap}$ 	& \half & \half & $t$ \\
 \\
 % Surfaces
 Special orthogonal 	& $t_x$ & $t_y$ & 0 \\
 Improper orthogonal 	& \half & $t_y$ & $t_z$ \\
-\Gate{XXY} 	&$t$ & $t$ & $\delta$ & &$t$ & 1-$t$ & $\delta$ \\
+\Gate{XXY} 	&$t$ & $t$ & $\delta$ & &$t$ & $1-t$ & $\delta$ \\
 			& $\delta$ &  $t$ & $t$ & & $\delta$ &  $t$ & $t$  \\					
 
 \end{tabular}
