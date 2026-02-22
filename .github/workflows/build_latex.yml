@@ -9,7 +9,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
       - name: Install latex
-        run: sudo apt-get install -y texlive texlive-xetex texlive-fonts-extra latexmk
+        run: sudo apt-get update && sudo apt-get install -y texlive texlive-xetex texlive-fonts-extra latexmk
       - name: Compile LaTeX document
         run: |
           git fetch --unshallow --tags
